@@ -22,7 +22,7 @@ abstract class Library_Database_Relation_Abstract
 	 * @param object $mapper DataMapper object to query on for relationship data
 	 * @param array $resultsIdentities Array of key values for given result set primary key
 	 */
-	public function __construct(Library_Database_Mapper $mapper, array $conditions, array $relationData)
+	public function __construct(Library_Database_Mapper_Abstract $mapper, array $conditions, array $relationData)
 	{
 		$this->_mapper = $mapper;
 		$this->_conditions = $conditions;

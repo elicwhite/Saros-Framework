@@ -143,8 +143,7 @@ abstract class Library_Database_Adapter_PDO implements Library_Database_Adapter_
 		}
 		if($tableExists) {
 			// Determine missing or changed columns, if any
-			// var_dump($tableColumns);
-			
+						
 			// Update table
 			$this->migrateTableUpdate($table, $fields);
 		} else {
@@ -176,7 +175,7 @@ abstract class Library_Database_Adapter_PDO implements Library_Database_Adapter_
 		$sql = $this->migrateSyntaxTableCreate($table, $formattedFields, $columnsSyntax);
 		
 		// Add query to log
-		Library_Database_Mapper::logQuery($sql);
+		Library_Database_Mapper_Abstract::logQuery($sql);
 		
 		$this->connection()->exec($sql);
 		return true;
@@ -214,8 +213,14 @@ abstract class Library_Database_Adapter_PDO implements Library_Database_Adapter_
 		
 		$columnsSyntax = array();
 		
+		// Update fields whose options have changed
 		foreach($updateFormattedFields as $fieldName => $fieldInfo) {
 			$columnsSyntax[$fieldName] = $this->migrateSyntaxFieldUpdate($fieldName, $fieldInfo, false);
+		}
+		
+		// Add fields that are missing from current ones
+		foreach($formattedFields as $fieldName => $fieldInfo) {
+			$columnsSyntax[$fieldName] = $this->migrateSyntaxFieldUpdate($fieldName, $fieldInfo, true);
 		}
 		
 		// Get syntax for table with fields/columns
@@ -223,7 +228,7 @@ abstract class Library_Database_Adapter_PDO implements Library_Database_Adapter_
 			$sql = $this->migrateSyntaxTableUpdate($table, $formattedFields, $columnsSyntax);
 			
 			// Add query to log
-			Library_Database_Mapper::logQuery($sql);
+			Library_Database_Mapper_Abstract::logQuery($sql);
 			
 			// Run SQL
 			$this->connection()->exec($sql);
@@ -252,7 +257,7 @@ abstract class Library_Database_Adapter_PDO implements Library_Database_Adapter_
 			" VALUES(:" . implode(', :', array_keys($binds)) . ")";
 		
 		// Add query to log
-		Library_Database_Mapper::logQuery($sql, $binds);
+		Library_Database_Mapper_Abstract::logQuery($sql, $binds);
 		
 		// Prepare update query
 		$stmt = $this->connection()->prepare($sql);
@@ -308,7 +313,7 @@ abstract class Library_Database_Adapter_PDO implements Library_Database_Adapter_
 		}
 		
 		// Add query to log
-		Library_Database_Mapper::logQuery($sql, $binds);
+		Library_Database_Mapper_Abstract::logQuery($sql, $binds);
 		
 		// Prepare update query
 		$stmt = $this->connection()->prepare($sql);
@@ -357,7 +362,7 @@ abstract class Library_Database_Adapter_PDO implements Library_Database_Adapter_
 				" WHERE " . implode(' AND ', $sqlWheres);
 			
 			// Add query to log
-			Library_Database_Mapper::logQuery($sql, $binds);
+			Library_Database_Mapper_Abstract::logQuery($sql, $binds);
 			
 			// Prepare update query
 			$stmt = $this->connection()->prepare($sql);
@@ -395,7 +400,7 @@ abstract class Library_Database_Adapter_PDO implements Library_Database_Adapter_
 		$sql .= ($conditions ? ' WHERE ' . $conditions : '');
 		
 		// Add query to log
-		Library_Database_Mapper::logQuery($sql, $binds);
+		Library_Database_Mapper_Abstract::logQuery($sql, $binds);
 		
 		$stmt = $this->connection()->prepare($sql);
 		if($stmt) {
@@ -420,7 +425,7 @@ abstract class Library_Database_Adapter_PDO implements Library_Database_Adapter_
 		$sql = "TRUNCATE TABLE " . $source;
 		
 		// Add query to log
-		Library_Database_Mapper::logQuery($sql);
+		Library_Database_Mapper_Abstract::logQuery($sql);
 		
 		return $this->connection()->exec($sql);
 	}
@@ -434,7 +439,7 @@ abstract class Library_Database_Adapter_PDO implements Library_Database_Adapter_
 		$sql = "DROP TABLE " . $source;
 		
 		// Add query to log
-		Library_Database_Mapper::logQuery($sql);
+		Library_Database_Mapper_Abstract::logQuery($sql);
 		
 		return $this->connection()->exec($sql);
 	}
@@ -463,7 +468,7 @@ abstract class Library_Database_Adapter_PDO implements Library_Database_Adapter_
 		$sql = "DROP DATABASE " . $database;
 		
 		// Add query to log
-		Library_Database_Mapper::logQuery($sql);
+		Library_Database_Mapper_Abstract::logQuery($sql);
 		
 		return $this->connection()->exec($sql);
 	}

@@ -26,9 +26,20 @@ abstract class Library_Database_Mapper_Tree_Mptt extends Library_Database_Mapper
 	protected $_defaultEntity = "Library_Database_Entity_Tree_Mptt";
 	
 	// Field list
+	
+	public $id = array("type" => "int", "primary" => true, "serial" => true);
 	public $mptt_parent = array("type" => "int");
 	public $mptt_left = array("type" => "int");
 	public $mptt_right = array("type" => "int");
+	
+	// Parent relationship
+    public $parent = array(
+        'type' => 'relation',
+        'relation' => 'HasOne',
+        'mapper' => "Application_Mappers_TestMptt",
+        'where' => array('mptt_parent' => 'entity.id')
+        // Means the current mappers mptt_parent column = currently loaded Post entity id
+    );
 	
 	public function add($entity, $parent = null, $child_num = -1)
 	{		
@@ -38,27 +49,30 @@ abstract class Library_Database_Mapper_Tree_Mptt extends Library_Database_Mapper
 
 		// Make sure our entity is an mptt node entity
 		$this->checkEntity($entity);
-				
+			
+			
 		if (!is_null($parent))
 		{
+			// If parent isn't null, it has to be the defaultEntity type
 			$this->checkEntity($parent);
+			
+			// Set the entity's parent id to be the primary key
 			$entity->mptt_parent = $this->primaryKey($parent);
 		}
 		
-		
-		// Make sure our parent is an mptt node entity
-
-		
 		if (!is_int($child_num))
-			throw new Exception("Child number must be an integer");
+			throw new Library_Exception("Child number must be an integer");
 		
 		// Initialize some variables
 		$left = 0;
 		$right = 0;		
 		
 		/*
-		If we have no elements, then we should add $data to the
+		If we have no elements, then we should add $entity to the
 		tree with a left of 0 and right of 1
+		
+		TODO: THIS ISN'T TRUE! If you have a multi root tree.
+		Need to find the last element in the tree, and add one to the right to find our left
 		*/
 		if (is_null($parent))
 		{
@@ -109,17 +123,16 @@ abstract class Library_Database_Mapper_Tree_Mptt extends Library_Database_Mapper
 			/**
 			 * If our child is 0, it is first
 			 * It is also first if we have specified a negative child_num
-			 * 	and we are before the 0'th element.
+			 * 	and we have wrapped from behind to be before the 0'th element.
 			 * 
-			 * 0,1,2,3 and -6 is specified 
-			 * 0,1 and -4 is specified
-			 * abs(child) > numchildren + 2
+			 * 0,1,2,3 and -5 is specified 
+			 * 0,1 and -3 is specified
+			 * abs(childNum) > numchildren + 2
 			 * no children and -1 is specified (should be 0)
 			 *
 			 */
-			if ($child_num == 0 || ($child_num < 0 && abs($child_num) > $numChildren + 2) )
+			if ($child_num == 0 || ($child_num < 0 && abs($child_num) > $numChildren) )
 			{
-				
 				$left = $parent->mptt_left + 1;
 				$right = $left+1;
 			}
@@ -145,31 +158,39 @@ abstract class Library_Database_Mapper_Tree_Mptt extends Library_Database_Mapper
 				$left = $prevChild->mptt_right +1;
 				$right = $left + 1;
 			}
-			
-			// Increase every node with a right greater than $prevChild.right by 2
-			$rightToFix = $this->all(
-				array(
-					"mptt_right >=" => $left,
-					)
-				);
-			foreach($rightToFix as $node)
-			{
-				$node->mptt_right += 2;
-				$this->save($node);
-			}
-			
-			// Increase every node with a left greater than sibling right by 2
-			$leftToFix = $this->all(
-				array(
-					"mptt_left >=" => $left,
-					)
-				);
-			foreach($rightToFix as $node)
-			{
-				$node->mptt_left += 2;
-				$this->save($node);
-			}
 		}
+		
+		/**
+		 * We have a left and a right defined now, we need to shift everything else over
+		 * 
+		 * Increase every node with a left greater than sibling right by 2
+		 */
+		$leftToFix = $this->all(
+			array(
+				"mptt_left >=" => $left,
+				)
+			);
+		foreach($leftToFix as $node)
+		{
+			$node->mptt_left += 2;
+			$this->save($node);
+		}
+		
+		// Increase every node with a right greater than $prevChild.right by 2
+		$rightToFix = $this->all(
+			array(
+				"mptt_right >=" => $left,
+				)
+			);
+		foreach($rightToFix as $node)
+		{
+			$node->mptt_right += 2;
+			$this->save($node);
+		}
+		
+		
+			
+			
 		$entity->mptt_left = $left;
 		$entity->mptt_right = $right;
 		

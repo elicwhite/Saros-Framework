@@ -1,5 +1,4 @@
 <?php
-require_once(dirname(dirname(__FILE__)) . '/Relation.php');
 /**
  * DataMapper class for 'has one' relations
  * 

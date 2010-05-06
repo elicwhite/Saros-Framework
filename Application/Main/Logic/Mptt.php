@@ -8,24 +8,39 @@ class Application_Main_Logic_Mptt extends Library_Core_Logic
 		
 		$test = $db->testMptt;
 		
-		$home = $test->get(2);
+		$home = $test->get();
+		$home->name = "Home";
+		$test->add($home);
 		
 		$sports = $test->get();
 		$sports->name = "Sports";
 		$test->add($sports, $home);
-				
-		$clothing = $test->get();
-		$clothing->name = "Clothing";
-		$test->add($clothing, $home, 0);
+		
+		echo $sports->parent;
+		
+		$tools = $test->get();
+		$tools->name = "Tools";
+		$test->add($tools, $home, 0);
+		
 		
 		$bball = $test->get();
 		$bball->name = "Basket Ball";
 		$test->add($bball, $sports);
 		
-		$tools = $test->get();
-		$tools->name = "Tools";
-		$test->add($tools, $home, 1);
 		
+		
+	}
+	public function working()
+	{
+		
+		
+		
+	}
+	
+	public function setup()
+	{
+		$db = $this->registry->db;
+		$test = $db->testMptt->migrate();	
 	}
 
 }

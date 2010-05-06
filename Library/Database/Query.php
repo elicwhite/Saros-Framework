@@ -23,7 +23,7 @@ class Library_Database_Query implements Countable, IteratorAggregate
 	/**
 	 *	Constructor Method
 	 */
-	public function __construct(Library_Database_Mapper $mapper)
+	public function __construct(Library_Database_Mapper_Abstract $mapper)
 	{
 		$this->_mapper = $mapper;
 	}

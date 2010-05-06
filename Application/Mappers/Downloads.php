@@ -1,5 +1,5 @@
 <?php
-class Application_Mappers_Downloads extends Library_Database_Mapper
+class Application_Mappers_Downloads extends Library_Database_Mapper_Abstract
 {
 	// table name
 	protected $_datasource = "file_downloads";

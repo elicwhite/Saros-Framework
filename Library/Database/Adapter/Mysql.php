@@ -150,7 +150,7 @@ class Library_Database_Adapter_Mysql extends Library_Database_Adapter_PDO
 			$syntax .= " DEFAULT '" . $default . "'";
 		}
 		// Extra
-		$syntax .= ($fieldInfo['primary'] || $fieldInfo['auto_increment']) ? ' AUTO_INCREMENT' : '';
+		$syntax .= ($fieldInfo['primary'] && $fieldInfo['serial']) ? ' AUTO_INCREMENT' : '';
 		return $syntax;
 	}
 	
@@ -173,21 +173,22 @@ class Library_Database_Adapter_Mysql extends Library_Database_Adapter_PDO
 		$ki = 0;
 		$usedKeyNames = array();
 		foreach($formattedFields as $fieldName => $fieldInfo) {
-			// Determine key field name (can't use same key name twice, so we  have to append a number)
+			// Determine key field name (can't use same key name twice, so we have to append a number)
 			$fieldKeyName = $fieldName;
 			while(in_array($fieldKeyName, $usedKeyNames)) {
 				$fieldKeyName = $fieldName . '_' . $ki;
 			}
 			// Key type
 			if($fieldInfo['primary']) {
-				$syntax .= "\n, PRIMARY KEY(`" . $fieldName . "`)";
+				$syntax .= ",\n PRIMARY KEY(`" . $fieldName . "`)";
 			}
 			if($fieldInfo['unique']) {
-				$syntax .= "\n, UNIQUE KEY `" . $fieldKeyName . "` (`" . $fieldName . "`)";
+				$syntax .= ",\n UNIQUE KEY `" . $fieldKeyName . "` (`" . $fieldName . "`)";
 				$usedKeyNames[] = $fieldKeyName;
+				// Example: ALTER TABLE `posts` ADD UNIQUE (`url`)
 			}
 			if($fieldInfo['index']) {
-				$syntax .= "\n, KEY `" . $fieldKeyName . "` (`" . $fieldName . "`)";
+				$syntax .= ",\n KEY `" . $fieldKeyName . "` (`" . $fieldName . "`)";
 				$usedKeyNames[] = $fieldKeyName;
 			}
 		}

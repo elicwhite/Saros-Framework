@@ -6,7 +6,7 @@
  * @link http://phpdatamapper.com
  * @link http://github.com/vlucas/phpDataMapper
  */
-class Library_Database_Mapper_Abstract
+abstract class Library_Database_Mapper_Abstract
 {
 	// Default classes to use
 	protected $_defaultEntity = "Library_Database_Entity";
@@ -152,10 +152,10 @@ class Library_Database_Mapper_Abstract
 				'required' => false,
 				'null' => true,
 				'unsigned' => false,
-				'auto_increment' => false,
 				'primary' => false,
 				'index' => false,
 				'unique' => false,
+				'serial' => false,
 				'relation' => false
 			);
 
@@ -300,7 +300,9 @@ class Library_Database_Mapper_Abstract
 	protected function checkEntity($entity)
 	{
 		if (!($entity instanceof $this->_defaultEntity))
-			throw new Library_Database_Exception("Mapper expects entity of ".$this->_defaultEntity);
+		{
+			throw new Library_Database_Exception("Mapper expects entity of ".$this->_defaultEntity.", '".get_class($entity)."' given.");
+		}
 	}
 
 	/**
