@@ -1,0 +1,3 @@
+[submodule "Library/Database"]
+	path = Library/Database
+	url = git://github.com/actridge/Spot.git
