@@ -1,3 +1,6 @@
 [submodule "Library/Database"]
 	path = Library/Database
 	url = git@github.com:TheSavior/Spot.git
+[submodule "Library/Spot"]
+	path = Library/Spot
+	url = git@github.com:TheSavior/Spot.git
