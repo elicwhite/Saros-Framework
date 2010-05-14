@@ -20,7 +20,7 @@
  *
  * This class makes sure a string is greater than a certain length
  */
-class Library_Form_Validator_MinLength extends Library_Form_Validator
+class Saros_Form_Validator_MinLength extends Saros_Form_Validator
 {
 	protected $minLength;
 

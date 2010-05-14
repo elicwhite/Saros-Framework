@@ -20,7 +20,7 @@
  *
  * This class helps create the displays for each page
  */
-class Library_Display
+class Saros_Display
 {	
 	private $registry;
 	
@@ -45,15 +45,15 @@ class Library_Display
 	 *
 	 * @param String $templateFile	Path to a template file
 	 */
-	function __construct(Library_Core_Registry $registry)
+	function __construct(Saros_Core_Registry $registry)
 	{
 		$this->registry = $registry;		
 	}
 	public function init()
 	{
-		$this->headStyles = new Library_Display_Helpers_HeadStyles();
+		$this->headStyles = new Saros_Display_Helpers_HeadStyles();
 		
-		$this->headScripts = new Library_Display_Helpers_HeadScripts();
+		$this->headScripts = new Saros_Display_Helpers_HeadScripts();
 	}
 	
 	public function setLayout($layoutName)
@@ -61,7 +61,7 @@ class Library_Display
 		$this->viewLocation = ROOT_PATH."Application/".$this->registry->router->getModule()."/Views/Layouts/".$layoutName.".php";
 		if (!is_file($this->viewLocation))
 		{
-			throw new Library_Exception("Layout ".$layoutName." not found at ".$this->viewLocation);
+			throw new Saros_Exception("Layout ".$layoutName." not found at ".$this->viewLocation);
 		}
 	}
 	

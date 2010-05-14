@@ -19,7 +19,7 @@
  * along with Saros Framework.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-class Library_Form_Element_Submit
+class Saros_Form_Element_Submit
 {	
 	protected $text;
 

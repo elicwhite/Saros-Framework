@@ -20,7 +20,7 @@
  * 
  * This is the base class for all logic pages
  */
-abstract Class Library_Core_Logic
+abstract Class Saros_Core_Logic
 {
 	// Registry Instance
 	protected $registry;

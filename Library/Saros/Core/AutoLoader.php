@@ -21,23 +21,30 @@
  * This class is responsible for helping to load all missing classes
  *
  */
-class Library_Core_AutoLoader
+class Saros_Core_AutoLoader
 {
 	public static function class2File($classname)
 	{
-		$fileLocation = str_replace('_','/',$classname).".php";
+        // Replace all of the underscores with slashes to find the path
+        $fileLocation = str_replace("_","/", $classname).".php";
 		return $fileLocation;
 	}
 	
 	// Autoload all of the classes that are not included
 	public static function autoload($classname)
 	{
+        $parts = explode("_",$classname);
 		$fileLocation = self::class2File($classname);
-		if (!file_exists($fileLocation))
+                                                                                      
+        if (file_exists($fileLocation))
+            require_once($fileLocation);
+        // We want to check for named libraries                                      
+        // It is a named library when $parts[0] matches a folder in Library
+        else if(is_dir("Library/".$parts[0]))
+            require_once("Library/".$fileLocation);
+        else
+            // We don't know where this class exists. Maybe there is another autoloader that does
 			return false;
-			
-		require_once($fileLocation);
-	
 	}
 }
 ?>

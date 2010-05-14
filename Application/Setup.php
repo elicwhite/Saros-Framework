@@ -36,7 +36,7 @@ class Application_Setup
 		
 		
 		// Set up the controller's template
-		$registry->display->setLayout("Main");		
+		$registry->display->setLayout("Main");	
 	}
 }
 		

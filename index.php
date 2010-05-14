@@ -31,8 +31,8 @@ define("ROOT_PATH",  realpath(dirname(__FILE__))."/");
 
 
 // Autoload all of the classes that are not included
-require_once('Library/Core/AutoLoader.php');
-spl_autoload_register(array('Library_Core_AutoLoader', 'autoload'));
+require_once('Library/Saros/Core/AutoLoader.php');
+spl_autoload_register(array('Saros_Core_AutoLoader', 'autoload'));
 
 /*
 function HandleException($exception)
@@ -46,18 +46,18 @@ set_exception_handler('HandleException'); */
 
 
 // Create a new registry of variables
-$registry = new Library_Core_Registry();
+$registry = new Saros_Core_Registry();
 
 // Load up the core set of utilities
-$registry->utils = new Library_Core_Utilities();
+$registry->utils = new Saros_Core_Utilities();
 
 // Create a new configuration object
-$registry->config  = new Library_Config();
+$registry->config  = new Saros_Config();
 
 // Load the router
-$registry->router = new Library_Core_Router();
+$registry->router = new Saros_Core_Router();
 
-$registry->display = new Library_Display($registry);
+$registry->display = new Saros_Display($registry);
 //try
 //{
 	$registry->display->init();

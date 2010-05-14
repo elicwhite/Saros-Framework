@@ -1,5 +1,5 @@
 <?php
-class Application_Mappers_TestMptt extends Library_Database_Mapper_Tree_Mptt
+class Application_Mappers_TestMptt extends Spot_Mapper_Tree_Mptt
 {
 	// table name
 	protected $_datasource = "mptt_navigation";

@@ -20,7 +20,7 @@
  *
  * This is a parent class for all Form Elements
  */
-abstract class Library_Form_Element
+abstract class Saros_Form_Element
 {
 	/**
 	 * Name of the element
@@ -106,12 +106,12 @@ abstract class Library_Form_Element
 	 * @param string $validator Name of the validator
 	 * @param array $options Validator specific options
 	 * @param bool $breakOnFalse Whether to not check other validators if this one is false
-	 * @return Library_Form_Element Reference of the element
+	 * @return Saros_Form_Element Reference of the element
 	 */
 	public function addValidator($validator, $options = array(), $breakOnFalse = false)
 	{
 		// Create the instance of the validator
-		$class = "Library_Form_Validator_".ucfirst($validator);
+		$class = "Saros_Form_Validator_".ucfirst($validator);
 		
 		$array = array
 		(

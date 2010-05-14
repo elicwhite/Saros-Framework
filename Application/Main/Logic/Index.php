@@ -1,9 +1,9 @@
 <?php
-class Application_Main_Logic_Index extends Library_Core_Logic
+class Application_Main_Logic_Index extends Saros_Core_Logic
 {
 	public function index()
 	{				
-		$this->view->Version = Library_Version::getVersion();	
+		$this->view->Version = Saros_Version::getVersion();	
 	}
 	
 	public function form()

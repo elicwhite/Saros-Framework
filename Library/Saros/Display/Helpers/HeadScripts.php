@@ -20,7 +20,7 @@
  * 
  * This class helps create a list of script tags in layout headers
  */
-class Library_Display_Helpers_HeadScripts
+class Saros_Display_Helpers_HeadScripts
 {
 	public $scripts = array();
 	
@@ -28,7 +28,7 @@ class Library_Display_Helpers_HeadScripts
 	{
 		$script = "Application/".$GLOBALS['registry']->router->getModule()."/Views/Scripts/".$name.".js";
 		if (!file_exists(ROOT_PATH.$script))
-			throw new Library_Exception("Script ".$name." could not be found at ".$script);
+			throw new Saros_Exception("Script ".$name." could not be found at ".$script);
 			
 		$this->scripts[] = $GLOBALS['registry']->config["siteUrl"].$script;
 		

@@ -20,7 +20,7 @@
  * 
  * This class takes the url route and loads the applicable controller / action
  */
-class Library_Core_Router
+class Saros_Core_Router
 {
 	// URL path of the route
 	private $path = array();
@@ -53,7 +53,7 @@ class Library_Core_Router
 		
 		// Not a module, load up the default module
 		if (!isset(Application_Setup::$defaultModule))
-			throw new Library_Core_Exception("The default module has not been defined in the application setup file.");
+			throw new Saros_Core_Exception("The default module has not been defined in the application setup file.");
 			
 		// set the default module
 		$this->route["module"] = Application_Setup::$defaultModule;
@@ -96,7 +96,7 @@ class Library_Core_Router
 		$class = "Application_".$this->getModule()."_Setup";
 		//die($class);
 		if (!property_exists($class, "defaultLogic"))
-			throw new Library_Core_Exception("The default logic file has not been defined in the module setup file.");
+			throw new Saros_Core_Exception("The default logic file has not been defined in the module setup file.");
 		
 		$props = get_class_vars($class);
 
@@ -131,7 +131,7 @@ class Library_Core_Router
 		 * All we have left to check is our action file
 		 */
 		if (!property_exists($class, "defaultAction"))
-			throw new Library_Core_Exception("The default action has not been defined in the module setup file.");
+			throw new Saros_Core_Exception("The default action has not been defined in the module setup file.");
 		
 		// Set our logic to default module logic
 		$this->route["action"] = $props["defaultAction"];
@@ -186,7 +186,7 @@ class Library_Core_Router
 	public function run()
 	{
 		// Set the display instance for the class
-		//$controller->setDisplay(new Library_Core_Display())
+		//$controller->setDisplay(new Saros_Core_Display())
 
 		/*** check if the action is callable ***/
 		if (!is_callable(array($this->instance, $this->getAction())))

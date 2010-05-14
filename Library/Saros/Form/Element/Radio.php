@@ -19,7 +19,7 @@
  * along with Saros Framework.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-class Library_Form_Element_Radio extends Library_Form_Element
+class Saros_Form_Element_Radio extends Saros_Form_Element
 {
 	/*
 		Validate the value of the element

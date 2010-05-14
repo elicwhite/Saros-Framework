@@ -20,7 +20,7 @@
  *
  * This class makes sure a string is a url format
  */
-class Library_Form_Validator_Url extends Library_Form_Validator
+class Saros_Form_Validator_Url extends Saros_Form_Validator
 {
 	protected $maxLength;
 

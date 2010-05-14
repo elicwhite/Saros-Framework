@@ -21,12 +21,12 @@
  * Tells you what version of the framework you are running.
  *
  */
-class Library_Exception extends Exception
+class Saros_Exception extends Exception
 {
 	protected $previous;
 	
 	// Redefine the exception so message isn't optional
-    public function __construct($message, $code = 0, Library_Exception $previous = null)
+    public function __construct($message, $code = 0, Saros_Exception $previous = null)
     {
     	if ($previous)
         	$this->previous = $previous;

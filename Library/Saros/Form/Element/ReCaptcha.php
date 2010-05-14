@@ -19,7 +19,7 @@
  * along with Saros Framework.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-class Library_Form_Element_ReCaptcha extends Library_Form_Element
+class Saros_Form_Element_ReCaptcha extends Saros_Form_Element
 {
 	// Recaptcha object
 	protected $captcha;
@@ -31,7 +31,7 @@ class Library_Form_Element_ReCaptcha extends Library_Form_Element
 		
 	public function __construct()
 	{
-		$this->recaptcha = new Library_Captcha_ReCaptcha();
+		$this->recaptcha = new Saros_Captcha_ReCaptcha();
 		$this->name = "recaptcha_response_field";
 	}
 	

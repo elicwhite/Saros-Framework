@@ -21,7 +21,7 @@
  * Tells you what version of the framework you are running.
  *
  */
-class Library_Core_Exception extends Library_Exception
+class Saros_Core_Exception extends Saros_Exception
 {
 	
 }

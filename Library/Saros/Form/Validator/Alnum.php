@@ -20,7 +20,7 @@
  *
  * This class validates input that is Alpha Numeric
  */
-class Library_Form_Validator_Alnum extends Library_Form_Validator
+class Saros_Form_Validator_Alnum extends Saros_Form_Validator
 {
 	protected $errorMessages = array(
 		"invalid" => "Your string must be entirely alpha numeric",

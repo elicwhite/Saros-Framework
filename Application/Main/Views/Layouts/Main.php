@@ -13,7 +13,7 @@
 			<?php echo $this->content() ?>
 		</div>
 		<div id="footer">
-			Saros Framework V<?php echo Library_Version::getVersion();;?>
+			Saros Framework V<?php echo Saros_Version::getVersion();;?>
 		</div>
 
 	</div>

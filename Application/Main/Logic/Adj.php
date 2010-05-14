@@ -1,5 +1,5 @@
 <?php
-class Application_Main_Logic_Adj extends Library_Core_Logic
+class Application_Main_Logic_Adj extends Saros_Core_Logic
 {
 	public function index()
 	{

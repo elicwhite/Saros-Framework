@@ -20,7 +20,7 @@
  * 
  * This class contains miscellaneous utilities
  */
-class Library_Core_Utilities
+class Saros_Core_Utilities
 {
 	/**
 	 * Make a valid link to a controller. Ex:

@@ -1,5 +1,5 @@
 <?php
-class Application_Mappers_Users extends Library_Database_Table 
+class Application_Mappers_Users extends Spot_Mapper_Abstract
 {
 	// table name
 	protected $table = "board_users";

@@ -20,7 +20,7 @@
  * 
  * This class helps create a list of style tags in layout headers
  */
-class Library_Display_Helpers_HeadStyles
+class Saros_Display_Helpers_HeadStyles
 {
 	public $styles = array();
 	
@@ -28,7 +28,7 @@ class Library_Display_Helpers_HeadStyles
 	{
 		$style = "Application/".$GLOBALS['registry']->router->getModule()."/Views/StyleSheets/".$name.".css";
 		if (!file_exists(ROOT_PATH.$style))
-			throw new Library_Exception("Stylesheet ".$name." could not be found at ".$style);
+			throw new Saros_Exception("Stylesheet ".$name." could not be found at ".$style);
 			
 		$this->styles[] = $GLOBALS['registry']->config["siteUrl"].$style;
 		

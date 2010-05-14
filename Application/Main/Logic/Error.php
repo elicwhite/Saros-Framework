@@ -1,8 +1,8 @@
 <?php
-class Application_Main_Logic_Error extends Library_Core_Logic
+class Application_Main_Logic_Error extends Saros_Core_Logic
 {
 	private $exception;
-	public function setError(Library_Exception $exception)
+	public function setError(Saros_Exception $exception)
 	{
 		$this->exception = $exception;
 	}

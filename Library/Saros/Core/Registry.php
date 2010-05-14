@@ -20,7 +20,7 @@
  * 
  * This is the registry class. It stores all important links and classes
  */
-class Library_Core_Registry
+class Saros_Core_Registry
 {
 	// The variable array we will use
 	private $vars;
@@ -36,7 +36,7 @@ class Library_Core_Registry
 	public function __get($index)
 	{
 		if (!isset($this->vars[$index]))
-			throw new Library_Core_Exception("The key: ".$index." is not defined in the registry.");
+			throw new Saros_Core_Exception("The key: ".$index." is not defined in the registry.");
 			
 	    return $this->vars[$index];
 	}

@@ -20,7 +20,7 @@
  *
  * This class validates input that are email format
  */
-class Library_Form_Validator_Email extends Library_Form_Validator
+class Saros_Form_Validator_Email extends Saros_Form_Validator
 {
 	protected $maxLength;
 

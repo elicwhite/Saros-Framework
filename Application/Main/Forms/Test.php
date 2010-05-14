@@ -1,12 +1,12 @@
 <?php
-class Application_Main_Forms_Test extends Library_Form
+class Application_Main_Forms_Test extends Saros_Form
 {
 	function __construct()
 	{
 		parent::__construct("testForm");
 		//$this
 		//	->setAction(array('index','form'))
-		//	->setMethod(Library_Form::DATA_POST);
+		//	->setMethod(Saros_Form::DATA_POST);
 			
 		$this
 			->addElement("text", "username")

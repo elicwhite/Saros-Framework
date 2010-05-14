@@ -21,7 +21,7 @@
  * Tells you what version of the framework you are running.
  *
  */
-class Library_Version
+class Saros_Version
 {
 	public static function getVersion()
 	{

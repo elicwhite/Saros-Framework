@@ -1,5 +1,5 @@
 <?php
-class Application_Main_Logic_Mptt extends Library_Core_Logic
+class Application_Main_Logic_Mptt extends Saros_Core_Logic
 {
 	public function index()
 	{

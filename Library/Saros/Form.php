@@ -27,7 +27,7 @@
  * TODO:
  * 		Break Chain / Don't Break Chain on validation
  */
-class Library_Form
+class Saros_Form
 {
 	const DATA_GET = "get";
 	const DATA_POST = "post";
@@ -108,7 +108,7 @@ class Library_Form
 	public function getMethod()
 	{
 		if (!isset($this->method))
-			return Library_Form::DATA_POST;
+			return Saros_Form::DATA_POST;
 			
 		return $this->method;
 	}
@@ -119,12 +119,12 @@ class Library_Form
 	 * @param string $type Name of the type to add
 	 * 		Example: text, Text, Checkbox, textarea
 	 * @param string $name Name of the element
-	 * @return Library_Form_Element Instance of the newly created Form Element
+	 * @return Saros_Form_Element Instance of the newly created Form Element
 	 */
 	public function addElement($type, $name)
 	{
 		// Prepend "Form_Element_" to type so we can get the right class
-		$class = "Library_Form_Element_".ucfirst($type);
+		$class = "Saros_Form_Element_".ucfirst($type);
 		$object = new $class;
 		
 		// Set the element's name
@@ -152,7 +152,7 @@ class Library_Form
 	 */
 	public function addSubmit($value)
 	{
-		$this->submit = new Library_Form_Element_Submit();
+		$this->submit = new Saros_Form_Element_Submit();
 		
 		$this->submit->setText($value);
 	}

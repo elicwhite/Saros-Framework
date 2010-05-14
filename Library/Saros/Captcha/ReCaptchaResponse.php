@@ -20,7 +20,7 @@
  *
  * A response object for the ReCaptcha system
  */
-class Library_Captcha_ReCaptchaResponse
+class Saros_Captcha_ReCaptchaResponse
 {	
 	public $isValid;
 	public $error;

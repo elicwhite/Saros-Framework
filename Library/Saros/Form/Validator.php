@@ -20,7 +20,7 @@
  *
  * This is the parent class for all Validators
  */
-abstract class Library_Form_Validator
+abstract class Saros_Form_Validator
 {
 	protected $errorMessages = array();
 	

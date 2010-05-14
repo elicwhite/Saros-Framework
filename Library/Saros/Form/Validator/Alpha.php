@@ -20,7 +20,7 @@
  *
  * This class validates input that is only Alpha chars.
  */
-class Library_Form_Validator_Alpha extends Library_Form_Validator
+class Saros_Form_Validator_Alpha extends Saros_Form_Validator
 {
 	protected $errorMessages = array(
 		"invalid" => "Your string must be only english characters.",

@@ -21,12 +21,12 @@
  * Creates a database connection object
  *
  */
-class Library_Database
+class Saros_Database
 {
 	// The adapter connection we are using
 	public $adapter;
 	private $adapters = array(
-		"mysql" => "Library_Database_Adapter_Mysql"
+		"mysql" => "Saros_Database_Adapter_Mysql"
 	);
 	
 	/**

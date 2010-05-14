@@ -18,10 +18,10 @@
  * You should have received a copy of the GNU General Public License
  * along with Saros Framework.  If not, see <http://www.gnu.org/licenses/>.
  *
- * Similar to Library_Core_Registry but used only for configuration values
+ * Similar to Saros_Core_Registry but used only for configuration values
  *
  */
-class Library_Config implements ArrayAccess
+class Saros_Config implements ArrayAccess
 {
 	// The variable array we will use
 	private $vars;
