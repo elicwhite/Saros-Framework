@@ -95,7 +95,15 @@ class Saros_Display
 	// Gives our views a content function
 	public function content()
 	{
-		require_once(ROOT_PATH.'Application/'.$GLOBALS['registry']->router->getModule().'/Views/Logic/'.$GLOBALS['registry']->router->getLogic().'/'.$GLOBALS['registry']->router->getAction().'.php');
+		$module = $GLOBALS['registry']->router->getModule();
+		$logic = $GLOBALS['registry']->router->getLogic();
+		$action = $GLOBALS['registry']->router->getAction();
+		$viewLocation = ROOT_PATH.'Application/'.$module.'/Views/Logic/'.$logic.'/'.$action.'.php';
+		
+		if(!file_exists($viewLocation))
+			throw new Exception("The view for module: '".$module."', Logic: '".$logic."', Action: '".$action."' does not exist at ".$viewLocation);
+		
+		require_once($viewLocation);
 	}
 	
 	public function HeadStyles()
