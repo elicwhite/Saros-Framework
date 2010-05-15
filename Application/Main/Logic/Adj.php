@@ -3,44 +3,47 @@ class Application_Main_Logic_Adj extends Saros_Core_Logic
 {
 	public function index()
 	{
-	
-		$db = $this->registry->db;	
-		
-		$test = $db->testAdj;
-		
+		$this->view->showView(false);
+
+		//echo "hello";
+
+        $adapter = new Spot_Adapter_Mysql();
+        $test = new Application_Mappers_TestAdj($adapter);
+
 		$home = $test->get();
 		$home->name = "Home";
-		$test->save($home);
-		
+		$test->add($home);
+
 		$sports = $test->get();
 		$sports->name = "Sports";
-		$test->save($sports, $home);
-		
-		echo $sports->parent;
-		
+		$sports->adj_parent = $home->id;
+		$test->add($sports);
+
 		$tools = $test->get();
 		$tools->name = "Tools";
-		$test->save($tools, $home, 0);
-		
-		
+		$tools->adj_parent = $home->id;
+		$test->add($tools, 0);
+
 		$bball = $test->get();
 		$bball->name = "Basket Ball";
-		$test->save($bball, $sports);
-		
-		
-		
+		$bball->adj_parent = $sports->id;
+		$test->add($bball);
+
 	}
 	public function working()
 	{
-		
-		
-		
+
+
+
 	}
-	
+
 	public function setup()
 	{
-		$db = $this->registry->db;
-		$test = $db->testAdj->migrate();
+		$this->view->showView(false);
+		$adapter = new Spot_Adapter_Mysql();
+        $test = new Application_Mappers_TestAdj($adapter);
+
+        $test->migrate();
 	}
 
 }
