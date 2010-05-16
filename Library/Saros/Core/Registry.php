@@ -1,30 +1,20 @@
 <?php
 /**
- * Copyright Eli White & SaroSoftware 2010
- * Last Modified: 3/26/2010
- * 
- * This file is part of Saros Framework.
- * 
- * Saros Framework is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * 
- * Saros Framework is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with Saros Framework.  If not, see <http://www.gnu.org/licenses/>.
- * 
  * This is the registry class. It stores all important links and classes
+ *
+ * @copyright Eli White & SaroSoftware 2010
+ * @license http://www.gnu.org/licenses/gpl.html GNU GPL
+ *
+ * @package SarosFramework
+ * @author Eli White
+ * @link http://sarosoftware.com
+ * @link http://github.com/TheSavior/Saros-Framework
  */
-class Saros_Core_Registry
+class Saros_Core_Registry implements ArrayAccess
 {
 	// The variable array we will use
 	private $vars;
-	
+
 	/*
 	 * These two functions allow us to get and set variables into our vars array.
 	 * This means that this class can store virtually anything
@@ -37,8 +27,30 @@ class Saros_Core_Registry
 	{
 		if (!isset($this->vars[$index]))
 			throw new Saros_Core_Exception("The key: ".$index." is not defined in the registry.");
-			
+
 	    return $this->vars[$index];
+	}
+
+	// SPL - ArrayAccess Functions
+	public function offsetExists($key)
+	{
+		/**
+		 * We want to know if this item exists.
+		 * It does if we can get it
+		 */
+		return (isset($this->vars[$key]));
+	}
+	public function offsetGet($key)
+	{
+		return $this->$key; // Calls __get
+	}
+	public function offsetSet($key, $value)
+	{
+		$this->$key = $value;
+	}
+	public function offsetUnset($key)
+	{
+		unset($this->vars[$key]);
 	}
 }
 ?>

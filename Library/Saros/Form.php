@@ -1,83 +1,72 @@
 <?php
 /**
- * Copyright Eli White & SaroSoftware 2010
- * Last Modified: 3/26/2010
- * 
- * This file is part of Saros Framework.
- * 
- * Saros Framework is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * 
- * Saros Framework is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with Saros Framework.  If not, see <http://www.gnu.org/licenses/>.
- *
  * Form class, creates and validates forms
  *
  * Possible Errors:
  * 		Two submit buttons
  * 		Two elements of the same name
- * 
- * TODO:
- * 		Break Chain / Don't Break Chain on validation
+ *
+ * @todo Break Chain / Don't Break Chain on validation
+ *
+ * @copyright Eli White & SaroSoftware 2010
+ * @license http://www.gnu.org/licenses/gpl.html GNU GPL
+ *
+ * @package SarosFramework
+ * @author Eli White
+ * @link http://sarosoftware.com
+ * @link http://github.com/TheSavior/Saros-Framework
  */
 class Saros_Form
 {
 	const DATA_GET = "get";
 	const DATA_POST = "post";
-	
+
 	// Methods we can get our data
 	protected $dataMethods = array("get","post");
-	
+
 	// What method are we using
 	protected $method;
-	
+
 	// Action for the form
 	protected $action;
-	
+
 	// Submit button
 	protected $submit;
-	
+
 	protected $errors = array();
-	
+
 	protected $name;
-	
+
 	/**
 	 * Array of all the elements in the form
 	 *
 	 * @var array All the elements in the form
 	 */
 	protected $elements = array();
-	
+
 	function __construct($name)
 	{
 		$this->name = $name;
-		
+
 		// Defaults
 		$this->setMethod(self::DATA_POST);
 		// Default action is the current controller and action
 		$action = array($GLOBALS['registry']->router->getLogic(), $GLOBALS['registry']->router->getAction());
 		$this->setAction($action);
 	}
-	
+
 	public function getName()
 	{
 		return $this->name;
 	}
-	
-	
+
+
 	public function setAction($action)
 	{
 		// You can either pass a string action or an array of controller/action
 		if (is_array($action))
 			$this->action = call_user_func_array(array($GLOBALS['registry']->utils, "makeLink"), $action);
-		else 
+		else
 			$this->action = $action;
 		return $this;
 	}
@@ -85,7 +74,7 @@ class Saros_Form
 	{
 		return $this->action;
 	}
-	
+
 	/**
 	 * Set the method access variable
 	 *
@@ -96,10 +85,10 @@ class Saros_Form
 		// If the method is one of our allowed methods
 		if (in_array($type, $this->dataMethods))
 			$this->method = $type;
-			
+
 		return $this;
 	}
-	
+
 	/**
 	 * Get the method we are using to get our data
 	 *
@@ -109,10 +98,10 @@ class Saros_Form
 	{
 		if (!isset($this->method))
 			return Saros_Form::DATA_POST;
-			
+
 		return $this->method;
 	}
-	
+
 	/**
 	 * Add an element to the form
 	 *
@@ -126,22 +115,22 @@ class Saros_Form
 		// Prepend "Form_Element_" to type so we can get the right class
 		$class = "Saros_Form_Element_".ucfirst($type);
 		$object = new $class;
-		
+
 		// Set the element's name
 		$object->setName($name);
-		
+
 		// Add it to our elements array with the name as the key
 		$this->elements[$object->getName()] = $object;
-		
+
 		// Return the object to allow chaining
 		return $object;
 	}
-	
+
 	public function getElement($name)
 	{
 		if (array_key_exists($name, $this->elements))
 			return $this->elements[$name];
-		
+
 		return null;
 	}
 
@@ -153,10 +142,10 @@ class Saros_Form
 	public function addSubmit($value)
 	{
 		$this->submit = new Saros_Form_Element_Submit();
-		
+
 		$this->submit->setText($value);
 	}
-	
+
 	// Pass the post data to each element.
 	/**
 	 * Distribute form data to each element
@@ -168,7 +157,7 @@ class Saros_Form
 	{
 		//print_r($_POST);
 		//print_r($this->elements);
-		
+
 		// Go through each key/value in $_POST/$_GET/what have you
 		foreach($data as $key=>$value)
 		{
@@ -183,7 +172,7 @@ class Saros_Form
 				//echo "key doesn't exist <br />";
 		}
 	}
-	
+
 	/**
 	 * Validate the form
 	 *
@@ -200,20 +189,20 @@ class Saros_Form
 			case "get":
 				$data = $_GET;
 				break;
-			default:	
-				$data = $_POST;		
-				break;		
+			default:
+				$data = $_POST;
+				break;
 		}
-		
+
 		//print_r($data);
 		//print_r($_POST);
-		
+
 		// We start with a valid flag
 		$valid = true;
-		
+
 		// Distribute the data to the elements
 		$this->distributeData($data);
-		
+
 		foreach ($this->elements as $element)
 		{
 			// If the element is not valid
@@ -224,53 +213,53 @@ class Saros_Form
 				$valid = false;
 			}
 		}
-		
-		
+
+
 		return $valid;
 	}
-	
+
 	public function getErrors()
 	{
 		return $this->errors;
 	}
-	
+
 	public function render()
 	{
 		// Get the current class name
 		$className = get_class($this);
-		
+
 		// We only want the last string after the underscore
 		$formName = array_pop(explode("_", $className));
-		
+
 		// Where we expect a template to be
 		$pathName = ROOT_PATH.'Application/Views/Forms/'.$formName.'.php';
 		$defaultPath = ROOT_PATH.'Library/Display/Default/Form.php';
-		
+
 		// Whether we should use the default form template
 		$useDefault = false;
-		
+
 		// If our form template doesn't exist
 		if (!file_exists($pathName))
 		{
 			// Try the default one. It should be there
 			if (!file_exists($defaultPath))
 				throw new Exception('Form display template does not exist for '.$formName.' at '.$pathName);
-			else 
+			else
 				$useDefault = true;
 		}
 		if ($useDefault)
 			$pathName = $defaultPath;
-			
-		
+
+
 		?>
 		<form id="form_<?php echo $this->getName()?>" action="<?php echo $this->getAction()?>" method="<?php echo $this->getMethod() ?>">
 		<?php
-		
+
 			require_once($pathName);
-			
+
 		?>
 		</form>
 		<?php
-	}	
+	}
 }
 ?>

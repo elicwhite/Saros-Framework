@@ -1,26 +1,14 @@
 <?php
 /**
- * Copyright Eli White & SaroSoftware 2010
- * Last Modified: 3/26/2010
+ * This class sets up the neccessary files and objects.
  *
- * This file is part of Saros Framework.
+ * @copyright Eli White & SaroSoftware 2010
+ * @license http://www.gnu.org/licenses/gpl.html GNU GPL
  *
- * Saros Framework is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * Saros Framework is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with Saros Framework.  If not, see <http://www.gnu.org/licenses/>.
- *
- * This class sets up the neccessary files and objects
- *
- * test svn
+ * @package SarosFramework
+ * @author Eli White
+ * @link http://sarosoftware.com
+ * @link http://github.com/TheSavior/Saros-Framework
  */
 
 session_start();
@@ -50,8 +38,8 @@ $registry = new Saros_Core_Registry();
 // Load up the core set of utilities
 $registry->utils = new Saros_Core_Utilities();
 
-// Create a new configuration object
-$registry->config  = new Saros_Config();
+// Create a new registry object to be used for configuration
+$registry->config  = new Saros_Core_Registry();
 
 // Load the router
 $registry->router = new Saros_Core_Router();

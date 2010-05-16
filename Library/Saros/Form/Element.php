@@ -1,24 +1,14 @@
 <?php
 /**
- * Copyright Eli White & SaroSoftware 2010
- * Last Modified: 3/26/2010
- * 
- * This file is part of Saros Framework.
- * 
- * Saros Framework is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * 
- * Saros Framework is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with Saros Framework.  If not, see <http://www.gnu.org/licenses/>.
- *
  * This is a parent class for all Form Elements
+ *
+ * @copyright Eli White & SaroSoftware 2010
+ * @license http://www.gnu.org/licenses/gpl.html GNU GPL
+ *
+ * @package SarosFramework
+ * @author Eli White
+ * @link http://sarosoftware.com
+ * @link http://github.com/TheSavior/Saros-Framework
  */
 abstract class Saros_Form_Element
 {
@@ -28,51 +18,51 @@ abstract class Saros_Form_Element
 	 * @var string
 	 */
 	protected $name;
-	
+
 	/**
 	 * The visible text for the element
 	 *
 	 * @var string
 	 */
 	protected $label;
-	
+
 	/**
 	 * The description text for the element
 	 *
 	 * @var string
 	 */
 	protected $description;
-	
+
 	/**
 	 * Validators on the element
 	 *
 	 * @var array
 	 */
 	protected $validators = array();
-	
+
 	/**
 	 * Current value of the element
 	 *
 	 * @var mixed
 	 */
 	protected $value;
-	
+
 	/**
 	 * Whether the element is required. If true, it adds a class to the element
 	 *
 	 * @var bool
 	 */
 	protected $required = false;
-	
+
 	/**
 	 * Extra attributes to the element
 	 *
 	 * @var array
 	 */
 	protected $attributes = array();
-	
+
 	protected $errors = array();
-	
+
 	/**
 	 * Set the name of the element
 	 *
@@ -87,7 +77,7 @@ abstract class Saros_Form_Element
 	{
 		return $this->name;
 	}
-	
+
 	public function setLabel($text)
 	{
 		$this->label = $text;
@@ -97,9 +87,9 @@ abstract class Saros_Form_Element
 	{
 		return $this->label;
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Add a validator to the element
 	 *
@@ -112,20 +102,20 @@ abstract class Saros_Form_Element
 	{
 		// Create the instance of the validator
 		$class = "Saros_Form_Validator_".ucfirst($validator);
-		
+
 		$array = array
 		(
 			'validator'	=> new $class($options),
 			'breakOnFalse' => $breakOnFalse,
 			'options'	=>	$options
 		);
-			
+
 		$this->validators[] = $array;
-		
+
 		// Return a reference of the element so we can chain
 		return $this;
 	}
-	
+
 	/**
 	 * Sets the value of the element
 	 *
@@ -135,7 +125,7 @@ abstract class Saros_Form_Element
 	{
 		$this->value = $value;
 	}
-	
+
 	/**
 	 * Get the value of the element
 	 *
@@ -146,17 +136,17 @@ abstract class Saros_Form_Element
 		// Should we print html special chars?
 		return htmlspecialchars($this->value);
 	}
-	
+
 	public function hasErrors()
 	{
 		return count($this->errors) != 0;
 	}
-	
+
 	public function getErrors()
 	{
 		return $this->errors;
 	}
-	
+
 	public function setDescription($description)
 	{
 		$this->description = $description;
@@ -170,7 +160,7 @@ abstract class Saros_Form_Element
 	{
 		return $this->description;
 	}
-	
+
 	public function setRequired($required)
 	{
 		$this->required = $required;
@@ -180,7 +170,7 @@ abstract class Saros_Form_Element
 	{
 		return $this->required;
 	}
-	
+
 	public function addAttribute($key, $value)
 	{
 		$this->attributes[$key] = $value;
@@ -190,14 +180,14 @@ abstract class Saros_Form_Element
 	{
 		return $this->attributes;
 	}
-	
+
 	/**
 	 * Validates the element
 	 *
 	 * @return bool
 	 */
 	abstract public function validate();
-	
+
 	/**
 	 * Render the element
 	 *

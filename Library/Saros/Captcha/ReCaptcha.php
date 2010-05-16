@@ -1,24 +1,14 @@
 <?php
 /**
- * Copyright Eli White & SaroSoftware 2010
- * Last Modified: 3/28/2010
- * 
- * This file is part of Saros Framework.
- * 
- * Saros Framework is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * 
- * Saros Framework is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with Saros Framework.  If not, see <http://www.gnu.org/licenses/>.
- *
  * This class creates a recaptcha interface
+ *
+ * @copyright Eli White & SaroSoftware 2010
+ * @license http://www.gnu.org/licenses/gpl.html GNU GPL
+ *
+ * @package SarosFramework
+ * @author Eli White
+ * @link http://sarosoftware.com
+ * @link http://github.com/TheSavior/Saros-Framework
  */
 class Saros_Captcha_ReCaptcha
 {
@@ -98,7 +88,7 @@ class Saros_Captcha_ReCaptcha
 	 * is embedded within the HTML form it was called from.
 	 * @param string $error The error given by reCAPTCHA (optional, default is null)
 	 * @param boolean $useSsl Should the request be made over ssl? (optional, default is false)
-	
+
 	 * @return string - The HTML to be embedded in the user's form.
 	 */
 
@@ -124,7 +114,7 @@ class Saros_Captcha_ReCaptcha
 			$errorPart = "&amp;error=" . $error;
 		}
 		return '<script type="text/javascript" src="'. $server . '/challenge?k=' . $this->publicKey . $errorPart . '"></script>
-	
+
 		<noscript>
 	  		<iframe src="'. $server . '/noscript?k=' . $this->publicKey . $errorPart . '" height="300" width="500" frameborder="0"></iframe><br/>
 	  		<textarea name="recaptcha_challenge_field" rows="3" cols="40"></textarea>

@@ -1,45 +1,36 @@
 <?php
 /**
- * Copyright Eli White & SaroSoftware 2010
- * Last Modified: 3/26/2010
+ * A Recaptcha Form Element
  * 
- * This file is part of Saros Framework.
- * 
- * Saros Framework is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * 
- * Saros Framework is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with Saros Framework.  If not, see <http://www.gnu.org/licenses/>.
+ * @copyright Eli White & SaroSoftware 2010
+ * @license http://www.gnu.org/licenses/gpl.html GNU GPL
  *
+ * @package SarosFramework
+ * @author Eli White
+ * @link http://sarosoftware.com
+ * @link http://github.com/TheSavior/Saros-Framework
  */
 class Saros_Form_Element_ReCaptcha extends Saros_Form_Element
 {
 	// Recaptcha object
 	protected $captcha;
-	
+
 	protected $errorMessages = array(
 		"incorrect-captcha-sol" => "The CAPTCHA solution was incorrect.",
 		"captcha-error"			=> "An error occured with the captcha."
 	);
-		
+
 	public function __construct()
 	{
 		$this->recaptcha = new Saros_Captcha_ReCaptcha();
 		$this->name = "recaptcha_response_field";
 	}
-	
+
 	// We can't set a name on captchas
 	public function setName()
 	{
 	}
-	
+
 	public function setPublicKey($key)
 	{
 		$this->recaptcha->setPublicKey($key);
@@ -50,12 +41,12 @@ class Saros_Form_Element_ReCaptcha extends Saros_Form_Element
 		$this->recaptcha->setPrivateKey($key);
 		return $this;
 	}
-	
+
 	public function addValidator()
 	{
 		throw new Exception("You cannot add validators to ReCaptcha elements.");
 	}
-	
+
 	/*
 		Validate the value of the element
 	*/
@@ -68,7 +59,7 @@ class Saros_Form_Element_ReCaptcha extends Saros_Form_Element
 			$_SERVER["REMOTE_ADDR"],
 			$_POST["recaptcha_challenge_field"],
 			$this->getValue());
-		
+
 			if ($resp->isValid)
 				return true;
 			else
@@ -76,17 +67,17 @@ class Saros_Form_Element_ReCaptcha extends Saros_Form_Element
 				// We have an error code
 				if (array_key_exists($resp->error, $this->errorMessages))
 					$key = $resp->error;
-				else 
+				else
 					$key = "captcha-error";
-			
+
 				$this->errors[] = $this->errorMessages[$key];
 			}
-			
+
 		}
-		
+
 		return false;
 	}
-	
+
 	public function render()
 	{
 		echo $this->recaptcha->getHtml();
