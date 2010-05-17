@@ -38,6 +38,8 @@ class Application_Setup
 		$registry->config->dbUser = "";
 		$registry->config->dbPass = "";
 
+		$registry->dbAdapter = new Spot_Adapter_Mysql($registry->config["dbHost"], $registry->config["dbName"], $registry->config["dbUser"], $registry->config["dbPass"]);
+
 		// Set the default theme
 		$registry->display->setTheme("Default");
 		// Set up the controller's template

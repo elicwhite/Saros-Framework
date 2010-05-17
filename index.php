@@ -14,21 +14,29 @@
 session_start();
 // Lets turn on error reporting
 error_reporting(E_ALL);
+
 define("ROOT_PATH",  realpath(dirname(__FILE__))."/");
-
-
 
 // Autoload all of the classes that are not included
 require_once('Library/Saros/Core/AutoLoader.php');
 spl_autoload_register(array('Saros_Core_AutoLoader', 'autoload'));
 
-/*
-function HandleException($exception)
-{
-	$registry->router->setController("Error");
-}
+set_exception_handler(array('Saros_Exception_Handler', 'handle'));
 
-set_exception_handler('HandleException'); */
+/*
+Create an output buffer. This is being used
+so that we can at any point clear all output.
+For example; our exception handler
+does not display anything other than the exception
+message.
+*/
+ob_start();
+//function HandleException($exception)
+//{
+//	echo $exception->getMessage();
+//}
+
+
 
 
 
@@ -64,7 +72,6 @@ $registry->display = new Saros_Display($registry);
 	 * at any time before the class is run
 	 */
 	$registry->router->getInstance()->setView($registry->display);
-
 
 	// Run the controller
 	$registry->router->run();

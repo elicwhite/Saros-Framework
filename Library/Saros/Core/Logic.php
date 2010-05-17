@@ -24,6 +24,20 @@ abstract Class Saros_Core_Logic
 	function __construct($registry)
 	{
 		$this->registry = $registry;
+
+		// Call our init hook
+		$this->init();
+	}
+
+	/**
+	* This function is called right when the
+	* logic file is created. This can be used
+	* to set up refrences and instances used throughout
+	* the logic file
+	*
+	*/
+	protected function init()
+	{
 	}
 
 	// Set the view
@@ -43,11 +57,6 @@ abstract Class Saros_Core_Logic
 
 		return null;
 	}
-
-	/**
-	 * All logic controllers have to contain an index method
-	 */
-	abstract public function index();
 }
 
 ?>

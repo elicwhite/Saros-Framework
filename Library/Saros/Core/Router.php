@@ -48,6 +48,7 @@ class Saros_Core_Router
 		// set the default module
 		$this->route["module"] = Application_Setup::$defaultModule;
 
+		$modFolderPath = ROOT_PATH."Application/Modules/";
 		/**
 		 * First part is either a module or controller
 		 */
@@ -63,7 +64,7 @@ class Saros_Core_Router
 
 			// First check if it is a module
 			$mod = ucfirst($parts[0]);
-			$modPath = ROOT_PATH."Application/Modules/".$mod;
+			$modPath = $modFolderPath.$mod;
 			if (is_dir($modPath))
 			{
 				/**
@@ -101,7 +102,7 @@ class Saros_Core_Router
 			 * remove it from the route array
 			 */
 			$logic = ucfirst(array_shift($parts));
-			$logicPath = ROOT_PATH."Application/".$this->route["module"]."/Logic";
+			$logicPath = $modFolderPath.$this->route["module"]."/Logic";
 			if (is_dir($logicPath))
 			{
 				/**
@@ -121,10 +122,13 @@ class Saros_Core_Router
 		 * All we have left to check is our action file
 		 */
 		if (!property_exists($class, "defaultAction"))
-			throw new Saros_Core_Exception("The default action has not been defined in the module setup file.");
+			throw new Saros_Core_Exception("The default action has not been defined in the logic file.");
 
 		// Set our logic to default module logic
 		$this->route["action"] = $props["defaultAction"];
+
+		if (!method_exists($this->getClassName(), $this->route["action"]))
+			throw new Saros_Core_Exception("The default action has not been implemented in the logic file.");
 
 		// Check if we have another url path (logic)
 		if (isset($parts[0]) )
@@ -168,6 +172,7 @@ class Saros_Core_Router
 		$className = $this->getClassName();
 		$this->instance = new $className($registry);
 		$this->instance->setParams($this->getParams());
+
 	}
 
 	/**

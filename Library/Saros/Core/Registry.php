@@ -26,9 +26,10 @@ class Saros_Core_Registry implements ArrayAccess
 	public function __get($index)
 	{
 		if (!isset($this->vars[$index]))
-			throw new Saros_Core_Exception("The key: ".$index." is not defined in the registry.");
-
-	    return $this->vars[$index];
+		{
+			throw new Saros_Core_Exception("The key '".$index."' is not defined in ".get_class($this));
+		}
+		return $this->vars[$index];
 	}
 
 	// SPL - ArrayAccess Functions
