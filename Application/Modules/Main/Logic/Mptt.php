@@ -1,13 +1,15 @@
 <?php
-class Application_Main_Logic_Mptt extends Saros_Core_Logic
+class Application_Modules_Main_Logic_Mptt extends Saros_Core_Logic
 {
 	public function index()
 	{
 
 		$this->view->showView(false);
 
-        $adapter = new Spot_Adapter_Mysql();
+        $adapter = new Spot_Adapter_Mysql($this->registry->config["dbHost"], $this->registry->config["dbName"], $this->registry->config["dbUser"], $this->registry->config["dbPass"]);
         $test = new Application_Mappers_TestMptt($adapter);
+
+        $test->truncateDatasource();
 
 		$home = $test->get();
 		$home->name = "Home";
@@ -45,7 +47,7 @@ class Application_Main_Logic_Mptt extends Saros_Core_Logic
 	{
 		$this->view->showView(false);
 
-        $adapter = new Spot_Adapter_Mysql('mysql1038.servage.net', 'sarosframework', 'sarosframework', 'framework_');
+        $adapter = new Spot_Adapter_Mysql($this->registry->config["dbHost"], $this->registry->config["dbName"], $this->registry->config["dbUser"], $this->registry->config["dbPass"]);
         $test = new Application_Mappers_TestMptt($adapter);
 
         $test->migrate();

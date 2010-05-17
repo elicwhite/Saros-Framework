@@ -9,25 +9,27 @@
  * @author Eli White
  * @link http://sarosoftware.com
  * @link http://github.com/TheSavior/Saros-Framework
+ *
+ * @todo Add support for parse() to return a string of content
  */
-class Saros_Display
+class Saros_Display extends Saros_Core_Registry
 {
-	private $registry;
+	protected $registry;
 
-	// location of the view file we are using
-	private $viewLocation = null;
+	// The theme we are currently loading views from
+	protected $themeLocation;
 
-	// array that contains all the vars accessible by the template template
-	private $variables = array();
+	// The name of the layout we want to use. Not validated
+	protected $layoutName = null;
 
 	// pointer to our functions class.
-	private $functions = null;
+	protected $functions = null;
 
 	// Whether we should show the view for the current page we are on
-	private $showAction = true;
+	protected $showAction = true;
 
-	private $headStyles;
-	private $headScripts;
+	protected $headStyles;
+	protected $headScripts;
 
 
 	/**
@@ -39,37 +41,58 @@ class Saros_Display
 	{
 		$this->registry = $registry;
 	}
+
 	public function init()
 	{
-		$this->headStyles = new Saros_Display_Helpers_HeadStyles();
+		$this->headStyles = new Saros_Display_Helpers_HeadStyles($this);
 
-		$this->headScripts = new Saros_Display_Helpers_HeadScripts();
+		$this->headScripts = new Saros_Display_Helpers_HeadScripts($this);
 	}
 
+	/**
+	* Set the theme to use
+	*
+	* @param string $themeName The name of the theme to use
+	*/
+	public function setTheme($themeName)
+	{
+		$this->themeLocation = "Application/Themes/".$themeName."/";
+		if (!is_dir(ROOT_PATH.$this->themeLocation))
+			throw new Saros_Display_Exception("Theme ".$themeName." not found at ".ROOT_PATH.$themeLocation);
+	}
+
+	/**
+	* A simple getter for the theme location
+	*
+	* @return string The path to the current theme directory
+	*/
+	public function getThemeLocation()
+	{
+		return $this->themeLocation;
+	}
+
+	/**
+	* The name of the layout to use. This location isn't validated
+	* at the time this function is run since it depends on the theme.
+	*
+	* @param string $layoutName The name of the layout to use.
+	*/
 	public function setLayout($layoutName)
 	{
-		$this->viewLocation = ROOT_PATH."Application/".$this->registry->router->getModule()."/Views/Layouts/".$layoutName.".php";
-		if (!is_file($this->viewLocation))
-		{
-			throw new Saros_Exception("Layout ".$layoutName." not found at ".$this->viewLocation);
-		}
-	}
-
-	public function __get($var)
-	{
-		//if (array_key_exists($var, $this->variables))
-			return $this->variables[$var];
-	}
-	public function __set($var, $value)
-	{
-		$this->variables[$var] = $value;
+		$this->layoutName = $layoutName;
 	}
 
 	public function parse($return = false)
 	{
 		// Include the view if we haven't turned off the view
 		if ($this->getShowView())
-			require_once($this->viewLocation);
+		{
+			$layoutLocation = ROOT_PATH.$this->themeLocation."Layouts/".$this->layoutName.".php";
+			if (!file_exists($layoutLocation))
+				throw new Saros_Display_Exception("Layout ".$this->layoutName." not found at ".$layoutLocation);
+
+			require_once($layoutLocation);
+		}
 	}
 
 	public function showView($var)
@@ -88,10 +111,11 @@ class Saros_Display
 		$module = $GLOBALS['registry']->router->getModule();
 		$logic = $GLOBALS['registry']->router->getLogic();
 		$action = $GLOBALS['registry']->router->getAction();
-		$viewLocation = ROOT_PATH.'Application/'.$module.'/Views/Logic/'.$logic.'/'.$action.'.php';
+
+		$viewLocation = ROOT_PATH.$this->themeLocation."Logic/".$module."/".$logic."/".$action.".php";
 
 		if(!file_exists($viewLocation))
-			throw new Exception("The view for module: '".$module."', Logic: '".$logic."', Action: '".$action."' does not exist at ".$viewLocation);
+			throw new Saros_Display_Exception("The view for module: '".$module."', Logic: '".$logic."', Action: '".$action."' does not exist at ".$viewLocation);
 
 		require_once($viewLocation);
 	}

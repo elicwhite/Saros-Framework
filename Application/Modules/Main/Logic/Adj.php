@@ -1,5 +1,5 @@
 <?php
-class Application_Main_Logic_Adj extends Saros_Core_Logic
+class Application_Modules_Main_Logic_Adj extends Saros_Core_Logic
 {
 	public function index()
 	{
@@ -7,7 +7,7 @@ class Application_Main_Logic_Adj extends Saros_Core_Logic
 
 		//echo "hello";
 
-        $adapter = new Spot_Adapter_Mysql();
+        $adapter = new Spot_Adapter_Mysql($this->registry->config["dbHost"], $this->registry->config["dbName"], $this->registry->config["dbUser"], $this->registry->config["dbPass"]);
         $test = new Application_Mappers_TestAdj($adapter);
 
         $test->truncateDatasource();
@@ -42,7 +42,7 @@ class Application_Main_Logic_Adj extends Saros_Core_Logic
 	public function setup()
 	{
 		$this->view->showView(false);
-		$adapter = new Spot_Adapter_Mysql('mysql1038.servage.net', 'sarosframework', 'sarosframework', 'framework_');
+		$adapter = new Spot_Adapter_Mysql($this->registry->config["dbHost"], $this->registry->config["dbName"], $this->registry->config["dbUser"], $this->registry->config["dbPass"]);
         $test = new Application_Mappers_TestAdj($adapter);
         $test->migrate();
 	}

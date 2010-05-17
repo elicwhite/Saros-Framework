@@ -12,7 +12,7 @@
  */
 class Saros_Core_Router
 {
-	// URL path of the route
+	// Array containing the parts of the URL path
 	private $path = array();
 
 	private $route = array(
@@ -63,7 +63,7 @@ class Saros_Core_Router
 
 			// First check if it is a module
 			$mod = ucfirst($parts[0]);
-			$modPath = ROOT_PATH."Application/".$mod;
+			$modPath = ROOT_PATH."Application/Modules/".$mod;
 			if (is_dir($modPath))
 			{
 				/**
@@ -83,7 +83,7 @@ class Saros_Core_Router
 		}
 		// At this point we can rely that $this->route["module"] has been set correctly
 
-		$class = "Application_".$this->getModule()."_Setup";
+		$class = "Application_Modules_".$this->getModule()."_Setup";
 		//die($class);
 		if (!property_exists($class, "defaultLogic"))
 			throw new Saros_Core_Exception("The default logic file has not been defined in the module setup file.");
@@ -159,7 +159,7 @@ class Saros_Core_Router
 
 	private function getClassName()
 	{
-		return "Application_".ucfirst($this->getModule())."_Logic_".ucfirst($this->getLogic());
+		return "Application_Modules_".ucfirst($this->getModule())."_Logic_".ucfirst($this->getLogic());
 	}
 
 	public function createInstance($registry)

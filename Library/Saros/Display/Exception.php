@@ -1,6 +1,6 @@
 <?php
 /**
- * Core Exception wrapper
+ * Display Exception
  *
  * @copyright Eli White & SaroSoftware 2010
  * @license http://www.gnu.org/licenses/gpl.html GNU GPL
@@ -10,7 +10,7 @@
  * @link http://sarosoftware.com
  * @link http://github.com/TheSavior/Saros-Framework
  */
-class Saros_Core_Exception extends Saros_Exception
+class Saros_Display_Exception extends Saros_Exception
 {
 
 }

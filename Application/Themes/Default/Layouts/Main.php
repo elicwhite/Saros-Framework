@@ -3,7 +3,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>Saros Framework</title>
-	<link rel="shortcut icon" type="image/x-icon" href="Application/Views/Images/favicon.ico" /> 
+	<link rel="shortcut icon" type="image/x-icon" href="<?php echo $this->getThemeLocation()?>/Images/favicon.ico" />
 	<?php echo $this->headStyles()->addStyle("Main") ?>
 	<?php echo $this->headScripts() ?>
 </head>
