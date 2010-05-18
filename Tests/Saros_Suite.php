@@ -12,10 +12,11 @@
  */
 
 // Add the Spot testSuite
-		require_once '../Library/Spot/tests/AllTests.php';
-		
-		
-class Tests_AllTests
+require_once '../Library/Spot/tests/init.php';
+require_once '../Library/Spot/tests/Spot_Tests.php';
+
+
+class Saros_Suite
 {
     public static function main()
     {
@@ -25,11 +26,11 @@ class Tests_AllTests
 
     public static function suite()
     {
-        $suite = new PHPUnit_Framework_TestSuite('Saros Tests');
+        $suite = new PHPUnit_Framework_TestSuite('Saros Suite');
 
-		
-		
-        $suite->addTestSuite(AllTests::suite());
+
+		// Add the Spot TestSuite
+        $suite->addTestSuite(Spot_Tests::suite());
 
         return $suite;
     }

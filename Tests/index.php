@@ -1,9 +1,23 @@
 <pre>
 <?php
- 
+
+/**
+ * Our Test Runner
+ *
+ * @copyright Eli White & SaroSoftware 2010
+ * @license http://www.gnu.org/licenses/gpl.html GNU GPL
+ *
+ * @package SarosFramework
+ * @author Eli White
+ * @link http://sarosoftware.com
+ * @link http://github.com/TheSavior/Saros-Framework
+ */
+
 // Add PHPUnit to the include path
-$incPath = get_include_path(); 
-set_include_path("/mounted-storage/home45c/sub001/sc21473-GRUR" . PATH_SEPARATOR . $incPath); 
+$incPath = get_include_path();
+set_include_path("/mounted-storage/home45c/sub001/sc21473-GRUR" . PATH_SEPARATOR . $incPath);
+
+error_reporting(E_ALL);
 
 // Let execution time be infinite
 set_time_limit(0);
@@ -22,11 +36,11 @@ require_once 'PHPUnit/TextUI/TestRunner.php';
 
 //ini_set('include_path', ini_get('include_path').':/mounted-storage/home45c/sub001/sc21473-GRUR/:');
 
-require_once('../Tests/AllTests.php');
-
+require_once('Saros_Suite.php');
+//require_once('../Library/Spot/tests/AllTests.php');
 
 //if (PHPUnit_MAIN_METHOD == 'Tests_AllTests::main') {
-Tests_AllTests::main();
+Saros_Suite::main();
 //}
 
 ?>
