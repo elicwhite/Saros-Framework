@@ -4,7 +4,7 @@
  *
  * @copyright Eli White & SaroSoftware 2010
  * @license http://www.gnu.org/licenses/gpl.html GNU GPL
- *
+ * 
  * @package SarosFramework
  * @author Eli White
  * @link http://sarosoftware.com
@@ -21,6 +21,7 @@ define("ROOT_PATH",  realpath(dirname(__FILE__))."/");
 require_once('Library/Saros/Core/AutoLoader.php');
 spl_autoload_register(array('Saros_Core_AutoLoader', 'autoload'));
 
+// Expect that autoloader is working now
 set_exception_handler(array('Saros_Exception_Handler', 'handle'));
 
 /*
@@ -31,14 +32,6 @@ does not display anything other than the exception
 message.
 */
 ob_start();
-//function HandleException($exception)
-//{
-//	echo $exception->getMessage();
-//}
-
-
-
-
 
 // Create a new registry of variables
 $registry = new Saros_Core_Registry();
@@ -53,35 +46,27 @@ $registry->config  = new Saros_Core_Registry();
 $registry->router = new Saros_Core_Router();
 
 $registry->display = new Saros_Display($registry);
-//try
-//{
-	$registry->display->init();
 
-	// Get the current route
-	$registry->router->parseRoute();
+$registry->display->init();
 
-	// We want to setup our application
-	Application_Setup::setup($registry);
+// Get the current route
+$registry->router->parseRoute();
 
-	// Creates an instance of the class that will be
-	// Called to generate our page
-	$registry->router->createInstance($registry);
+// We want to setup our application
+Application_Setup::setup($registry);
 
-	/**
-	 * Sets the view. This can be changed
-	 * at any time before the class is run
-	 */
-	$registry->router->getInstance()->setView($registry->display);
+// Creates an instance of the class that will be
+// Called to generate our page
+$registry->router->createInstance($registry);
 
-	// Run the controller
-	$registry->router->run();
+/**
+ * Sets the view. This can be changed
+ * at any time before the class is run
+ */
+$registry->router->getInstance()->setView($registry->display);
 
-//}
-//catch(Exception $exception)
-//{
-///	echo $exception->getMessage();
-//	die();
-//}
+// Run the controller
+$registry->router->run();
 
 // Display our page
 $registry->display->parse();

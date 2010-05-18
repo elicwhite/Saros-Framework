@@ -33,10 +33,10 @@ class Application_Setup
 		$registry->config->siteUrl = "http://dev.powerwd.net/saros/";
 		$registry->config->rewriting = true;
 
-		$registry->config->dbHost = "mysql1038.servage.net";
-		$registry->config->dbName = "sarosframework";
-		$registry->config->dbUser = "sarosframework";
-		$registry->config->dbPass = "testgit_";
+		$registry->config->dbHost = "";
+		$registry->config->dbName = "";
+		$registry->config->dbUser = "";
+		$registry->config->dbPass = "";
 
 		$registry->dbAdapter = new Spot_Adapter_Mysql($registry->config["dbHost"], $registry->config["dbName"], $registry->config["dbUser"], $registry->config["dbPass"]);
 
