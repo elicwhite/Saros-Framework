@@ -30,13 +30,13 @@ class Application_Setup
 	static function setup($registry)
 	{
 		// Set up our config values
-		$registry->config->siteUrl = "";
+		$registry->config->siteUrl = "http://dev.powerwd.net/saros/";
 		$registry->config->rewriting = true;
 
-		$registry->config->dbHost = "";
-		$registry->config->dbName = "";
-		$registry->config->dbUser = "";
-		$registry->config->dbPass = "";
+		$registry->config->dbHost = "mysql1038.servage.net";
+		$registry->config->dbName = "sarosframework";
+		$registry->config->dbUser = "sarosframework";
+		$registry->config->dbPass = "testgit_";
 
 		$registry->dbAdapter = new Spot_Adapter_Mysql($registry->config["dbHost"], $registry->config["dbName"], $registry->config["dbUser"], $registry->config["dbPass"]);
 
