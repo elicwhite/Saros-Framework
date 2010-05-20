@@ -17,13 +17,12 @@ class Application_Modules_Main_Logic_Adj extends Saros_Core_Logic
 		$home->name = "Home";
 		$this->test->save($home);
 
-		echo "Num Parents: ".count($home->parent);
 
-		/*
 		$sports = $this->test->get();
 		$sports->name = "Sports";
 		$sports->tree_parent = $home->id;
 		$this->test->save($sports);
+
 
 
 		$tools = $this->test->get();
@@ -44,12 +43,11 @@ class Application_Modules_Main_Logic_Adj extends Saros_Core_Logic
 		foreach($home->children as $child)
 			echo $child->name."<br />";
 
-		$this->test->delete($sports, true);
+		$this->test->delete($sports, false);
 
 		echo "<br />";
 		foreach($home->children as $child)
 			echo $child->name."<br />";
-*/
 
 
 	}
