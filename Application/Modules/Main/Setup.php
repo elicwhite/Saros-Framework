@@ -34,5 +34,3 @@ class Application_Modules_Main_Setup
 
 	}
 }
-
-?>

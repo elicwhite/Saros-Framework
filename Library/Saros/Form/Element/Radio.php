@@ -53,5 +53,3 @@ class Saros_Form_Element_Radio extends Saros_Form_Element
 		<?php
 	}
 }
-
-?>

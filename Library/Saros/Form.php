@@ -262,4 +262,3 @@ class Saros_Form
 		<?php
 	}
 }
-?>

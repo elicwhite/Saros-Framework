@@ -36,4 +36,3 @@ class Saros_Display_Helpers_HeadStyles extends Saros_Display_Helpers_Abstract
 		return $output;
 	}
 }
-?>

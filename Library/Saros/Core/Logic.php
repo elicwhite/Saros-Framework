@@ -58,5 +58,3 @@ abstract Class Saros_Core_Logic
 		return null;
 	}
 }
-
-?>

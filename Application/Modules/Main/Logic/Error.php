@@ -12,4 +12,3 @@ class Application_Modules_Main_Logic_Error extends Saros_Core_Logic
 		$this->view->Traces = explode("\n",$this->exception->getTraceAsString());
 	}
 }
-?>

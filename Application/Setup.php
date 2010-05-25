@@ -46,5 +46,3 @@ class Application_Setup
 		$registry->display->setLayout("Main");
 	}
 }
-
-?>

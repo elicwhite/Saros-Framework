@@ -52,5 +52,3 @@ class Saros_Form_Element_Text extends Saros_Form_Element
 		<?php
 	}
 }
-
-?>

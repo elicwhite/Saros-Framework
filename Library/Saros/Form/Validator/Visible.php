@@ -25,4 +25,3 @@ class Saros_Form_Validator_Visible extends Saros_Form_Validator
 		return false;
 	}
 }
-?>

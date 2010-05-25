@@ -39,4 +39,3 @@ class Saros_Form_Validator_MinLength extends Saros_Form_Validator
 		return false;
 	}
 }
-?>

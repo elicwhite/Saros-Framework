@@ -31,5 +31,4 @@ class Saros_Form_Validator_Email extends Saros_Form_Validator
 		return false;
 	}
 }
-?>
 

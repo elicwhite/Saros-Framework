@@ -29,5 +29,3 @@ class Application_Modules_Main_Forms_Test extends Saros_Form
 		$this->addSubmit("submit");
 	}
 }
-
-?>

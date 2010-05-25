@@ -49,4 +49,3 @@ class Saros_Core_AutoLoader
 			return false;
 	}
 }
-?>

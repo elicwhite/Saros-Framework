@@ -228,6 +228,3 @@ class Saros_Core_Router
 		return $this->route["params"];
 	}
 }
-
-
-?>

@@ -257,7 +257,4 @@ class Saros_Captcha_ReCaptcha
 		"' onclick=\"window.open('" . htmlentities ($url) . "', '', 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=0,width=500,height=300'); return false;\" title=\"Reveal this e-mail address\">...</a>@" . htmlentities ($emailParts [1]);
 
 	}
-
 }
-
-?>

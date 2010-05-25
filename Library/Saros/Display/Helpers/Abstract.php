@@ -19,4 +19,3 @@ abstract class Saros_Display_Helpers_Abstract
 		$this->display = $display;
 	}
 }
-?>

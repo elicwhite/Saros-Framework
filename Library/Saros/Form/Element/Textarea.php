@@ -62,5 +62,3 @@ class Saros_Form_Element_Textarea extends Saros_Form_Element
 		<?php
 	}
 }
-
-?>

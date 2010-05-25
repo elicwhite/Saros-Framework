@@ -21,4 +21,3 @@ class Saros_Exception_Handler
 		require_once("Display.php");
 	}
 }
-?>

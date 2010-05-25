@@ -25,4 +25,3 @@ class Saros_Form_Validator_Alnum extends Saros_Form_Validator
 		return false;
 	}
 }
-?>

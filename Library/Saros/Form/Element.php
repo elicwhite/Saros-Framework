@@ -194,4 +194,3 @@ abstract class Saros_Form_Element
 	 */
 	abstract public function render();
 }
-?>

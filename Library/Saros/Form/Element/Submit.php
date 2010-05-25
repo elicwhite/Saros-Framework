@@ -28,5 +28,3 @@ class Saros_Form_Element_Submit
 		<?php
 	}
 }
-
-?>

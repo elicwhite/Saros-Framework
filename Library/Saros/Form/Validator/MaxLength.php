@@ -39,4 +39,3 @@ class Saros_Form_Validator_MaxLength extends Saros_Form_Validator
 		return false;
 	}
 }
-?>

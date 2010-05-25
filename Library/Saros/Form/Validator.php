@@ -35,5 +35,3 @@ abstract class Saros_Form_Validator
 		return $this->errors;
 	}
 }
-
-?>

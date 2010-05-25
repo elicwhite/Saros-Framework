@@ -54,4 +54,3 @@ class Saros_Core_Registry implements ArrayAccess
 		unset($this->vars[$key]);
 	}
 }
-?>

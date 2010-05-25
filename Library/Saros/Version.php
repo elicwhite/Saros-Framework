@@ -17,4 +17,3 @@ class Saros_Version
 		return ".1.7";
 	}
 }
-?>

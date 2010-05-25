@@ -31,5 +31,3 @@ class Saros_Form_Validator_Url extends Saros_Form_Validator
 		return false;
 	}
 }
-?>
-

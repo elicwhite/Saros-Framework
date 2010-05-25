@@ -54,4 +54,3 @@ class Application_Modules_Main_Logic_Mptt extends Saros_Core_Logic
 	}
 
 }
-?>

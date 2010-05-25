@@ -19,6 +19,27 @@ require_once 'PHPUnit/Framework.php';
 require_once 'PHPUnit/Framework/TestSuite.php';
 require_once 'PHPUnit/TextUI/TestRunner.php';
 
+define("ROOT_PATH",  "../".realpath(dirname(__FILE__))."/");
+
+echo ROOT_PATH."\n";
+function userAutoload($classname)
+{
+    $parts = explode("_",$classname);
+	$fileLocation = implode('/'.$parts).".php";
+
+    if (file_exists($fileLocation))
+        require_once($fileLocation);
+    // We want to check for named libraries
+    // It is a named library when $parts[0] matches a folder in Library
+    else if(is_dir("Library/".$parts[0]))
+        require_once("Library/".$fileLocation);
+    else
+        // We don't know where this class exists. Maybe there is another autoloader that does
+		return false;
+}
+spl_autoload_register('userAutoload');
+
+
 /**
  * From Doctrine2's test suite code
  */

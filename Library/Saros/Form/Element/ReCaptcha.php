@@ -1,7 +1,7 @@
 <?php
 /**
  * A Recaptcha Form Element
- * 
+ *
  * @copyright Eli White & SaroSoftware 2010
  * @license http://www.gnu.org/licenses/gpl.html GNU GPL
  *
@@ -83,5 +83,3 @@ class Saros_Form_Element_ReCaptcha extends Saros_Form_Element
 		echo $this->recaptcha->getHtml();
 	}
 }
-
-?>

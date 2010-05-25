@@ -21,4 +21,3 @@ class Application_Modules_Main_Logic_Index extends Saros_Core_Logic
 		$this->view->form = $form;
 	}
 }
-?>

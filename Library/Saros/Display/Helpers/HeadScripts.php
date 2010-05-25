@@ -36,4 +36,3 @@ class Saros_Display_Helpers_HeadScripts extends Saros_Display_Helpers_Abstract
 		return $output;
 	}
 }
-?>

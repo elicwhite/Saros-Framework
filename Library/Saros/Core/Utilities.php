@@ -34,6 +34,3 @@ class Saros_Core_Utilities
 		return $GLOBALS['registry']->config["siteUrl"].$middle.implode("/", $args);
 	}
 }
-
-
-?>

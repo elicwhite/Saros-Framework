@@ -28,8 +28,30 @@ class Saros_Suite
     {
         $suite = new PHPUnit_Framework_TestSuite('Saros Suite');
 
+/*
+		$directory = new RecursiveDirectoryIterator(dirname(__FILE__)."/Tests");
+		$iterator = new RecursiveIteratorIterator($directory);
+		foreach($iterator as $filename => $fileObject)
+		{
+			echo $filename."\n";
+			var_dump($fileObject);
+		}
+		//die();
+
+		$path = dirname(__file__);
+		foreach (glob($path."/Test/*.php") as $filename)
+		{
+			$pathParts = pathinfo($filename);
+			$suite->addTestSuite('Test_'.$pathParts['filename']);
+		    //echo $pathParts['filename']." size " . filesize($filename) . "\n";
+		}
+		*/
 
 		// Add the Spot TestSuite
+		require_once('Tests/Auth/Adapter/Spot.php');
+		$suite->addTestSuite("Tests_Auth_Adapter_Spot");
+
+
         $suite->addTestSuite(Spot_Tests::suite());
 
         return $suite;
