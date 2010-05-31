@@ -1,6 +1,6 @@
 <?php
 /**
- * This is the Auth adapter for Spot storage
+ * This is the Auth adapter for Spot Compatible Databases
  *
  * @copyright Eli White & SaroSoftware 2010
  * @license http://www.gnu.org/licenses/gpl.html GNU GPL
@@ -11,7 +11,7 @@
  * @link http://github.com/TheSavior/Saros-Framework
  *
  */
-class Saros_Auth_Adapter_Spot
+class Saros_Auth_Adapter_Spot implements Saros_Auth_Adapter_Interface
 {
 	/**
 	* The Spot_Adapter that is being used for storage
@@ -34,7 +34,7 @@ class Saros_Auth_Adapter_Spot
 	*
 	* @var string
 	*/
-	protected $usernameCol;
+	protected $identifierCol;
 
 	/**
 	* The name of the column that contains the password field
@@ -42,36 +42,46 @@ class Saros_Auth_Adapter_Spot
 	*
 	* @var string
 	*/
-	protected $passwordCol;
+	protected $credentialCol;
 
-	/**
-	* The name of the column that contains the salt field
-	* in the auth mapper; This is an optional field, and may
-	* not be set.
-	*
-	* @var string
-	*/
-	protected $saltCol;
+
+	protected $identifier;
+	protected $credential;
+
 /**
-* This will need to take a Spot_Adapter, Spot_Mapper, username column
+* This will need to take an initialized Spot_Mapper, username column
 * password column, and an optional salt column
 */
-	public function __construct(Spot_Adapter $adapter, Spot_Mapper $mapper, $usernameCol, $passwordCol, $saltCol = "")
+	public function __construct(Spot_Mapper_Abstract $mapper, $identifierCol, $credentialCol, $identifier, $credential)
 	{
 		$this->adapter = $adapter;
 		$this->mapper = $mapper;
 
-		if (!is_string($usernameCol))
-			throw new Saros_Auth_Exception("Username Column must be a string. '".gettype($usernameCol)."' given.");
+		if (!is_string($identifierCol) || trim($identifierCol) == "")
+			throw new Saros_Auth_Exception("Username Column must be a string. '".gettype($identifierCol)."' given.");
 
-		if (!is_string($passwordCol))
-			throw new Saros_Auth_Exception("Password Column must be a string. '".gettype($passwordCol)."' given.");
+		if (!is_string($credentialCol) || trim($credentialCol) == "")
+			throw new Saros_Auth_Exception("Password Column must be a string. '".gettype($credentialCol)."' given.");
 
-		if (!is_string($saltCol))
-			throw new Saros_Auth_Exception("Salt Column must be a string. '".gettype($saltCol)."' given.");
+		$this->identifierCol = $identifierCol;
+		$this->credentialCol = $credentialCol;
 
-		$this->usernameCol = $usernameCol;
-		$this->passwordCol = $passwordCol;
-		$this->saltCol = $saltCol;
+		$this->identifier = $identifier;
+		$this->credential = $credential;
+	}
+
+	public function authenticate()
+	{
+		// Get all the users with the identifier of $this->identifier. Should only be one
+		$user = $mapper->first(array(
+							$this->identifierCol => $this->identifier,
+							$this->credentialCol => $this->credential
+							));
+
+		$status = Saros_Auth_Result::SUCCESS;
+		if (!$user)
+			$status = Saros_Auth_Result::FAILURE;
+
+		return new Saros_Auth_Result($status, $this->identifier);
 	}
 }

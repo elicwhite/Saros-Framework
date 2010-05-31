@@ -1,6 +1,5 @@
 <?php
 /**
- * Tells you what version of the framework you are running.
  *
  * @copyright Eli White & SaroSoftware 2010
  * @license http://www.gnu.org/licenses/gpl.html GNU GPL

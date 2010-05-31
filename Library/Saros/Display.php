@@ -128,8 +128,4 @@ class Saros_Display extends Saros_Core_Registry
 	{
 		return $this->headScripts;
 	}
-
-
 }
-
-?>
