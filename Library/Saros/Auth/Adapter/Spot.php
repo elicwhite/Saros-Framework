@@ -82,6 +82,6 @@ class Saros_Auth_Adapter_Spot implements Saros_Auth_Adapter_Interface
 		if (!$user)
 			$status = Saros_Auth_Result::FAILURE;
 
-		return new Saros_Auth_Result($status, $this->identifier);
+		return new Saros_Auth_Result($status, $user);
 	}
 }
