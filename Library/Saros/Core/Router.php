@@ -125,16 +125,16 @@ class Saros_Core_Router
 			throw new Saros_Core_Exception("The default action has not been defined in the logic file.");
 
 		// Set our logic to default module logic
-		$this->route["action"] = $props["defaultAction"];
+		$this->route["action"] = $props["defaultAction"]."Action";
 
 		if (!method_exists($this->getClassName(), $this->route["action"]))
-			throw new Saros_Core_Exception("The default action has not been implemented in the logic file.");
+			throw new Saros_Core_Exception("The default action '".$this->route["action"]."' has not been implemented in the '".$this->route["logic"]."' logic file.");
 
 		// Check if we have another url path (logic)
 		if (isset($parts[0]) )
 		{
 			// We don't uppercase this one, action names are camelCased
-			$action = array_shift($parts);
+			$action = array_shift($parts)."Action";
 
 			if (method_exists($this->getClassName(), $action))
 			{

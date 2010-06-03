@@ -112,6 +112,9 @@ class Saros_Display extends Saros_Core_Registry
 		$logic = $GLOBALS['registry']->router->getLogic();
 		$action = $GLOBALS['registry']->router->getAction();
 
+		// $action will have Action at the end. We need to remove this to find it in the view location
+		$action = substr($action, 0, -6);
+
 		$viewLocation = ROOT_PATH.$this->themeLocation."Logic/".$module."/".$logic."/".$action.".php";
 
 		if(!file_exists($viewLocation))
