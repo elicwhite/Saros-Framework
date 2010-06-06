@@ -42,7 +42,7 @@ class Saros_Session implements ArrayAccess, Countable, IteratorAggregate
 
 		$this->namespace = $namespace;
 
-		self::$initNamespaces[$namespace] = true;
+		self::$initNamespaces[$this->namespace] = true;
 
 		self::start();
 	}
@@ -78,22 +78,22 @@ class Saros_Session implements ArrayAccess, Countable, IteratorAggregate
 		if (!isset($_SESSION['_saros'][$namespace][$key]))
 			throw new Saros_Session_Exception("The key '".$key."' has not been defined for session namespace '".$namespace."'");
 
-		return $_SESSION['_saros'][$namespace][$key];
+		return $_SESSION['_saros'][$this->namespace][$key];
 	}
 
 	public function __set($key, $value)
 	{
-		$_SESSION['_saros'][$namespace][$key] = $value;
+		$_SESSION['_saros'][$this->namespace][$key] = $value;
 	}
 
 	public function __isset($key)
 	{
-		return isset($_SESSION['_saros'][$namespace][$key]);
+		return isset($_SESSION['_saros'][$this->namespace][$key]);
 	}
 
 	public function __unset($key)
 	{
-		unset($_SESSION['_saros'][$namespace][$key]);
+		unset($_SESSION['_saros'][$this->namespace][$key]);
 	}
 
 	/*
@@ -121,7 +121,7 @@ class Saros_Session implements ArrayAccess, Countable, IteratorAggregate
 	*/
 	public function count()
 	{
-		return count($_SESSION['_saros'][$namespace]);
+		return count($_SESSION['_saros'][$this->namespace]);
 	}
 
 	/*
@@ -129,7 +129,7 @@ class Saros_Session implements ArrayAccess, Countable, IteratorAggregate
 	*/
 	public function getIterator()
 	{
-		return new ArrayIterator($_SESSION['_saros'][$namespace]);
+		return new ArrayIterator($_SESSION['_saros'][$this->namespace]);
 	}
 
 }

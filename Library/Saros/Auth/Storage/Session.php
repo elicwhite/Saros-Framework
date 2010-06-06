@@ -13,7 +13,7 @@
  */
 class Saros_Auth_Storage_Session implements Saros_Auth_Storage_Interface
 {
-	const NAMESPACE = "Saros_Auth";
+	const NAME = 'Saros_Auth';
 
 	const KEY = "identity";
 
@@ -28,7 +28,7 @@ class Saros_Auth_Storage_Session implements Saros_Auth_Storage_Interface
 
 	protected $key;
 
-	public function __construct($namespace = self::NAMESPACE, $key = self::KEY)
+	public function __construct($namespace = self::NAME, $key = self::KEY)
 	{
 		$this->namespace = $namespace;
 		$this->key = $key;
@@ -53,6 +53,6 @@ class Saros_Auth_Storage_Session implements Saros_Auth_Storage_Interface
 
 	public function clearIdentity()
 	{
-		unset($this->session->{$this->key};
+		unset($this->session->{$this->key});
 	}
 }

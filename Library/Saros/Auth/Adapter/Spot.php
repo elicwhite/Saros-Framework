@@ -52,9 +52,8 @@ class Saros_Auth_Adapter_Spot implements Saros_Auth_Adapter_Interface
 * This will need to take an initialized Spot_Mapper, username column
 * password column, and an optional salt column
 */
-	public function __construct(Spot_Mapper_Abstract $mapper, $identifierCol, $credentialCol, $identifier, $credential)
+	public function __construct(Spot_Mapper_Abstract $mapper, $identifierCol, $credentialCol)
 	{
-		$this->adapter = $adapter;
 		$this->mapper = $mapper;
 
 		if (!is_string($identifierCol) || trim($identifierCol) == "")
@@ -65,6 +64,15 @@ class Saros_Auth_Adapter_Spot implements Saros_Auth_Adapter_Interface
 
 		$this->identifierCol = $identifierCol;
 		$this->credentialCol = $credentialCol;
+	}
+
+	public function setCredential($identifier, $credential)
+	{
+		if (!is_string($identifier) || trim($identifier) == "")
+			throw new Saros_Auth_Exception("Identifier must be a non whitespace string");
+
+		if (!is_string($credential) || trim($credential) == "")
+			throw new Saros_Auth_Exception("Identifier must be a non whitespace string");
 
 		$this->identifier = $identifier;
 		$this->credential = $credential;
@@ -72,8 +80,11 @@ class Saros_Auth_Adapter_Spot implements Saros_Auth_Adapter_Interface
 
 	public function authenticate()
 	{
+		if (is_null($this->identifier) || is_null($this->credential))
+			throw new Saros_Auth_Exception("You must call setCredential before you can authenticate");
+
 		// Get all the users with the identifier of $this->identifier. Should only be one
-		$user = $mapper->first(array(
+		$user = $this->mapper->first(array(
 							$this->identifierCol => $this->identifier,
 							$this->credentialCol => $this->credential
 							));

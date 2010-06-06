@@ -1,13 +1,13 @@
 <?php
 class Application_Modules_Main_Logic_Index extends Saros_Core_Logic
 {
-	public function index()
+	public function indexAction()
 	{
 		$this->view->Version = Saros_Version::getVersion();
 
 	}
 
-	public function form()
+	public function formAction()
 	{
 		$form = new Application_Modules_Main_Forms_Test();
 

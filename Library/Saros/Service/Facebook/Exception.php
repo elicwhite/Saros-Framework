@@ -9,7 +9,7 @@
 * @link http://sarosoftware.com
 * @link http://github.com/TheSavior/Saros-Framework
 */
-class Saros_Facebook_Exception extends Saros_Exception
+class Saros_Service_Facebook_Exception extends Saros_Exception
 {
 	/**
 	* The result from the API server that represents the exception information.

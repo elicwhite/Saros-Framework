@@ -13,7 +13,7 @@
 * @link http://github.com/facebook/php-sdk/
 *
 */
-class Saros_Facebook_Api
+class Saros_Service_Facebook_Api
 {
 	/**
 	* Version.

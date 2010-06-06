@@ -69,8 +69,11 @@ class Saros_Auth
 		return $this->storage;
 	}
 
-	public function authenticate()
+	public function authenticate(Saros_Auth_Adapter_Interface $adapter = null)
 	{
+		if (!is_null($adapter))
+			$this->setAdapter($adapter);
+
 		if (is_null($this->adapter))
 			throw new Saros_Auth_Exception("You must set an authentication adapter before attempting to authenticate.");
 

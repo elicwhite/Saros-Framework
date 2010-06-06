@@ -41,6 +41,6 @@ class Saros_Auth_Result
 
 	public function isSuccess()
 	{
-		return $this->code == self::SUCCESS;
+		return $this->resultCode == self::SUCCESS;
 	}
 }

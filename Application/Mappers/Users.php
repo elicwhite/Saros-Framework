@@ -2,17 +2,12 @@
 class Application_Mappers_Users extends Spot_Mapper_Abstract
 {
 	// table name
-	protected $table = "board_users";
-
-	// Keep our primary key seperate for speed
-	protected $primary = "id";
+	protected $_datasource = "board_users";
 
 	// Field list
-	protected $fields = array(
-		"id" => array("type" => "int"),
-		"username" => array("type" => "varchar"),
-		"password" => array("type" => "varchar"),
-		"email" => array("type" => "varchar"),
-		"active" => array("type" => "int"),
-	);
+	public $id = array("type" => "int", "primary" => true, "serial" => true);
+	public $username = array("type" => "string");
+	public $password = array("type" => "string");
+	public $email = array("type" => "string");
+	public $active = array("type" => "int");
 }
