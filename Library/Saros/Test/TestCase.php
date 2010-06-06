@@ -13,7 +13,7 @@ class Saros_Test_TestCase extends PHPUnit_Framework_TestCase
 		// will be testing a class that is the name of the test but with
 		// Test_ removed
 		$className = get_class($this);
-		$className = substr($className, 5);
+		$className = "Saros".substr($className, 4);
 		$this->object = new $className();
 	}
 }

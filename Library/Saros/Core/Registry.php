@@ -10,7 +10,7 @@
  * @link http://sarosoftware.com
  * @link http://github.com/TheSavior/Saros-Framework
  */
-class Saros_Core_Registry implements ArrayAccess
+class Saros_Core_Registry implements ArrayAccess, Iterator
 {
 	// The variable array we will use
 	private $vars;
@@ -30,6 +30,16 @@ class Saros_Core_Registry implements ArrayAccess
 			throw new Saros_Core_Exception("The key '".$index."' is not defined in ".get_class($this));
 		}
 		return $this->vars[$index];
+	}
+
+	public function __isset($index)
+	{
+		return isset($this->vars[$index]);
+	}
+
+	public function __unset($index)
+	{
+		unset($this->vars[$index]);
 	}
 
 	// SPL - ArrayAccess Functions
@@ -53,4 +63,30 @@ class Saros_Core_Registry implements ArrayAccess
 	{
 		unset($this->vars[$key]);
 	}
+
+	// SPL - Iterator
+	public function rewind()
+	{
+        reset($this->vars);
+    }
+
+    public function current()
+    {
+        return current($this->vars);
+    }
+
+    public function key()
+    {
+        return key($this->vars);
+    }
+
+    public function next()
+    {
+		return next($this->vars);
+    }
+
+    public function valid()
+    {
+        return ($this->current() !== false);
+    }
 }

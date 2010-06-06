@@ -2,7 +2,7 @@
 /**
 * This file should be inherited when testing Logic files
 */
-class Saros_Test_Logic_TestCase extends PHPUnit_Framework_TestCase
+abstract class Saros_Test_Logic_TestCase extends PHPUnit_Framework_TestCase
 {
 	protected $object;
 	/**
@@ -21,5 +21,12 @@ class Saros_Test_Logic_TestCase extends PHPUnit_Framework_TestCase
 
 		// Create a new registry of variables
 		$registry = new Saros_Core_Registry();
+
+		$this->init();
+	}
+
+	public function init()
+	{
+
 	}
 }

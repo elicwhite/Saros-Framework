@@ -96,3 +96,4 @@ class Saros_Auth_Adapter_Spot implements Saros_Auth_Adapter_Interface
 		return new Saros_Auth_Result($status, $user);
 	}
 }
+
