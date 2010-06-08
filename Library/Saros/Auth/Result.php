@@ -14,8 +14,10 @@ class Saros_Auth_Result
 {
 
 	const SUCCESS = 1;
-	const FAILURE = 0;
-	const UNKNOWN_FAILURE = -1;
+	const UNKNOWN_USER = 0;
+	const AMBIGUOUS_ID_FAILURE = -1;
+	const FAILURE = -2;
+	const UNKNOWN_FAILURE = -3;
 
 	protected $resultCode;
 	protected $identity;
