@@ -1,8 +1,15 @@
 <?php
-class Application_Mappers_Users extends Spot_Mapper_Abstract
+/**
+ * Blog Mapper
+ *
+ * @package Spot
+ * @link http://spot.os.ly
+ * @link http://github.com/actridge/Spot
+ */
+class Fixture_Auth_Mapper extends Spot_Mapper_Abstract
 {
-	// table name
-	protected $_datasource = "auth_users";
+		// table name
+	protected $_datasource = "saros_users";
 
 	// Field list
 	public $id = array("type" => "int", "primary" => true, "serial" => true);

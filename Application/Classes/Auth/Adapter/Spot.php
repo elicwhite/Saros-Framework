@@ -19,62 +19,40 @@
  * @link http://github.com/TheSavior/Saros-Framework
  *
  */
-class Application_Classes_Auth_Adapter_Spot implements Saros_Auth_Adapter_Spot
+class Application_Classes_Auth_Adapter_Spot extends Saros_Auth_Adapter_Spot
 {
 
 	private $saltCol;
 
+	/**
+	*
+	* @param Spot_Mapper_Abstract $mapper
+	* @param mixed $identifierCol
+	* @param mixed $credentialCol
+	* @param mixed $saltCol
+	* @return Application_Classes_Auth_Adapter_Spot
+	*/
 	public function __construct(Spot_Mapper_Abstract $mapper, $identifierCol, $credentialCol, $saltCol)
 	{
-		$this->mapper = $mapper;
+		parent::__construct($mapper, $identifierCol, $credentialCol);
 
-		if (!is_string($identifierCol) || trim($identifierCol) == "")
-			throw new Saros_Auth_Exception("Username Column must be a string. '".gettype($identifierCol)."' given.");
+		if (!$mapper->fieldExists($saltCol))
+			throw new Saros_Auth_Exception("Salt column of '".$saltCol."' is not defined in mapper.");
 
-		if (!is_string($credentialCol) || trim($credentialCol) == "")
-			throw new Saros_Auth_Exception("Password Column must be a string. '".gettype($credentialCol)."' given.");
-
-		if (!is_string($saltCol) || trim($saltCol) == "")
-			throw new Saros_Auth_Exception("Password Column must be a string. '".gettype($credentialCol)."' given.");
-
-		$this->identifierCol = $identifierCol;
-		$this->credentialCol = $credentialCol;
 		$this->saltCol = $saltCol;
 	}
 
-	public function authenticate()
+	public function validateUser(Spot_Entity $user)
 	{
-		if (is_null($this->identifier) || is_null($this->credential))
-			throw new Saros_Auth_Exception("You must call setCredential before you can authenticate");
+		$salt = $user->{$this->saltCol};
 
-		// Get all the users with the identifier of $this->identifier. Should only be one
-		$user = $this->mapper->all(array(
-							$this->identifierCol => $this->identifier
-							));
-
-		// If no user
-		/**
-		* @todo figure out which we need.
-		*/
-		if (!$user || count($user) == 0)
-			$status = Saros_Auth_Result::UNKNOWN_USER;
-		// If there is more than one user, its a problem
-		elseif (count($user) > 1)
-			$status = Saros_Auth_Result::AMBIGUOUS_ID_FAILURE;
+		// Combine the salt and credential and sha1 it. Check against credentialCol
+		if($user->{$this->credentialCol} == sha1($salt.$this->credential))
+			$status = Saros_Auth_Result::SUCCESS;
 		else
-		{
-			// We have exactly one user
-			// We need to get the salt
-			$salt = $user->{$this->saltCol};
+			$status = Saros_Auth_Result::FAILURE;
 
-			// Combine the salt and credential and sha1 it. Check against credentialCol
-			if($user->{$this->credentialCol} == sha1($salt.$user->{$this->credential}))
-				$status = Saros_Auth_Result::SUCCESS;
-			else
-				$status = Saros_Auth_Result::FAILURE;
-		}
-
-		return new Saros_Auth_Result($status, $user);
+		return $status;
 	}
 }
 

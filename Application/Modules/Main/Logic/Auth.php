@@ -7,10 +7,18 @@ class Application_Modules_Main_Logic_Auth extends Saros_Core_Logic
 	protected function init()
 	{
 		$this->test = new Application_Mappers_Users($this->registry->dbAdapter);
+		$this->test->migrate();
+		$this->test->truncateDatasource();
+
+		$user = $this->test->get();
+		$user->username = "Eli";
+		$user->salt = "3aca";
+		$user->password = sha1($user->salt."whee");
+		$this->test->save($user);
 
 		$this->auth = Saros_Auth::getInstance();
 
-		$authAdapter = new Saros_Auth_Adapter_Spot($this->test, "username", "password");
+		$authAdapter = new Application_Classes_Auth_Adapter_Spot($this->test, "username", "password", "salt");
 
 		$this->auth->setAdapter($authAdapter);
 	}
@@ -22,7 +30,7 @@ class Application_Modules_Main_Logic_Auth extends Saros_Core_Logic
 
 		$this->auth->getAdapter()->setCredential("Eli", "whee");
 
-		//$result = $this->auth->authenticate();
+		$result = $this->auth->authenticate();
 
 		var_dump($this->auth->hasIdentity());
 		//$this->auth->clearIdentity();
