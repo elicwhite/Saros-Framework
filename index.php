@@ -13,7 +13,7 @@
 
 session_start();
 // Lets turn on error reporting
-error_reporting(E_ALL);
+error_reporting(E_ALL|E_STRICT);
 
 define("ROOT_PATH",  realpath(dirname(__FILE__))."/");
 

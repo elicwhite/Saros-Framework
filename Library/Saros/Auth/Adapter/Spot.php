@@ -50,10 +50,18 @@ class Saros_Auth_Adapter_Spot implements Saros_Auth_Adapter_Interface
 
 	protected $setCred = false;
 
-/**
-* This will need to take an initialized Spot_Mapper, username column
-* password column, and an optional salt column
-*/
+	/**
+	* Create a new Spot Auth adapter
+	*
+	* @param Spot_Mapper_Abstract $mapper the Mapper to authenticate against
+	* @param string $identifierCol The column to use as the identity (username)
+	* @param string $credentialCol The column that contains a credential (password)
+	*
+	* @throws Saros_Auth_Exception if $identifierCol is not defined in $mapper
+	* @throws Saros_Auth_Exception if $credentialCol is not defined in $mapper
+	*
+	* @return Saros_Auth_Adapter_Spot
+	*/
 	public function __construct(Spot_Mapper_Abstract $mapper, $identifierCol, $credentialCol)
 	{
 		$this->mapper = $mapper;
@@ -68,14 +76,14 @@ class Saros_Auth_Adapter_Spot implements Saros_Auth_Adapter_Interface
 		$this->credentialCol = $credentialCol;
 	}
 
+	/**
+	* Set the identifier and credential to authenticate
+	*
+	* @param mixed $identifier The identifier to authenticate
+	* @param mixed $credential The credential to authenticate
+	*/
 	public function setCredential($identifier, $credential)
 	{
-		if (!is_string($identifier) || trim($identifier) == "")
-			throw new Saros_Auth_Exception("Identifier must be a non whitespace string");
-
-		if (!is_string($credential) || trim($credential) == "")
-			throw new Saros_Auth_Exception("Identifier must be a non whitespace string");
-
 		// Mark that we have run this function
 		$this->setCred = true;
 
@@ -83,6 +91,14 @@ class Saros_Auth_Adapter_Spot implements Saros_Auth_Adapter_Interface
 		$this->credential = $credential;
 	}
 
+	/**
+	* Authenticate the request
+	*
+	* @throws Saros_Auth_Exception if setCredential hasn't been called
+	* @return Saros_Auth_Result the result of the authentication
+	*
+	* @see Saros_Auth_Result
+	*/
 	public function authenticate()
 	{
 		if (!$this->setCred)
@@ -101,7 +117,7 @@ class Saros_Auth_Adapter_Spot implements Saros_Auth_Adapter_Interface
 			$status = Saros_Auth_Result::UNKNOWN_USER;
 		// If there is more than one user, its a problem
 		elseif (count($user) > 1)
-			$status = Saros_Auth_Result::AMBIGUOUS_ID_FAILURE;
+			$status = Saros_Auth_Result::AMBIGUOUS_ID;
 		else
 		{
 			// We have exactly one user
@@ -126,7 +142,13 @@ class Saros_Auth_Adapter_Spot implements Saros_Auth_Adapter_Interface
 	*/
 	public function validateUser(Spot_Entity $user)
 	{
+		// Combine the salt and credential and sha1 it. Check against credentialCol
+		if($user->{$this->credentialCol} == $this->credential)
+			$status = Saros_Auth_Result::SUCCESS;
+		else
+			$status = Saros_Auth_Result::FAILURE;
 
+		return $status;
 	}
 }
 

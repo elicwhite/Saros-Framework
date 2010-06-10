@@ -16,12 +16,14 @@
 class Saros_Session implements ArrayAccess, Countable, IteratorAggregate
 {
 	// The namespace of this instance
-	private $namespace;
+	protected $namespace;
 
-	private $initNamespaces = array();
+	protected static $initNamespaces = array();
 
 	// A boolean flag of whether the session has already been started
-	private static $sessionStarted;
+	protected static $sessionStarted;
+
+	protected $loc;
 
 	/**
 	* Create a new namespaced Session object
@@ -32,19 +34,37 @@ class Saros_Session implements ArrayAccess, Countable, IteratorAggregate
 	* 							  If false, you can have unlimited instances to the same
 	* 									namespace.
 	*/
-	public function __constructor($namespace, $allowMultiple = false)
+	public function __construct($namespace, $allowMultiple = false)
 	{
 		if (!is_string($namespace) || trim($namespace) == "")
 			throw new Saros_Session_Exception("The session namespace must be a non-empty string, '".gettype($namespace)."' given.");
 
-		if (!$allowMultiple && isset($initNamespaces[$namespace]))
+		if (!$allowMultiple && isset(self::$initNamespaces[$namespace]) && self::$initNamespaces[$namespace] == true)
 			throw new Saros_Session_Exception("Only one instance of Saros_Session can be defined with the namespace '".$namespace."'");
 
 		$this->namespace = $namespace;
 
-		self::$initNamespaces[$this->namespace] = true;
 
-		self::start();
+		// We might be the first instance, create the _saros namespace
+
+		if (!isset($_SESSION['_saros']))
+			$_SESSION['_saros'] = array();
+
+		// This namespace hasn't been instantiated yet, do so
+		if (!isset(self::$initNamespaces[$this->namespace]))
+		{
+			 // make it a new array
+			$_SESSION['_saros'][$this->namespace] = array();
+			// and store it in a variable for easy access
+			$this->loc = $_SESSION['_saros'][$this->namespace];
+
+			// set it as initialized
+			self::$initNamespaces[$this->namespace] = true;
+		}
+
+
+		if (!self::$sessionStarted)
+			self::start();
 	}
 
 	/**
@@ -75,25 +95,26 @@ class Saros_Session implements ArrayAccess, Countable, IteratorAggregate
 	*/
 	public function __get($key)
 	{
-		if (!isset($_SESSION['_saros'][$namespace][$key]))
-			throw new Saros_Session_Exception("The key '".$key."' has not been defined for session namespace '".$namespace."'");
+		// $_SESSION['_saros'][$namespace][$key]
+		if (!isset($this->loc[$key]))
+			throw new Saros_Session_Exception("The key '".$key."' has not been defined for session namespace '".$this->namespace."'");
 
 		return $_SESSION['_saros'][$this->namespace][$key];
 	}
 
 	public function __set($key, $value)
 	{
-		$_SESSION['_saros'][$this->namespace][$key] = $value;
+		$this->loc[$key] = $value;
 	}
 
 	public function __isset($key)
 	{
-		return isset($_SESSION['_saros'][$this->namespace][$key]);
+		return isset($this->loc[$key]);
 	}
 
 	public function __unset($key)
 	{
-		unset($_SESSION['_saros'][$this->namespace][$key]);
+		unset($this->loc[$key]);
 	}
 
 	/*
@@ -121,7 +142,7 @@ class Saros_Session implements ArrayAccess, Countable, IteratorAggregate
 	*/
 	public function count()
 	{
-		return count($_SESSION['_saros'][$this->namespace]);
+		return count($this->loc);
 	}
 
 	/*
@@ -129,7 +150,7 @@ class Saros_Session implements ArrayAccess, Countable, IteratorAggregate
 	*/
 	public function getIterator()
 	{
-		return new ArrayIterator($_SESSION['_saros'][$this->namespace]);
+		return new ArrayIterator($this->loc);
 	}
 
 }

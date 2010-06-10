@@ -42,6 +42,8 @@ spl_autoload_register('autoload');
 require_once('Library/Saros/Core/AutoLoader.php');
 spl_autoload_register(array('Saros_Core_AutoLoader', 'autoload'));
 
+// I don't like calling this here. I'm not quite sure how to solve this
+Saros_Session::start();
 
 Tests_AllTests::main();
 

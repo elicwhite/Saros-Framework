@@ -38,7 +38,7 @@ class Saros_Auth_Storage_Session implements Saros_Auth_Storage_Interface
 
 	public function getIdentity()
 	{
-		return $this->session->key;
+		return $this->session->{$this->key};
 	}
 
 	public function hasIdentity()

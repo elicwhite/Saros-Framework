@@ -13,6 +13,7 @@
  */
 interface Saros_Auth_Adapter_Interface
 {
+
 	/**
 	* Authenticate a request
 	*

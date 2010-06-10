@@ -12,11 +12,15 @@
  */
 class Saros_Auth_Result
 {
-
+	// If the authentication was a success
 	const SUCCESS = 1;
+	// If the user with the given identity is unknown
 	const UNKNOWN_USER = 0;
-	const AMBIGUOUS_ID_FAILURE = -1;
+	// If there is more than one user with the given identity
+	const AMBIGUOUS_ID = -1;
+	// Any failure
 	const FAILURE = -2;
+	// Some failure for an unkown reason
 	const UNKNOWN_FAILURE = -3;
 
 	protected $resultCode;
