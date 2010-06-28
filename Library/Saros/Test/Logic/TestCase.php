@@ -1,8 +1,8 @@
 <?php
 /**
-* This file should be inherited when testing Logic files
+* This file should be inherited when testing controllers
 */
-abstract class Saros_Test_Logic_TestCase extends PHPUnit_Framework_TestCase
+abstract class Saros_Test_Controllers_TestCase extends PHPUnit_Framework_TestCase
 {
 	protected $object;
 	/**

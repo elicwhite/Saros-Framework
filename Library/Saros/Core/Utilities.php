@@ -17,7 +17,7 @@ class Saros_Core_Utilities
 	 * makeLink("index","view","4","bottom");
 	 * to possibly jump to the bottom of page 4 in the index
 	 *
-	 * @param string $controller Logic Controller
+	 * @param string $controller Controller
 	 * @param mixed	$arguments Set of arguments to use to make the links
 	 */
 	function makeLink($arguments)

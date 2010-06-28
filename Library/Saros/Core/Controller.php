@@ -1,6 +1,6 @@
 <?php
 /**
- * This is the base class for all logic pages
+ * This is the base class for all controllers
  *
  * @copyright Eli White & SaroSoftware 2010
  * @license http://www.gnu.org/licenses/gpl.html GNU GPL
@@ -10,7 +10,7 @@
  * @link http://sarosoftware.com
  * @link http://github.com/TheSavior/Saros-Framework
  */
-abstract Class Saros_Core_Logic
+abstract Class Saros_Core_Controller
 {
 	// Registry Instance
 	protected $registry;
@@ -31,9 +31,9 @@ abstract Class Saros_Core_Logic
 
 	/**
 	* This function is called right when the
-	* logic file is created. This can be used
+	* controller is created. This can be used
 	* to set up refrences and instances used throughout
-	* the logic file
+	* the controller
 	*
 	*/
 	protected function init()

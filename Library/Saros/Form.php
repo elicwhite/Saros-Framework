@@ -51,7 +51,7 @@ class Saros_Form
 		// Defaults
 		$this->setMethod(self::DATA_POST);
 		// Default action is the current controller and action
-		$action = array($GLOBALS['registry']->router->getLogic(), $GLOBALS['registry']->router->getAction());
+		$action = array($GLOBALS['registry']->router->getController(), $GLOBALS['registry']->router->getAction());
 		$this->setAction($action);
 	}
 

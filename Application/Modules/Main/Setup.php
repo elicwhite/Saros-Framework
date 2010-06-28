@@ -23,7 +23,7 @@
 class Application_Modules_Main_Setup
 {
 
-	public static $defaultLogic = "Index";
+	public static $defaultController = "Index";
 	public static $defaultAction = "index";
 
 	/**

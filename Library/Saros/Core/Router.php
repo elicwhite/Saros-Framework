@@ -17,7 +17,7 @@ class Saros_Core_Router
 
 	private $route = array(
 		"module"	=> "",
-		"logic"	=> "",
+		"controller"	=> "",
 		"action"	=> "",
 		"params"	=> array()
 		);
@@ -86,51 +86,51 @@ class Saros_Core_Router
 
 		$class = "Application_Modules_".$this->getModule()."_Setup";
 		//die($class);
-		if (!property_exists($class, "defaultLogic"))
-			throw new Saros_Core_Exception("The default logic file has not been defined in the module setup file.");
+		if (!property_exists($class, "defaultController"))
+			throw new Saros_Core_Exception("The default controller has not been defined in the module setup file.");
 
 		$props = get_class_vars($class);
 
-		// Set our logic to default module logic
-		$this->route["logic"] = $props["defaultLogic"];
+		// Set our controller to default
+		$this->route["controller"] = $props["defaultController"];
 
-		// Check if we have another url path (logic)
+		// Check if we have another url path (controller)
 		if (isset($parts[0]) )
 		{
 			/**
 			 * We are taking this value as the module,
 			 * remove it from the route array
 			 */
-			$logic = ucfirst(array_shift($parts));
-			$logicPath = $modFolderPath.$this->route["module"]."/Logic";
-			if (is_dir($logicPath))
+			$controller = ucfirst(array_shift($parts));
+			$controllerPath = $modFolderPath.$this->route["module"]."/Controllers";
+			if (is_dir($controllerPath))
 			{
 				/**
 				 * We have that directory, does not necessarily mean
-				 * it is a logic controller. Have to check it for a logic directory
+				 * it is a controller. Have to check it for a controllers directory
 				 */
-				if(file_exists($logicPath."/".$this->route["logic"].".php"))
+				if(file_exists($logicPath."/".$this->route["controller"].".php"))
 				{
-					$this->route["logic"] = $logic;
+					$this->route["controller"] = $controller;
 				}
 			}
 		}
 
 		/**
-		 * We now know for sure that module and logic is set correctly
+		 * We now know for sure that module and controller is set correctly
 		 *
 		 * All we have left to check is our action file
 		 */
 		if (!property_exists($class, "defaultAction"))
 			throw new Saros_Core_Exception("The default action has not been defined in the logic file.");
 
-		// Set our logic to default module logic
+		// Set our controller to default
 		$this->route["action"] = $props["defaultAction"]."Action";
 
 		if (!method_exists($this->getClassName(), $this->route["action"]))
-			throw new Saros_Core_Exception("The default action '".$this->route["action"]."' has not been implemented in the '".$this->route["logic"]."' logic file.");
+			throw new Saros_Core_Exception("The default action '".$this->route["action"]."' has not been implemented in the '".$this->route["controller"]."' controller.");
 
-		// Check if we have another url path (logic)
+		// Check if we have another url path (controller)
 		if (isset($parts[0]) )
 		{
 			// We don't uppercase this one, action names are camelCased
@@ -143,7 +143,7 @@ class Saros_Core_Router
 		}
 
 		/**
-		 * Module, Logic, Action is now correct
+		 * Module, Controller, Action is now correct
 		 * Split apart the rest of the parameters
 		 */
 		while(count($parts) > 0)
@@ -163,7 +163,7 @@ class Saros_Core_Router
 
 	private function getClassName()
 	{
-		return "Application_Modules_".ucfirst($this->getModule())."_Logic_".ucfirst($this->getLogic());
+		return "Application_Modules_".ucfirst($this->getModule())."_Controllers_".ucfirst($this->getController());
 	}
 
 	public function createInstance($registry)
@@ -176,7 +176,7 @@ class Saros_Core_Router
 	}
 
 	/**
-	* Load the actual logic file
+	* Load the actual controller
 	*/
 	public function run()
 	{
@@ -207,13 +207,13 @@ class Saros_Core_Router
 	{
 		return $this->route["module"];
 	}
-	public function getLogic()
+	public function getController()
 	{
-		return $this->route["logic"];
+		return $this->route["controller"];
 	}
-	public function setLogic($controller)
+	public function setController($controller)
 	{
-		$this->route["logic"] = $controller;
+		$this->route["controller"] = $controller;
 	}
 	public function getAction()
 	{

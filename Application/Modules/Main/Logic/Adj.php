@@ -1,5 +1,5 @@
 <?php
-class Application_Modules_Main_Logic_Adj extends Saros_Core_Logic
+class Application_Modules_Main_Controllers_Adj extends Saros_Core_Controller
 {
 	private $test;
 

@@ -109,16 +109,16 @@ class Saros_Display extends Saros_Core_Registry
 	public function content()
 	{
 		$module = $GLOBALS['registry']->router->getModule();
-		$logic = $GLOBALS['registry']->router->getLogic();
+		$logic = $GLOBALS['registry']->router->getController();
 		$action = $GLOBALS['registry']->router->getAction();
 
 		// $action will have Action at the end. We need to remove this to find it in the view location
 		$action = substr($action, 0, -6);
 
-		$viewLocation = ROOT_PATH.$this->themeLocation."Logic/".$module."/".$logic."/".$action.".php";
+		$viewLocation = ROOT_PATH.$this->themeLocation."Controllers/".$module."/".$logic."/".$action.".php";
 
 		if(!file_exists($viewLocation))
-			throw new Saros_Display_Exception("The view for module: '".$module."', Logic: '".$logic."', Action: '".$action."' does not exist at ".$viewLocation);
+			throw new Saros_Display_Exception("The view for module: '".$module."', Controller: '".$logic."', Action: '".$action."' does not exist at ".$viewLocation);
 
 		require_once($viewLocation);
 	}

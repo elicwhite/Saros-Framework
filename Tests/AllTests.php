@@ -29,7 +29,7 @@ class Tests_AllTests
 
         for ($it->rewind(); $it->valid(); $it->next())
         {
-            // Something like: Test\Application\Modules\Main\Logic\Index.php
+            // Something like: Test\Application\Modules\Main\Controllers\Index.php
             $path =  "Test\\".$it->getInnerIterator()->getSubPathname();
 
             // Replace all of the \ with _

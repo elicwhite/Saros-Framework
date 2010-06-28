@@ -11,7 +11,7 @@
  * @link http://github.com/TheSavior/Saros-Framework
  *
  */
-class Saros_Auth_Adapter_Spot implements Saros_Auth_Adapter_Interface
+class Saros_Auth_Adapter_Spot_Plain implements Saros_Auth_Adapter_Interface
 {
 	/**
 	* The Spot_Adapter that is being used for storage

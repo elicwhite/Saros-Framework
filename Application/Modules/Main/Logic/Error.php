@@ -1,5 +1,5 @@
 <?php
-class Application_Modules_Main_Logic_Error extends Saros_Core_Logic
+class Application_Modules_Main_Controllers_Error extends Saros_Core_Controller
 {
 	private $exception;
 	public function setError(Saros_Exception $exception)

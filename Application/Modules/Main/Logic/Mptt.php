@@ -1,5 +1,5 @@
 <?php
-class Application_Modules_Main_Logic_Mptt extends Saros_Core_Logic
+class Application_Modules_Main_Controllers_Mptt extends Saros_Core_Controller
 {
 	public function index()
 	{
