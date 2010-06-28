@@ -10,7 +10,7 @@
  * @link http://sarosoftware.com
  * @link http://github.com/TheSavior/Saros-Framework
  */
-abstract Class Saros_Core_Controller
+abstract Class Saros_Application_Controller
 {
 	// Registry Instance
 	protected $registry;
