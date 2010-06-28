@@ -16,7 +16,7 @@
  * @link http://github.com/TheSavior/Saros-Framework
  *
  */
-class Saros_Auth_Adapter_Spot_Plain extends Saros_Auth_Adapter_Spot
+class Saros_Auth_Adapter_Spot_Hash extends Saros_Auth_Adapter_Spot_Plain
 {
 
 	private $saltCol;

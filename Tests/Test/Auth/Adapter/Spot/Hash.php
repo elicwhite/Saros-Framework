@@ -10,7 +10,7 @@
  * @link http://sarosoftware.com
  * @link http://github.com/TheSavior/Saros-Framework
  */
-class Test_Auth_Adapter_Spot extends PHPUnit_Framework_TestCase
+class Test_Auth_Adapter_Spot_Hash extends PHPUnit_Framework_TestCase
 {
 	protected $backupGlobals = false;
 
@@ -38,8 +38,7 @@ class Test_Auth_Adapter_Spot extends PHPUnit_Framework_TestCase
 		$test->save($user);
 
 		$auth = Saros_Auth::getInstance();
-
-		$authAdapter = new Application_Classes_Auth_Adapter_Spot($test, "username", "password", "salt");
+		$authAdapter = new Saros_Auth_Adapter_Spot_Hash($test, "username", "password", "salt");
 
 		$auth->setAdapter($authAdapter);
 

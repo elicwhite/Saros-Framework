@@ -23,7 +23,11 @@ class Saros_Session implements ArrayAccess, Countable, IteratorAggregate
 	// A boolean flag of whether the session has already been started
 	protected static $sessionStarted;
 
-	protected $loc;
+	/**
+	* @todo fix this protected
+	*
+	*/
+	public $loc;
 
 	/**
 	* Create a new namespaced Session object
@@ -46,21 +50,26 @@ class Saros_Session implements ArrayAccess, Countable, IteratorAggregate
 
 
 		// We might be the first instance, create the _saros namespace
-
 		if (!isset($_SESSION['_saros']))
 			$_SESSION['_saros'] = array();
 
-		// This namespace hasn't been instantiated yet, do so
-		if (!isset(self::$initNamespaces[$this->namespace]))
+
+
+		// This namespace doesn't exist in the session. Create it
+		if (!isset($_SESSION['_saros'][$this->namespace]))
 		{
 			 // make it a new array
 			$_SESSION['_saros'][$this->namespace] = array();
-			// and store it in a variable for easy access
-			$this->loc = $_SESSION['_saros'][$this->namespace];
 
 			// set it as initialized
 			self::$initNamespaces[$this->namespace] = true;
 		}
+
+
+		// Store a reference to this location in a var
+		// for easy access
+		$this->loc =& $_SESSION['_saros'][$this->namespace];
+
 
 
 		if (!self::$sessionStarted)
@@ -99,7 +108,7 @@ class Saros_Session implements ArrayAccess, Countable, IteratorAggregate
 		if (!isset($this->loc[$key]))
 			throw new Saros_Session_Exception("The key '".$key."' has not been defined for session namespace '".$this->namespace."'");
 
-		return $_SESSION['_saros'][$this->namespace][$key];
+		return $this->loc[$key];
 	}
 
 	public function __set($key, $value)

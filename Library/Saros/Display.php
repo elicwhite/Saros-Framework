@@ -14,6 +14,8 @@
  */
 class Saros_Display extends Saros_Core_Registry
 {
+	protected static $instance = null;
+
 	protected $registry;
 
 	// The theme we are currently loading views from
@@ -28,25 +30,55 @@ class Saros_Display extends Saros_Core_Registry
 	// Whether we should show the view for the current page we are on
 	protected $showAction = true;
 
+	/**
+	* An array of initialized view helpers
+	* for the __call method
+	*
+	* @var array
+	*/
+	protected $viewHelpers = array();
+
+	/**
+	* An array of class names that are
+	* initialized view helpers
+	*
+	* @var mixed
+	*/
+	protected $registeredHelpers = array();
+
 	protected $headStyles;
 	protected $headScripts;
 
 
+
+	public static function getInstance($registry)
+	{
+		if (self::$instance == null)
+		{
+			self::$instance = new self($registry);
+		}
+
+		return self::$instance;
+	}
+
 	/**
-	 * Creates a template class from a template file
-	 *
-	 * @param String $templateFile	Path to a template file
-	 */
-	function __construct(Saros_Core_Registry $registry)
+	* We are using the singleton pattern, thus the constructor
+	* is private
+	*
+	* @param Saros_Core_Registry $registry
+	* @return Saros_Display
+	*/
+	private function __construct(Saros_Core_Registry $registry)
 	{
 		$this->registry = $registry;
+
+		$this->init();
 	}
 
 	public function init()
 	{
-		$this->headStyles = new Saros_Display_Helpers_HeadStyles($this);
-
-		$this->headScripts = new Saros_Display_Helpers_HeadScripts($this);
+		$this->registerHelper("headStyles", "Saros_Display_Helpers_HeadStyles");
+		$this->registerHelper("headScripts", "Saros_Display_Helpers_HeadScripts");
 	}
 
 	/**
@@ -85,7 +117,7 @@ class Saros_Display extends Saros_Core_Registry
 	public function parse($return = false)
 	{
 		// Include the view if we haven't turned off the view
-		if ($this->getShowView())
+		if ($this->show())
 		{
 			$layoutLocation = ROOT_PATH.$this->themeLocation."Layouts/".$this->layoutName.".php";
 			if (!file_exists($layoutLocation))
@@ -95,13 +127,17 @@ class Saros_Display extends Saros_Core_Registry
 		}
 	}
 
-	public function showView($var)
+	public function show($var = null)
 	{
-		$this->showAction = $var;
-	}
+		if (!is_null($var))
+		{
+			if (!is_bool($var))
+				throw new Saros_Display_Exception("Show() expects a boolean, '".gettype($var)."' given");
+			else
+				$this->showAction = $var;
 
-	public function getShowView()
-	{
+			return;
+		}
 		return $this->showAction;
 	}
 
@@ -123,12 +159,46 @@ class Saros_Display extends Saros_Core_Registry
 		require_once($viewLocation);
 	}
 
-	public function HeadStyles()
+	/**
+	* Register a view helper
+	*
+	* @param string $name The alias to use for the helper
+	* @param string $className The class name of the helper to register
+	* @throws Saros_Display_Exception if the the alias has already been registered
+	* @throws Saros_Display_Exception if the class name has already been registered
+	* @throws Saros_Display_Exception if $name or $className are not strings
+	*/
+	public function registerHelper($name, $className)
 	{
-		return $this->headStyles;
+		if (isset($this->viewHelpers[$name]))
+			throw new Saros_Display_Exception("The alias '".$name."' is already registered to '".get_class($this->viewHelpers[$name])."'");
+
+		if (in_array($className, $this->registeredHelpers))
+			throw new Saros_Display_Exception("The view helper '".$className."' has already been registered");
+
+		if (!is_string($name))
+			throw new Saros_Display_Exception("The alias must be a string, '".gettype($name)."' given");
+
+		if (!is_string($className))
+			throw new Saros_Display_Exception("The class name must be a string, '".gettype($name)."' given");
+
+		$helper = new $className($this);
+		$this->viewHelpers[$name] = $helper;
+
 	}
-	public function HeadScripts()
+
+	/**
+	* This attempts to run a view helper
+	*
+	* @param string $alias The alias of the viewhelper to find
+	* @param mixed $arguments This is not used
+	* @return Object the view helper with the alias of $alias
+	*/
+	public function __call($alias, $arguments)
 	{
-		return $this->headScripts;
+		if (isset($this->viewHelpers[$alias]))
+		{
+			return $this->viewHelpers[$alias];
+		}
 	}
 }

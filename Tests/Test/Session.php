@@ -28,8 +28,26 @@ class Test_Session extends PHPUnit_Framework_TestCase
 	*
 	* can't start twice
 	*/
+    public function testVarExists()
+    {
+		$sess1 = new Saros_Session("testSet");
+		$sess1->name = "foo";
 
-	/**
+		$this->assertSame("foo", $sess1->name);
+    }
+
+    public function testSameInTwoInstances()
+    {
+		$sess1 = new Saros_Session("testMultiple", true);
+		$sess1->name = "foo";
+
+		$sess2 = new Saros_Session("testMultiple", true);
+		$this->assertSame("foo", $sess2->name);
+
+		$this->assertSame("foo", $sess2['name']);
+    }
+
+    /**
      * @expectedException Saros_Session_Exception
      */
 	public function testSameNamespaceThrows()

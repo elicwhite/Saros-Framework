@@ -57,4 +57,32 @@ abstract Class Saros_Application_Controller
 
 		return null;
 	}
+
+	/**
+	* Redirect a request to another location
+	*
+	* @param string $location The location to redirect to
+	*/
+	public function redirect($location)
+	{
+		// Dummy vars
+		$file = "";
+		$line = 0;
+
+		if(!headers_sent($file, $line))
+		{
+			header("Location: ".$location);
+		}
+		else
+		{
+			?>
+			<script type="text/javascript">
+			window.location = <?php echo $location ?>
+			</script>
+			<?php
+		}
+
+		die();
+
+	}
 }

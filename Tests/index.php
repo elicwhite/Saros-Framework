@@ -13,7 +13,6 @@
  */
 
 error_reporting(E_ALL);
-
 // Require PHPUnit Files
 require_once 'PHPUnit/Framework.php';
 require_once 'PHPUnit/Framework/TestSuite.php';
@@ -21,6 +20,7 @@ require_once 'PHPUnit/TextUI/TestRunner.php';
 
 define("ROOT_PATH",  realpath(dirname(dirname(__FILE__)))."/");
 
+// This is needed to allow us to load fixtures
 function autoload($classname)
 {
     $parts = explode("_",$classname);

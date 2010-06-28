@@ -109,7 +109,7 @@ class Saros_Core_Router
 				 * We have that directory, does not necessarily mean
 				 * it is a controller. Have to check it for a controllers directory
 				 */
-				if(file_exists($logicPath."/".$this->route["controller"].".php"))
+				if(file_exists($controllerPath."/".$this->route["controller"].".php"))
 				{
 					$this->route["controller"] = $controller;
 				}
