@@ -113,8 +113,8 @@
   		$userPermissions = getUserPermissions($userId, $perm)
   		foreach($perm in $userPermissions)
   			// If the permission specifices the permission we are looking for with a deny, then the result is deny
-  			if (!$perm->$value)
-  				return false;
+  			if (isset($perm->$value))
+  				return $perm->$value;
 
   		// This is all of the results for all the paths to the roles the user is in
   		$results = array();
@@ -143,4 +143,73 @@
   		return $results[0];
 
 
+$acl = new Acl();
+$acl->populate($auth->getIdentity());
+
+function populate($identity) {
+	// This will contain all of the permissions the user has been specified
+	$permissions = array();
+
+	// assuming that $identity has an id column
+	$userPermissions = $db->query("SELECT * FROM UsersPermissions WHERE UserId = @0", $identity->id);
+
+	// Go through each user explicit permission
+	while($permission = $db->fetch_assoc($userPermissions)) {
+		// $permission["name"] could be something like "Article1"
+		// $permission["values"] could be something like ""View:true,NewTopic:true,Reply:true,EditSelf:true""
+
+		// These are all the access permissions with that permission name
+		$access = array();
+
+		$values = explode(",", $permission["values"]);
+		foreach($values as $value) {
+			$parts = explode(":", $value);
+			$access[$parts[0]] = (bool)$parts[1];
+		}
+
+		// Store that array of permissions in the overall array
+		$permission[$userPermissions->name] = $access;
+	}
+
+	// Get the permissions on the chains of roles the user is in
+	$roles = getUserRoles($userId);
+  	foreach($role in $roles) {
+		// This is the overall result for the heirarchy of the current role
+		// Something like
+		// [article1] =>
+		//				[view] => [true]
+		//				[edit] => [true]
+		//				[delete] => [true]
+		$roleAccess = array();
+		$parents = getHierarchy($role);
+  		foreach($parent in $parents) {
+  			// Foreach node closer to the role the user is in
+  			// get the permission
+  			//while($permission = getRolesPermissions($parent);
+  			$rolePermissions = $db->query("SELECT * FROM RolesPermissions WHERE roleId = @0", $parent);
+
+  			while($permission = $db->fetch_assoc($rolePermissions)) {
+  				$values = explode(",", $permission["values"]);
+				foreach($values as $value) {
+					$parts = explode(":", $value);
+					$permissionAccess[$parts[0]] = (bool)$parts[1];
+				}
+			}
+		}
+
+		// Right now if we get two different answers from different chains, then the result is not gaurenteed.
+		// Aka: Dont have ambiguous ACL trees
+
+		// We now need to merge $access and $roleAccess
+		foreach($roleAccess as $name => $values)
+		{
+			if (!isset($access[$name])) {
+
+			}
+		}
+
+
+  	}
+}
+// Can that load up all of the permissions for the user and all of their roles
 ?>
