@@ -75,6 +75,7 @@ abstract Class Saros_Application_Controller
 		}
 		else
 		{
+			ob_end_clean();
 			?>
 			<script type="text/javascript">
 			window.location = <?php echo $location ?>

@@ -17,7 +17,7 @@ interface Saros_Auth_Storage_Interface
 	* Get the identity from storage
 	*
 	* @throws Saros_Auth_Storage_Exception if the identity cannot be fetched
-	* @return mixed The resulting identity from storage
+	* @return Saros_Auth_Identity_Interface The resulting identity from storage
 	*/
 	public function getIdentity();
 

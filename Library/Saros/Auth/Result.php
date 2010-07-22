@@ -26,7 +26,7 @@ class Saros_Auth_Result
 	protected $resultCode;
 	protected $identity;
 
-	public function __construct($code, $identity)
+	public function __construct($code, Saros_Auth_Identity_Interface $identity)
 	{
 		if ($code <= self::UNKNOWN_FAILURE)
 			$code = self::FAILURE;

@@ -10,19 +10,37 @@
  * @link http://sarosoftware.com
  * @link http://github.com/TheSavior/Saros-Framework
  */
-
-session_start();
 // Lets turn on error reporting
 error_reporting(E_ALL|E_STRICT);
 
 define("ROOT_PATH",  realpath(dirname(__FILE__))."/");
 
+//die(get_include_path());
 // Autoload all of the classes that are not included
+
 require_once('Library/Saros/Core/AutoLoader.php');
 spl_autoload_register(array('Saros_Core_AutoLoader', 'autoload'));
 
+/**
+* This is an attempt to load files
+* relative to where this index file resides
+* it should be skipped if the Core_Autoloader works
+* but, is needed if this resides outside of library root
+*
+*/
+function autoload($classname)
+{
+	$filename = str_replace("_","/",$classname).".php";
+	if(file_exists($filename))
+	{
+		require_once($filename);
+	}
+}
+
+spl_autoload_register('autoload');
 // Expect that autoloader is working now
 set_exception_handler(array('Saros_Exception_Handler', 'handle'));
+
 
 /*
 Create an output buffer. This is being used
@@ -45,9 +63,7 @@ $registry->config  = new Saros_Core_Registry();
 // Load the router
 $registry->router = new Saros_Core_Router();
 
-$registry->display = new Saros_Display($registry);
-
-$registry->display->init();
+$registry->display = Saros_Display::getInstance($registry);
 
 // Get the current route
 $registry->router->parseRoute();

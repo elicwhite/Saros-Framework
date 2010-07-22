@@ -129,7 +129,9 @@ class Saros_Auth_Adapter_Spot_Plain implements Saros_Auth_Adapter_Interface
 
 		}
 
-		return new Saros_Auth_Result($status, $user);
+		$identity = new Saros_Auth_Identity_Spot($this->mapper, $user);
+
+		return new Saros_Auth_Result($status, $identity);
 	}
 
 	/**

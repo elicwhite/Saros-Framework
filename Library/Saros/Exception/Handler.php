@@ -19,5 +19,6 @@ class Saros_Exception_Handler
 		// We aren't going to display any output if there is an exception
 		ob_clean();
 		require_once("Display.php");
+
 	}
 }

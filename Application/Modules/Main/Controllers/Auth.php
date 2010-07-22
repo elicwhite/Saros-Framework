@@ -25,17 +25,27 @@ class Application_Modules_Main_Controllers_Auth extends Saros_Application_Contro
 
 	public function indexAction()
 	{
-		$this->view->showView(false);
+		$this->view->show(false);
 		//$this->test->migrate();
-
+		?>
+		<pre><?php
 		$this->auth->getAdapter()->setCredential("Eli", "whee");
 
 		$result = $this->auth->authenticate();
 
 		var_dump($this->auth->hasIdentity());
-		//$this->auth->clearIdentity();
-		//var_dump($result);
 
+		$acl = new Saros_Acl(new Saros_Acl_Adapter_Mock);
 
+		$acl->populate($this->auth->getIdentity());
+		$value = $acl->can("Article1", "Delete");
+		var_dump($value);
+
+		echo "\n\n\n";
+		var_dump($acl->getPermissions());
+		?>
+		</pre>
+		<?php
 	}
+
 }
