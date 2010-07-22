@@ -16,20 +16,31 @@ class Test_Auth_Adapter_Spot_Hash extends PHPUnit_Framework_TestCase
 
 	public function tearDown() {}
 
-
-	public function testUserCanLogIn()
-	{
-		$dbHost = "localhost";
+	public function setUp()
+    {
+    	$dbHost = "localhost";
 		$dbName = "test";
 		$dbUser = "root";
 		$dbPass = "";
 
 		$dbAdapter = new Spot_Adapter_Mysql($dbHost, $dbName, $dbUser, $dbPass);
 
-		$test = new Fixture_Auth_Mapper($dbAdapter);
+		$mapper = new Fixture_Auth_Mapper($dbAdapter);
 
-		$test->migrate();
-		$test->truncateDatasource();
+		$mapper->migrate();
+		$mapper->truncateDatasource();
+
+		$auth = Saros_Auth::getInstance();
+		$authAdapter = new Saros_Auth_Adapter_Spot_Hash($mapper, "username", "password", "salt");
+
+		$auth->setAdapter($authAdapter);
+
+    	$this->sharedFixture = array("Mapper" => $mapper, "Auth" => $auth);
+    }
+
+	public function testUserCanLogIn()
+	{
+		$test = $this->sharedFixture["Mapper"];
 
 		$user = $test->get();
 		$user->username = "Eli";
@@ -37,16 +48,33 @@ class Test_Auth_Adapter_Spot_Hash extends PHPUnit_Framework_TestCase
 		$user->password = sha1($user->salt."whee");
 		$test->save($user);
 
-		$auth = Saros_Auth::getInstance();
-		$authAdapter = new Saros_Auth_Adapter_Spot_Hash($test, "username", "password", "salt");
-
-		$auth->setAdapter($authAdapter);
+		$auth = $this->sharedFixture["Auth"];
 
 		$auth->getAdapter()->setCredential("Eli", "whee");
 
 		$auth->authenticate();
 
 		$this->assertTrue($auth->hasIdentity());
+	}
+
+	// Find a way to make this and the test before it share code
+	public function testInvalidUserCantLogIn()
+	{
+		$test = $this->sharedFixture["Mapper"];
+
+		$user = $test->get();
+		$user->username = "Eli";
+		$user->salt = "3aca";
+		$user->password = sha1($user->salt."true");
+		$test->save($user);
+
+		$auth = $this->sharedFixture["Auth"];
+
+		$auth->getAdapter()->setCredential("Eli", "false");
+
+		$auth->authenticate();
+
+		$this->assertFalse($auth->hasIdentity());
 	}
 
 }

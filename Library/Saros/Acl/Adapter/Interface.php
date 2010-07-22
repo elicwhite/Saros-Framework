@@ -20,7 +20,7 @@ interface Saros_Acl_Adapter_Interface
 	// Get the role identifier the user is in
 	public function getUserRoles();
 
-	// Get the heirarchy from root to node of $roleId
+	// Get the heirarchy from root to node of $roleId. This must include $roleId as the last element in the array
 	public function getHierarchy($roleId);
 
 	// Get the permissions defined for a role specified by the role identifer
