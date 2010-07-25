@@ -10,7 +10,7 @@
  * @link http://sarosoftware.com
  * @link http://github.com/TheSavior/Saros-Framework
  */
-class Test_Acl_UserOnly extends PHPUnit_Framework_TestCase
+class Test_Acl_UserAndSingleRole extends PHPUnit_Framework_TestCase
 {
 	protected $backupGlobals = false;
 
@@ -18,23 +18,34 @@ class Test_Acl_UserOnly extends PHPUnit_Framework_TestCase
 
 	public function setUp()
     {
-    	$acl = new Saros_Acl(new Fixture_Acl_Adapter_UserOnly());
+    	$acl = new Saros_Acl(new Fixture_Acl_Adapter_UserAndSingleRole());
     	$identity = new Fixture_Acl_Identity();
 		$perms = $acl->populate($identity->getIdentifier());
 
 		$this->sharedFixture = array("Perms" => $perms);
     }
 
-	public function testUserCantDeleteAdmin()
+	// user overriding role
+	public function testUserCantViewArticle1()
 	{
-		$value = $this->sharedFixture["Perms"]->can("Admin", "Delete");
+		$value = $this->sharedFixture["Perms"]->can("Article1", "View");
 		$this->assertFalse($value);
 	}
+
+	// role specific
+	public function testUserCanEditArticle1()
+	{
+		$value = $this->sharedFixture["Perms"]->can("Article1", "Edit");
+		$this->assertTrue($value);
+	}
+
+	// user specific
 	public function testUserCanViewAdmin()
 	{
 		$value = $this->sharedFixture["Perms"]->can("Admin", "View");
 		$this->assertTrue($value);
 	}
+
 	public function testUserCantDeleteElse()
 	{
 		$value = $this->sharedFixture["Perms"]->can("Other", "Delete");

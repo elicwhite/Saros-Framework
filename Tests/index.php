@@ -45,12 +45,15 @@ spl_autoload_register(array('Saros_Core_AutoLoader', 'autoload'));
 // I don't like calling this here. I'm not quite sure how to solve this
 Saros_Session::start();
 
-// Run the Saros Framework tests
-Tests_AllTests::main();
-
-echo "\n\n";
 // Include the spot tests
 require_once(ROOT_PATH."Library/Spot/tests/AllTests.php");
 Spot_Tests::main();
+echo "\n\n";
+
+// Run the Saros Framework tests
+Tests_AllTests::main();
+
+
+
 
 ?>

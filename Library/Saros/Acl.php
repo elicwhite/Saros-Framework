@@ -3,8 +3,6 @@ class Saros_Acl
 {
 	protected $adapter;
 
-	protected $permissions = null;
-
 	public function __construct(Saros_Acl_Adapter_Interface $adapter)
 	{
 		$this->adapter = $adapter;
@@ -17,31 +15,20 @@ class Saros_Acl
 	*/
 	public function populate($identifier)
 	{
+		$rolesPermissions = $this->getUserRolesPermissions($identifier);
+
+		$permissions = new Saros_Acl_Permission_Set($rolesPermissions);
+
 		// This will contain all of the permissions the user has been specified
 		$userPermissions = $this->getUserPermissions($identifier);
 
-		$rolesPermissions = $this->getUserRolesPermissions($identifier);
+		$permissions->merge($userPermissions);
 
 		// Right now if we get two different answers from different chains, then the result is not gaurenteed.
 		// Aka: Dont have ambiguous ACL trees
-		$this->permissions = $this->mergePermissions($rolesPermissions, $userPermissions);
-	}
+		//$this->permissions = $this->mergePermissions($rolesPermissions, $userPermissions);
 
-	public function getPermissions()
-	{
-		return $this->permissions;
-	}
-
-	public function can($name, $value)
-	{
-		// An empty array is == to null
-		if ($this->permissions === null)
-			throw new Saros_Acl_Exception("The ACL was not populated");
-
-		if (isset($this->permissions[$name][$value]))
-			return $this->permissions[$name][$value];
-		else
-			return false;
+		return $permissions;
 	}
 
 	protected function getUserPermissions($identifier)
@@ -63,7 +50,7 @@ class Saros_Acl
 	protected function getUserRolesPermissions($identifier)
 	{
 		// These are all of the permissions specified to the user by roles
-		$rolesPermissions = array();
+		$rolesPermissions = new Saros_Acl_Permission_Set();
 
 		// Get the permissions on the chains of roles the user is in
 		$roles = $this->adapter->getUserRoles($identifier);
@@ -77,7 +64,7 @@ class Saros_Acl
 			//				[view] => [true]
 			//				[edit] => [true]
 			//				[delete] => [true]
-			$rolesAccess = array();
+			$rolesAccess = new Saros_Acl_Permission_Set();
 
 			// get an array of roles that leads to to $role
 			$parents = $this->adapter->getHierarchy($role);
@@ -90,32 +77,12 @@ class Saros_Acl
   				$rolePermissions = $this->adapter->getRolePermissions($parent);
 
   				// And merge those permissions into the permissions for this chain
-  				$rolesAccess = $this->mergePermissions($rolesAccess, $rolePermissions);
+  				$rolesAccess->merge($rolePermissions);
 			}
 			// Merge the permissions for this chain into the permissions for the overall roles
-			$rolesPermissions = $this->mergePermissions($rolesPermissions, $rolesAccess);
+			$rolesPermissions->merge($rolesAccess);
 		}
 
 		return $rolesPermissions;
-	}
-
-	// This merges two arrays of permissions. Every value in $overriding will over ride a permission
-	// value that is defined in $total
-	protected function mergePermissions($total, $overriding)
-	{
-		foreach($overriding as $name=>$values)
-		{
-			// If this key hasn't been initialized, then do it
-			if (!isset($total[$name]))
-			{
-				$total[$name] = array();
-			}
-			foreach($values as $key=>$value)
-			{
-				$total[$name][$key] = $value;
-			}
-		}
-		// @ToDo: Does modifying arrays do it in place by default?
-		return $total;
 	}
 }
