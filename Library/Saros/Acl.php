@@ -10,11 +10,13 @@ class Saros_Acl
 		$this->adapter = $adapter;
 	}
 
-	public function populate(Saros_Auth_Identity_Interface $identity)
+	/**
+	* Populate the acl tree for a user
+	*
+	* @param mixed $identitifier The unique identifier for the user
+	*/
+	public function populate($identifier)
 	{
-		// This is the unique identifier for the identity that we will be passing around
-		$identifier = $identity->getIdentifier();
-
 		// This will contain all of the permissions the user has been specified
 		$userPermissions = $this->getUserPermissions($identifier);
 

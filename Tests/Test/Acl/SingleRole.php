@@ -20,7 +20,7 @@ class Test_Acl_SingleRole extends PHPUnit_Framework_TestCase
     {
     	$acl = new Saros_Acl(new Fixture_Acl_Adapter_SingleRole());
     	$identity = new Fixture_Acl_Identity();
-		$acl->populate($identity);
+		$acl->populate($identity->getIdentifier());
 
 		$this->sharedFixture = array("Acl" => $acl);
     }
