@@ -18,31 +18,30 @@ class Test_Auth_Adapter_Spot_Hash extends PHPUnit_Framework_TestCase
 
 	public function setUp()
     {
-    	$dbHost = "localhost";
-		$dbName = "test";
-		$dbUser = "root";
-		$dbPass = "";
+    	$cfg = new Spot_Config();
+		$adapter = $cfg->addConnection('test_mysql', 'mysql://test:password@localhost/test');
 
-		$dbAdapter = new Spot_Adapter_Mysql($dbHost, $dbName, $dbUser, $dbPass);
+		$entity = "Fixture_Auth_UserEntity";
 
-		$mapper = new Fixture_Auth_Mapper($dbAdapter);
-
-		$mapper->migrate();
-		$mapper->truncateDatasource();
+		$mapper = new Spot_Mapper($cfg);
+		$mapper->migrate($entity);
+		$mapper->truncateDatasource($entity);
 
 		$auth = Saros_Auth::getInstance();
-		$authAdapter = new Saros_Auth_Adapter_Spot_Hash($mapper, "username", "password", "salt");
+		$authAdapter = new Saros_Auth_Adapter_Spot_Hash($mapper, $entity, "username", "password", "salt");
 
 		$auth->setAdapter($authAdapter);
 
-    	$this->sharedFixture = array("Mapper" => $mapper, "Auth" => $auth);
+    	$this->sharedFixture = array("Mapper" => $mapper, "EntityName" => $entity, "Auth" => $auth);
+
+
     }
 
 	public function testUserCanLogIn()
 	{
 		$test = $this->sharedFixture["Mapper"];
 
-		$user = $test->get();
+		$user = $test->get($this->sharedFixture["EntityName"]);
 		$user->username = "Eli";
 		$user->salt = "3aca";
 		$user->password = sha1($user->salt."whee");
@@ -62,7 +61,7 @@ class Test_Auth_Adapter_Spot_Hash extends PHPUnit_Framework_TestCase
 	{
 		$test = $this->sharedFixture["Mapper"];
 
-		$user = $test->get();
+		$user = $test->get($this->sharedFixture["EntityName"]);
 		$user->username = "Eli";
 		$user->salt = "3aca";
 		$user->password = sha1($user->salt."true");
@@ -76,7 +75,4 @@ class Test_Auth_Adapter_Spot_Hash extends PHPUnit_Framework_TestCase
 
 		$this->assertFalse($auth->hasIdentity());
 	}
-
 }
-
-

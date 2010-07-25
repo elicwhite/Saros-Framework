@@ -21,12 +21,19 @@ class Saros_Auth_Adapter_Spot_Plain implements Saros_Auth_Adapter_Interface
 	protected $adapter;
 
 	/**
-	* The Spot_Mapper that is the data_source for the auth
-	* information
+	* The mapper to run the finders on
 	*
 	* @var Spot_Mapper
 	*/
 	protected $mapper;
+
+	/**
+	* The name of the entity that is being used for authentication
+	* information
+	*
+	* @var string
+	*/
+	protected $entityName;
 
 	/**
 	* The name of the column that contains the username field
@@ -53,7 +60,7 @@ class Saros_Auth_Adapter_Spot_Plain implements Saros_Auth_Adapter_Interface
 	/**
 	* Create a new Spot Auth adapter
 	*
-	* @param Spot_Mapper_Abstract $mapper the Mapper to authenticate against
+	* @param string $entityName The name of the entity type to use
 	* @param string $identifierCol The column to use as the identity (username)
 	* @param string $credentialCol The column that contains a credential (password)
 	*
@@ -62,14 +69,15 @@ class Saros_Auth_Adapter_Spot_Plain implements Saros_Auth_Adapter_Interface
 	*
 	* @return Saros_Auth_Adapter_Spot
 	*/
-	public function __construct(Spot_Mapper_Abstract $mapper, $identifierCol, $credentialCol)
+	public function __construct($mapper, $entityName, $identifierCol, $credentialCol)
 	{
 		$this->mapper = $mapper;
+		$this->entityName = $entityName;
 
-		if (!$mapper->fieldExists($identifierCol))
+		if (!$mapper->fieldExists($entityName, $identifierCol))
 			throw new Saros_Auth_Exception("Identifier column of '".$identifierCol."' is not defined in mapper.");
 
-		if (!$mapper->fieldExists($credentialCol))
+		if (!$mapper->fieldExists($entityName, $credentialCol))
 			throw new Saros_Auth_Exception("Credential column of '".$credentialCol."' is not defined in mapper.");
 
 		$this->identifierCol = $identifierCol;
@@ -105,9 +113,9 @@ class Saros_Auth_Adapter_Spot_Plain implements Saros_Auth_Adapter_Interface
 			throw new Saros_Auth_Exception("You must call setCredential before you can authenticate");
 
 		// Get all the users with the identifier of $this->identifier.
-		$user = $this->mapper->all(array(
-							$this->identifierCol => $this->identifier
-							))->execute();
+		$user = $this->mapper->all($this->entityName, array(
+													$this->identifierCol => $this->identifier
+													))->execute();
 
 		/**
 		* @todo figure out which we need.

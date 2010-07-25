@@ -6,7 +6,7 @@
  * @link http://spot.os.ly
  * @link http://github.com/actridge/Spot
  */
-class Fixture_Auth_Mapper extends Spot_Mapper_Abstract
+class Fixture_Auth_UserEntity extends Spot_Entity_Abstract
 {
 		// table name
 	protected $_datasource = "saros_users";

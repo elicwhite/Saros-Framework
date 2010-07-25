@@ -33,12 +33,10 @@ class Application_Setup
 		$registry->config->siteUrl = "http://dev.powerwd.net/saros/";
 		$registry->config->rewriting = true;
 
-		$registry->config->dbHost = "localhost";
-		$registry->config->dbName = "test";
-		$registry->config->dbUser = "root";
-		$registry->config->dbPass = "";
+		$cfg = new Spot_Config();
+		$adapter = $cfg->addConnection('mysql', 'mysql://test:password@localhost/test');
 
-		$registry->dbAdapter = new Spot_Adapter_Mysql($registry->config["dbHost"], $registry->config["dbName"], $registry->config["dbUser"], $registry->config["dbPass"]);
+		$registry->dbAdapter = $adapter; // new Spot_Adapter_Mysql($registry->config["dbHost"], $registry->config["dbName"], $registry->config["dbUser"], $registry->config["dbPass"]);
 
 		// Set the default theme
 		$registry->display->setTheme("Default");

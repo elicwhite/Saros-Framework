@@ -15,7 +15,7 @@ class Saros_Auth_Identity_Spot implements Saros_Auth_Identity_Interface
 	private $mapper;
 	private $user;
 
-	public function __construct(Spot_Mapper_Abstract $mapper, Spot_Entity $user)
+	public function __construct(Spot_Mapper $mapper, Spot_Entity_Abstract $user)
 	{
 		$this->mapper = $mapper;
 		$this->user = $user;

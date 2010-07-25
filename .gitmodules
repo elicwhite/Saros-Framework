@@ -1,0 +1,3 @@
+[submodule "Library/Spot"]
+	path = Library/Spot
+	url = git@github.com:actridge/Spot.git

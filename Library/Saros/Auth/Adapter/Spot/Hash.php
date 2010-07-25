@@ -29,17 +29,17 @@ class Saros_Auth_Adapter_Spot_Hash extends Saros_Auth_Adapter_Spot_Plain
 	* @param mixed $saltCol
 	* @return Application_Classes_Auth_Adapter_Spot
 	*/
-	public function __construct(Spot_Mapper_Abstract $mapper, $identifierCol, $credentialCol, $saltCol)
+	public function __construct(Spot_Mapper $mapper, $entityName, $identifierCol, $credentialCol, $saltCol)
 	{
-		parent::__construct($mapper, $identifierCol, $credentialCol);
+		parent::__construct($mapper, $entityName, $identifierCol, $credentialCol);
 
-		if (!$mapper->fieldExists($saltCol))
-			throw new Saros_Auth_Exception("Salt column of '".$saltCol."' is not defined in mapper.");
+		if (!$mapper->fieldExists($entityName, $saltCol))
+			throw new Saros_Auth_Exception("Salt column of '".$saltCol."' is not defined in entity.");
 
 		$this->saltCol = $saltCol;
 	}
 
-	public function validateUser(Spot_Entity $user)
+	public function validateUser(Spot_Entity_Abstract $user)
 	{
 		$salt = $user->{$this->saltCol};
 
