@@ -1,5 +1,5 @@
 <?php
-class Fixture_Acl_Adapter_UserAndSingleRole implements Saros_Acl_Adapter_Interface
+class Fixture_Acl_Adapter_UserAndSingleRole implements Saros_Acl_RoleManager_Interface
 {
 	public function getUserPermissions()
 	{
@@ -14,7 +14,7 @@ class Fixture_Acl_Adapter_UserAndSingleRole implements Saros_Acl_Adapter_Interfa
 
 		return $result;
 	}
-	public function getUserRoles()
+	public function getUsersRoles()
 	{
 		return array(1);
 	}
@@ -37,4 +37,10 @@ class Fixture_Acl_Adapter_UserAndSingleRole implements Saros_Acl_Adapter_Interfa
 
 		return array();
 	}
+
+
+	public function addRole($roleName) {}
+	public function addRoleToRole($roleName, $newParent) {}
+	public function addUserToRole($user, $roleName) {}
+	public function deleteRole($roleName) {}
 }

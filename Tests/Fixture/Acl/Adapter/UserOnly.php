@@ -1,7 +1,7 @@
 <?php
 // Mock Acl adapter class that contains only permissions directly on the user
 // Aka, the user is in no roles, but has one permission directly on them
-class Fixture_Acl_Adapter_UserOnly implements Saros_Acl_Adapter_Interface
+class Fixture_Acl_Adapter_UserOnly implements Saros_Acl_RoleManager_Interface
 {
 	public function getUserPermissions()
 	{
@@ -12,7 +12,7 @@ class Fixture_Acl_Adapter_UserOnly implements Saros_Acl_Adapter_Interface
 
 		return $result;
 	}
-	public function getUserRoles()
+	public function getUsersRoles()
 	{
 		return array();
 	}
@@ -24,4 +24,9 @@ class Fixture_Acl_Adapter_UserOnly implements Saros_Acl_Adapter_Interface
 	{
 		return array();
 	}
+
+	public function addRole($roleName) {}
+	public function addRoleToRole($roleName, $newParent) {}
+	public function addUserToRole($user, $roleName) {}
+	public function deleteRole($roleName) {}
 }

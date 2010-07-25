@@ -1,6 +1,6 @@
 <?php
 /**
- * This is the common interface that all acl adapters must implement
+ * This is the common interface that all rolemanagers must implement
  *
  * @copyright Eli White & SaroSoftware 2010
  * @license http://www.gnu.org/licenses/gpl.html GNU GPL
@@ -11,19 +11,27 @@
  * @link http://github.com/TheSavior/Saros-Framework
  *
  */
-interface Saros_Acl_Adapter_Interface
+interface Saros_Acl_RoleManager_Interface
 {
+	// Add a role
+	public function addRole($roleName);
+	public function addRoleToRole($roleName, $newParent);
+	public function addUserToRole($user, $roleName);
+
+	public function deleteRole($roleName);
+
+	// Get the role names that the user is in
+	public function getUsersRoles();
+
+	// get the permissions defined for the role specified by $roleName
+	public function getRolePermissions($roleName);
 
 	// get the permissions defined explicitly for that user
 	public function getUserPermissions();
 
-	// Get the role identifier the user is in
-	public function getUserRoles();
-
 	// Get the heirarchy from root to node of $roleId. This must include $roleId as the last element in the array
 	public function getHierarchy($roleId);
 
-	// Get the permissions defined for a role specified by the role identifer
-	public function getRolePermissions($roleId);
+
 
 }

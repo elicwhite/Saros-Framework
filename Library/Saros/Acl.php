@@ -3,7 +3,7 @@ class Saros_Acl
 {
 	protected $adapter;
 
-	public function __construct(Saros_Acl_Adapter_Interface $adapter)
+	public function __construct(Saros_Acl_RoleManager_Interface $adapter)
 	{
 		$this->adapter = $adapter;
 	}
@@ -17,7 +17,7 @@ class Saros_Acl
 	{
 		$rolesPermissions = $this->getUserRolesPermissions($identifier);
 
-		$permissions = new Saros_Acl_Permission_Set($rolesPermissions);
+		$permissions = new Saros_Acl_PermissionSet($rolesPermissions);
 
 		// This will contain all of the permissions the user has been specified
 		$userPermissions = $this->getUserPermissions($identifier);
@@ -33,27 +33,16 @@ class Saros_Acl
 
 	protected function getUserPermissions($identifier)
 	{
-		// This will contain all of the permissions the user has been specified
-		$userPermissions = array();
-
-		$permissions = $this->adapter->getUserPermissions($identifier);
-
-		// Go through each user explicit permission
-		foreach($permissions as $permissionName => $values) {
-
-			$userPermissions[$permissionName] = $values;
-		}
-
-		return $userPermissions;
+		return new Saros_Acl_PermissionSet($this->adapter->getUserPermissions($identifier));
 	}
 
 	protected function getUserRolesPermissions($identifier)
 	{
 		// These are all of the permissions specified to the user by roles
-		$rolesPermissions = new Saros_Acl_Permission_Set();
+		$rolesPermissions = new Saros_Acl_PermissionSet();
 
 		// Get the permissions on the chains of roles the user is in
-		$roles = $this->adapter->getUserRoles($identifier);
+		$roles = $this->adapter->getUsersRoles($identifier);
 
 		// Go through each role the user is in
 		foreach($roles as $role)
@@ -64,7 +53,7 @@ class Saros_Acl
 			//				[view] => [true]
 			//				[edit] => [true]
 			//				[delete] => [true]
-			$rolesAccess = new Saros_Acl_Permission_Set();
+			$rolesAccess = new Saros_Acl_PermissionSet();
 
 			// get an array of roles that leads to to $role
 			$parents = $this->adapter->getHierarchy($role);

@@ -20,7 +20,7 @@ class Test_Acl_Permission_Set extends PHPUnit_Framework_TestCase
 
 	public function setUp()
     {
-    	$this->p = new Saros_Acl_Permission_Set();
+    	$this->p = new Saros_Acl_PermissionSet();
     }
 
     // user can view site inherited

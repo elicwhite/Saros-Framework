@@ -10,7 +10,7 @@
  * @link http://sarosoftware.com
  * @link http://github.com/TheSavior/Saros-Framework
  */
-class Saros_Acl_Permission_Set
+class Saros_Acl_PermissionSet
 {
 	protected $permissions = null;
 
