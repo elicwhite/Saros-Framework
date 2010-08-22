@@ -9,7 +9,7 @@ class Fixture_Acl_Adapter_InheritedRole implements Saros_Acl_RoleManager_Interfa
 	{
 		return array(1);
 	}
-	public function getHierarchy($roleId)
+	public function getRolePath($roleId)
 	{
 		return array(2,1);
 	}

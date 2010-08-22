@@ -74,4 +74,5 @@ class Saros_Acl
 
 		return $rolesPermissions;
 	}
+
 }

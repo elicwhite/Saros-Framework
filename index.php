@@ -15,7 +15,6 @@ error_reporting(E_ALL|E_STRICT);
 
 define("ROOT_PATH",  realpath(dirname(__FILE__))."/");
 
-//die(get_include_path());
 // Autoload all of the classes that are not included
 
 require_once('Library/Saros/Core/AutoLoader.php');
