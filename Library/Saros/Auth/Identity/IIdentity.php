@@ -1,4 +1,5 @@
 <?php
+namespace Saros\Auth\Identity;
 /**
  * This is the interface all Identity adapters must implement
  *
@@ -11,7 +12,7 @@
  * @link http://github.com/TheSavior/Saros-Framework
  *
  */
-interface Saros_Auth_Identity_Interface
+interface IIdentity
 {
 	/**
 	* Get the unique identifier for the identity

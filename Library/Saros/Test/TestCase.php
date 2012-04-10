@@ -1,5 +1,7 @@
 <?php
-class Saros_Test_TestCase extends PHPUnit_Framework_TestCase
+namespace Saros\Test;
+
+class TestCase extends PHPUnit_Framework_TestCase
 {
 	protected $object;
 	/**

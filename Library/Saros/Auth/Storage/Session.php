@@ -1,4 +1,6 @@
 <?php
+namespace Saros\Auth\Storage;
+
 /**
  * This is the Auth storage adapter for Sessions
  *
@@ -11,9 +13,9 @@
  * @link http://github.com/TheSavior/Saros-Framework
  *
  */
-class Saros_Auth_Storage_Session implements Saros_Auth_Storage_Interface
+class Session implements IStorage
 {
-	const NAME = 'Saros_Auth';
+	const NAME = '\Saros\Auth';
 
 	const KEY = "identity";
 
@@ -33,7 +35,7 @@ class Saros_Auth_Storage_Session implements Saros_Auth_Storage_Interface
 		$this->namespace = $namespace;
 		$this->key = $key;
 
-		$this->session = new Saros_Session($namespace);
+		$this->session = new \Saros\Session($namespace);
 	}
 
 	public function getIdentity()

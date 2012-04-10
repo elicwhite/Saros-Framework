@@ -1,4 +1,6 @@
 <?php
+namespace Saros\Form\Element;
+
 /**
  * A Recaptcha Form Element
  *
@@ -10,7 +12,7 @@
  * @link http://sarosoftware.com
  * @link http://github.com/TheSavior/Saros-Framework
  */
-class Saros_Form_Element_ReCaptcha extends Saros_Form_Element
+class ReCaptcha extends \Saros\Form\Element
 {
 	// Recaptcha object
 	protected $captcha;
@@ -22,7 +24,7 @@ class Saros_Form_Element_ReCaptcha extends Saros_Form_Element
 
 	public function __construct()
 	{
-		$this->recaptcha = new Saros_Captcha_ReCaptcha();
+		$this->recaptcha = new \Saros\Captcha\ReCaptcha();
 		$this->name = "recaptcha_response_field";
 	}
 

@@ -18,7 +18,7 @@ define("ROOT_PATH",  realpath(dirname(__FILE__))."/");
 // Autoload all of the classes that are not included
 
 require_once('Library/Saros/Core/AutoLoader.php');
-spl_autoload_register(array('Saros_Core_AutoLoader', 'autoload'));
+spl_autoload_register(array('Saros\Core\AutoLoader', 'autoload'));
 
 /**
 * This is an attempt to load files
@@ -26,9 +26,10 @@ spl_autoload_register(array('Saros_Core_AutoLoader', 'autoload'));
 * it should be skipped if the Core_Autoloader works
 * but, is needed if this resides outside of library root
 *
+* TODO: Change this to use namespaces
 */
 function autoload($classname)
-{
+{                  
 	$filename = str_replace("_","/",$classname).".php";
 	if(file_exists($filename))
 	{
@@ -38,7 +39,7 @@ function autoload($classname)
 
 spl_autoload_register('autoload');
 // Expect that autoloader is working now
-set_exception_handler(array('Saros_Exception_Handler', 'handle'));
+set_exception_handler(array('Saros\Exception\Handler', 'handle'));
 
 
 /*
@@ -51,25 +52,28 @@ message.
 ob_start();
 
 // Create a new registry of variables
-$registry = new Saros_Core_Registry();
+$registry = new \Saros\Core\Registry();
 
 // Load up the core set of utilities
-$registry->utils = new Saros_Core_Utilities();
+$registry->utils = new \Saros\Core\Utilities();
 
 // Create a new registry object to be used for configuration
-$registry->config  = new Saros_Core_Registry();
+$registry->config  = new \Saros\Core\Registry();
 
 // Load the router
-$registry->router = new Saros_Core_Router();
+$registry->router = new \Saros\Core\Router();
 
-$registry->display = Saros_Display::getInstance($registry);
+$registry->display = \Saros\Display::getInstance($registry);
 
 // Get the current route
 $registry->router->parseRoute();
 
 // We want to setup our application
-Application_Setup::setup($registry);
+\Application\Setup::doSetup($registry);
 
+// Calls the module's setup file
+$registry->router->setupModule();
+       
 // Creates an instance of the class that will be
 // Called to generate our page
 $registry->router->createInstance($registry);
@@ -79,9 +83,9 @@ $registry->router->createInstance($registry);
  * at any time before the class is run
  */
 $registry->router->getInstance()->setView($registry->display);
-
+       
 // Run the controller
 $registry->router->run();
-
+            
 // Display our page
 $registry->display->parse();

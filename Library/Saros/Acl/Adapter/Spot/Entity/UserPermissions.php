@@ -1,5 +1,7 @@
 <?php
-class Saros_Acl_Adapter_Spot_Entity_UserPermissions extends Spot_Entity_Abstract
+namespace Saros\Acl\Adapter\Spot\Entity; 
+
+class UserPermissions extends \Spot\Entity
 {
 	// table name
 	protected $_datasource = "saros_UserPermissions";

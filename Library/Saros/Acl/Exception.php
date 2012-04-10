@@ -1,4 +1,5 @@
 <?php
+namespace Saros\Acl;
 /**
  * Acl Exception
  *
@@ -10,7 +11,7 @@
  * @link http://sarosoftware.com
  * @link http://github.com/TheSavior/Saros-Framework
  */
-class Saros_Acl_Exception extends Saros_Exception
+class Exception extends Saros\Exception
 {
 
 }

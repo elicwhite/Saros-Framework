@@ -1,4 +1,6 @@
 <?php
+namespace Saros\Captcha;
+
 /**
  * This class creates a recaptcha interface
  *
@@ -10,7 +12,7 @@
  * @link http://sarosoftware.com
  * @link http://github.com/TheSavior/Saros-Framework
  */
-class Saros_Captcha_ReCaptcha
+class ReCaptcha
 {
 	private $publicKey;
 	private $privateKey;
@@ -142,7 +144,7 @@ class Saros_Captcha_ReCaptcha
 
 		//discard spam submissions
 		if ($challenge == null || strlen($challenge) == 0 || $response == null || strlen($response) == 0) {
-			$recaptcha_response = new Saros_Captcha_ReCaptchaResponse();
+			$recaptcha_response = new ReCaptchaResponse();
 			$recaptcha_response->is_valid = false;
 			$recaptcha_response->error = 'incorrect-captcha-sol';
 			return $recaptcha_response;
@@ -160,7 +162,7 @@ class Saros_Captcha_ReCaptcha
 		);
 
 		$answers = explode ("\n", $response[1]);
-		$recaptchaResponse = new Saros_Captcha_ReCaptchaResponse();
+		$recaptchaResponse = new ReCaptchaResponse();
 
 		if (trim ($answers [0]) == 'true') {
 			$recaptchaResponse->isValid = true;

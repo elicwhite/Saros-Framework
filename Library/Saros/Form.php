@@ -1,4 +1,6 @@
 <?php
+namespace Saros;
+
 /**
  * Form class, creates and validates forms
  *
@@ -16,7 +18,7 @@
  * @link http://sarosoftware.com
  * @link http://github.com/TheSavior/Saros-Framework
  */
-class Saros_Form
+class Form
 {
 	const DATA_GET = "get";
 	const DATA_POST = "post";
@@ -97,7 +99,7 @@ class Saros_Form
 	public function getMethod()
 	{
 		if (!isset($this->method))
-			return Saros_Form::DATA_POST;
+			return Form::DATA_POST;
 
 		return $this->method;
 	}
@@ -113,7 +115,7 @@ class Saros_Form
 	public function addElement($type, $name)
 	{
 		// Prepend "Form_Element_" to type so we can get the right class
-		$class = "Saros_Form_Element_".ucfirst($type);
+		$class = "Form\\Element\\".ucfirst($type);
 		$object = new $class;
 
 		// Set the element's name
@@ -141,7 +143,7 @@ class Saros_Form
 	 */
 	public function addSubmit($value)
 	{
-		$this->submit = new Saros_Form_Element_Submit();
+		$this->submit = new Form\Element\Submit();
 
 		$this->submit->setText($value);
 	}
@@ -229,7 +231,7 @@ class Saros_Form
 		$className = get_class($this);
 
 		// We only want the last string after the underscore
-		$formName = array_pop(explode("_", $className));
+		$formName = array_pop(explode("\\", $className));
 
 		// Where we expect a template to be
 		$pathName = ROOT_PATH.'Application/Views/Forms/'.$formName.'.php';

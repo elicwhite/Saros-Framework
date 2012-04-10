@@ -1,4 +1,6 @@
 <?php
+namespace Saros;
+
 /**
  *
  * @copyright Eli White & SaroSoftware 2010
@@ -9,12 +11,12 @@
  * @link http://sarosoftware.com
  * @link http://github.com/TheSavior/Saros-Framework
  */
-class Saros_Exception extends Exception
+class Exception extends \Exception
 {
 	protected $previous;
 
 	// Redefine the exception so message isn't optional
-    public function __construct($message, $code = 0, Saros_Exception $previous = null)
+    public function __construct($message, $code = 0, Exception $previous = null)
     {
     	if ($previous)
         	$this->previous = $previous;

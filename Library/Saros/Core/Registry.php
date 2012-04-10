@@ -1,4 +1,6 @@
 <?php
+namespace Saros\Core;
+
 /**
  * This is the registry class. It stores all important links and classes
  *
@@ -10,7 +12,7 @@
  * @link http://sarosoftware.com
  * @link http://github.com/TheSavior/Saros-Framework
  */
-class Saros_Core_Registry implements ArrayAccess, Iterator
+class Registry implements \ArrayAccess, \Iterator
 {
 	// The variable array we will use
 	private $vars;
@@ -27,7 +29,7 @@ class Saros_Core_Registry implements ArrayAccess, Iterator
 	{
 		if (!isset($this->vars[$index]))
 		{
-			throw new Saros_Core_Exception("The key '".$index."' is not defined in ".get_class($this));
+			throw new \Saros\Core\Exception("The key '".$index."' is not defined in ".get_class($this));
 		}
 		return $this->vars[$index];
 	}

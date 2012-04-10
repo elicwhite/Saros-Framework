@@ -1,4 +1,6 @@
 <?php
+namespace Application\Modules\Main;
+
 /**
  * Copyright Eli White & SaroSoftware 2010
  * Last Modified: 4/21/2010
@@ -20,7 +22,7 @@
  *
  * Initialization class for the Main Module
  */
-class Application_Modules_Main_Setup
+class Setup
 {
 
 	public static $defaultController = "Index";
@@ -29,8 +31,16 @@ class Application_Modules_Main_Setup
 	/**
 	 * Sets some settings for the application
 	 */
-	public function setup($registry)
+	public function doSetup($registry)
 	{
+        $cfg = new \Spot\Config();
+        $cfg->addConnection('mysql', 'mysql://USERNAME:PASSWORD@HOSTNAME/DATABASE');
+        $registry->mapper = new \Spot\Mapper($cfg);
 
+        $auth = \Saros\Auth::getInstance();
+
+        $authAdapter = new \Saros\Auth\Adapter\Spot\Plain($registry->mapper, '\Application\Entities\Users', "username", "password");
+
+        $auth->setAdapter($authAdapter);
 	}
 }

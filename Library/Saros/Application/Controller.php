@@ -1,4 +1,6 @@
 <?php
+namespace Saros\Application;
+
 /**
  * This is the base class for all controllers
  *
@@ -10,7 +12,7 @@
  * @link http://sarosoftware.com
  * @link http://github.com/TheSavior/Saros-Framework
  */
-abstract Class Saros_Application_Controller
+abstract class Controller
 {
 	// Registry Instance
 	protected $registry;
@@ -78,7 +80,7 @@ abstract Class Saros_Application_Controller
 			ob_end_clean();
 			?>
 			<script type="text/javascript">
-			window.location = <?php echo $location ?>
+			window.location = "<?php echo $location ?>"
 			</script>
 			<?php
 		}

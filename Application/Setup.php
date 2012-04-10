@@ -1,4 +1,5 @@
 <?php
+namespace Application;
 /**
  * Copyright Eli White & SaroSoftware 2010
  * Last Modified: 3/26/2010
@@ -20,24 +21,19 @@
  *
  * Place all application initialization here.
  */
-class Application_Setup
+class Setup
 {
 	public static $defaultModule = "Main";
 
 	/**
 	 * Sets some settings for the application
 	 */
-	static function setup($registry)
+	static function doSetup($registry)
 	{
 		// Set up our config values
-		$registry->config->siteUrl = "http://dev.powerwd.net/saros/";
+		$registry->config->siteUrl = "";
 		$registry->config->rewriting = true;
-
-		$cfg = new Spot_Config();
-		$adapter = $cfg->addConnection('mysql', 'mysql://test:password@localhost/test');
-
-		$registry->dbAdapter = $adapter; // new Spot_Adapter_Mysql($registry->config["dbHost"], $registry->config["dbName"], $registry->config["dbUser"], $registry->config["dbPass"]);
-
+                        
 		// Set the default theme
 		$registry->display->setTheme("Default");
 		// Set up the controller's template

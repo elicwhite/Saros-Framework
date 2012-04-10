@@ -1,4 +1,6 @@
 <?php
+namespace Saros\Auth\Adapter\Spot;
+
 /**
  * This is the Auth adapter for Spot Compatible Databases
  *
@@ -11,7 +13,7 @@
  * @link http://github.com/TheSavior/Saros-Framework
  *
  */
-class Saros_Auth_Adapter_Spot_Plain implements Saros_Auth_Adapter_Interface
+class Plain implements \Saros\Auth\Adapter\IAdapter
 {
 	/**
 	* The Spot_Adapter that is being used for storage
@@ -75,10 +77,10 @@ class Saros_Auth_Adapter_Spot_Plain implements Saros_Auth_Adapter_Interface
 		$this->entityName = $entityName;
 
 		if (!$mapper->fieldExists($entityName, $identifierCol))
-			throw new Saros_Auth_Exception("Identifier column of '".$identifierCol."' is not defined in mapper.");
+			throw new \Saros\Auth\Exception("Identifier column of '".$identifierCol."' is not defined in mapper.");
 
 		if (!$mapper->fieldExists($entityName, $credentialCol))
-			throw new Saros_Auth_Exception("Credential column of '".$credentialCol."' is not defined in mapper.");
+			throw new \Saros\Auth\Exception("Credential column of '".$credentialCol."' is not defined in mapper.");
 
 		$this->identifierCol = $identifierCol;
 		$this->credentialCol = $credentialCol;
@@ -110,7 +112,7 @@ class Saros_Auth_Adapter_Spot_Plain implements Saros_Auth_Adapter_Interface
 	public function authenticate()
 	{
 		if (!$this->setCred)
-			throw new Saros_Auth_Exception("You must call setCredential before you can authenticate");
+			throw new \Saros\Auth\Exception("You must call setCredential before you can authenticate");
 
 		// Get all the users with the identifier of $this->identifier.
 		$user = $this->mapper->all($this->entityName, array(
@@ -122,10 +124,10 @@ class Saros_Auth_Adapter_Spot_Plain implements Saros_Auth_Adapter_Interface
 		* @todo Documentation needs to mention that we should ALWAYS compare based on the consts of Saros_Auth_Result
 		*/
 		if (!$user || count($user) == 0)
-			$status = Saros_Auth_Result::UNKNOWN_USER;
+			$status = \Saros\Auth\Result::UNKNOWN_USER;
 		// If there is more than one user, its a problem
 		elseif (count($user) > 1)
-			$status = Saros_Auth_Result::AMBIGUOUS_ID;
+			$status = \Saros\Auth\Result::AMBIGUOUS_ID;
 		else
 		{
 			// We have exactly one user
@@ -137,9 +139,9 @@ class Saros_Auth_Adapter_Spot_Plain implements Saros_Auth_Adapter_Interface
 
 		}
 
-		$identity = new Saros_Auth_Identity_Spot($this->mapper, $user);
+		$identity = new \Saros\Auth\Identity\Spot($this->mapper, $user);
 
-		return new Saros_Auth_Result($status, $identity);
+		return new \Saros\Auth\Result($status, $identity);
 	}
 
 	/**
@@ -150,13 +152,13 @@ class Saros_Auth_Adapter_Spot_Plain implements Saros_Auth_Adapter_Interface
 	*
 	* @see Saros_Auth_Result
 	*/
-	public function validateUser(Spot_Entity $user)
+	public function validateUser(Spot\Entity $user)
 	{
 		// Combine the salt and credential and sha1 it. Check against credentialCol
 		if($user->{$this->credentialCol} == $this->credential)
-			$status = Saros_Auth_Result::SUCCESS;
+			$status = \Saros\Auth\Result::SUCCESS;
 		else
-			$status = Saros_Auth_Result::FAILURE;
+			$status = \Saros\Auth\Result::FAILURE;
 
 		return $status;
 	}

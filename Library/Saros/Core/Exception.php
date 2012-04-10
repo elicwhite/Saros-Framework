@@ -1,4 +1,6 @@
 <?php
+namespace Saros\Core;
+
 /**
  * Core Exception wrapper
  *
@@ -10,7 +12,7 @@
  * @link http://sarosoftware.com
  * @link http://github.com/TheSavior/Saros-Framework
  */
-class Saros_Core_Exception extends Saros_Exception
+class Exception extends \Saros\Exception
 {
 
 }

@@ -1,4 +1,6 @@
 <?php
+namespace Saros\Auth\Storage;
+
 /**
  * This is the interface all storage adapters must implement
  *
@@ -11,7 +13,7 @@
  * @link http://github.com/TheSavior/Saros-Framework
  *
  */
-interface Saros_Auth_Storage_Interface
+interface IStorage
 {
 	/**
 	* Get the identity from storage

@@ -1,4 +1,6 @@
 <?php
+namespace Saros\Form\Validator;
+
 /**
  * This class validates input that are email format
  *
@@ -10,7 +12,7 @@
  * @link http://sarosoftware.com
  * @link http://github.com/TheSavior/Saros-Framework
  */
-class Saros_Form_Validator_Email extends Saros_Form_Validator
+class Email extends \Saros\Form\Validator
 {
 	protected $maxLength;
 

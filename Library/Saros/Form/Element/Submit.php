@@ -1,4 +1,6 @@
 <?php
+namespace Saros\Form\Element;
+
 /**
  * @copyright Eli White & SaroSoftware 2010
  * @license http://www.gnu.org/licenses/gpl.html GNU GPL
@@ -8,7 +10,7 @@
  * @link http://sarosoftware.com
  * @link http://github.com/TheSavior/Saros-Framework
  */
-class Saros_Form_Element_Submit
+class Submit
 {
 	protected $text;
 

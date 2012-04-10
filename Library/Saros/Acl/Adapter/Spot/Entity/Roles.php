@@ -1,5 +1,7 @@
 <?php
-class Saros_Acl_Adapter_Spot_Entity_Roles extends Spot_Entity_Tree_Mptt
+namespace Saros\Acl\Adapter\Spot\Entity; 
+
+class Roles extends \Spot\Entity\Tree\Mptt
 {
 		// table name
 	protected $_datasource = "saros_Roles";

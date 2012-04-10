@@ -10,12 +10,13 @@
 <body>
 	<div id="container">
 		<div id="main">
-			<?php echo $this->content() ?>
+			<?php
+            echo $this->content() 
+            ?>
 		</div>
 		<div id="footer">
-			Saros Framework V<?php echo Saros_Version::getVersion();;?>
+            <?php echo \Spot\Log::queryCount() ?> Queries
 		</div>
-
 	</div>
 </body>
 </html>

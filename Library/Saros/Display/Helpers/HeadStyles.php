@@ -1,4 +1,6 @@
 <?php
+namespace Saros\Display\Helpers;
+
 /**
  * This class helps create a list of style tags in layout headers
  *
@@ -10,7 +12,7 @@
  * @link http://sarosoftware.com
  * @link http://github.com/TheSavior/Saros-Framework
  */
-class Saros_Display_Helpers_HeadStyles extends Saros_Display_Helpers_Abstract
+class HeadStyles extends HelperBase
 {
 	public $styles = array();
 
@@ -18,7 +20,7 @@ class Saros_Display_Helpers_HeadStyles extends Saros_Display_Helpers_Abstract
 	{
 		$style = $this->display->getThemeLocation()."StyleSheets/".$name.".css";
 		if (!file_exists(ROOT_PATH.$style))
-			throw new Saros_Display_Exception("Stylesheet ".$name." could not be found at ".ROOT_PATH.$style);
+			throw new \Saros\Display\Exception("Stylesheet ".$name." could not be found at ".ROOT_PATH.$style);
 
 		$this->styles[] = $GLOBALS['registry']->config["siteUrl"].$style;
 

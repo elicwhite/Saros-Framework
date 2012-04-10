@@ -1,4 +1,6 @@
 <?php
+namespace Saros\Acl\Adapter;
+
 /**
  * This is the common interface that all ACL adapters must implement
  *
@@ -10,7 +12,7 @@
  * @link http://sarosoftware.com
  * @link http://github.com/TheSavior/Saros-Framework
  */
-interface Saros_Acl_Interface
+interface IAdapter
 {
 
 	/**

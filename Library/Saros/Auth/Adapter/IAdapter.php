@@ -1,4 +1,5 @@
 <?php
+namespace Saros\Auth\Adapter;
 /**
  * This is the common interface that all authentication adapters must implement
  *
@@ -11,7 +12,7 @@
  * @link http://github.com/TheSavior/Saros-Framework
  *
  */
-interface Saros_Auth_Adapter_Interface
+interface IAdapter
 {
 
 	/**

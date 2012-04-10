@@ -1,4 +1,5 @@
 <?php
+namespace Saros\Auth\Adapter\Spot;
 /**
 * This is the Spot adapter that supports an identifier, credential, and salt column
 * in the mapper. This thereby supports user-by-user salts
@@ -16,7 +17,7 @@
  * @link http://github.com/TheSavior/Saros-Framework
  *
  */
-class Saros_Auth_Adapter_Spot_Hash extends Saros_Auth_Adapter_Spot_Plain
+class Hash extends Plain
 {
 
 	private $saltCol;
@@ -29,25 +30,25 @@ class Saros_Auth_Adapter_Spot_Hash extends Saros_Auth_Adapter_Spot_Plain
 	* @param mixed $saltCol
 	* @return Application_Classes_Auth_Adapter_Spot
 	*/
-	public function __construct(Spot_Mapper $mapper, $entityName, $identifierCol, $credentialCol, $saltCol)
+	public function __construct(\Spot\Mapper $mapper, $entityName, $identifierCol, $credentialCol, $saltCol)
 	{
 		parent::__construct($mapper, $entityName, $identifierCol, $credentialCol);
 
 		if (!$mapper->fieldExists($entityName, $saltCol))
-			throw new Saros_Auth_Exception("Salt column of '".$saltCol."' is not defined in entity.");
+			throw new \Saros\Auth\Exception("Salt column of '".$saltCol."' is not defined in entity.");
 
 		$this->saltCol = $saltCol;
 	}
 
-	public function validateUser(Spot_Entity_Abstract $user)
+	public function validateUser(\Spot\Entity $user)
 	{
 		$salt = $user->{$this->saltCol};
 
 		// Combine the salt and credential and sha1 it. Check against credentialCol
 		if($user->{$this->credentialCol} == sha1($salt.$this->credential))
-			$status = Saros_Auth_Result::SUCCESS;
+			$status = \Saros\Auth\Result::SUCCESS;
 		else
-			$status = Saros_Auth_Result::FAILURE;
+			$status = \Saros\Auth\Result::FAILURE;
 
 		return $status;
 	}

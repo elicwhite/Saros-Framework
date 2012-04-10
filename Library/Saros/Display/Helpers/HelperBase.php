@@ -1,4 +1,6 @@
 <?php
+namespace Saros\Display\Helpers;
+
 /**
  * This abstract class provides base functionality for display helpers
  *
@@ -10,7 +12,7 @@
  * @link http://sarosoftware.com
  * @link http://github.com/TheSavior/Saros-Framework
  */
-abstract class Saros_Display_Helpers_Abstract
+abstract class HelperBase
 {
 	protected $display = null;
 

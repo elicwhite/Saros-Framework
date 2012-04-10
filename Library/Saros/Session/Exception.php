@@ -1,4 +1,6 @@
 <?php
+namespace Saros\Session;
+
 /**
  *
  * @copyright Eli White & SaroSoftware 2010
@@ -9,6 +11,6 @@
  * @link http://sarosoftware.com
  * @link http://github.com/TheSavior/Saros-Framework
  */
-class Saros_Session_Exception extends Saros_Exception
+class Exception extends \Saros\Exception
 {
 }

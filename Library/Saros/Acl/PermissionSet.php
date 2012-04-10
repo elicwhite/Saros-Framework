@@ -1,4 +1,6 @@
 <?php
+namespace Saros\Acl;
+
 /**
  * A permission set that contains a set of valid permissions
  *
@@ -10,7 +12,7 @@
  * @link http://sarosoftware.com
  * @link http://github.com/TheSavior/Saros-Framework
  */
-class Saros_Acl_PermissionSet
+class PermissionSet
 {
 	protected $permissions = null;
 
@@ -24,7 +26,7 @@ class Saros_Acl_PermissionSet
 	public function validatePermission($permission)
 	{
 		if (!is_array($permission) && !get_class($permission) == __CLASS__)
-			throw new Saros_Acl_Exception("MergePermissions expects an array or a permission set");
+			throw new Exception("MergePermissions expects an array or a permission set");
 
 		if (get_class($permission) == __CLASS__)
 		{

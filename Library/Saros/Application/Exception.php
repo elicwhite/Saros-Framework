@@ -1,4 +1,6 @@
 <?php
+namespace Saros\Application;
+
 /**
  * Plain Application Exception
  *
@@ -10,7 +12,7 @@
  * @link http://sarosoftware.com
  * @link http://github.com/TheSavior/Saros-Framework
  */
-class Saros_Application_Exception extends Saros_Exception
+class Exception extends Saros\Exception
 {
 
 }

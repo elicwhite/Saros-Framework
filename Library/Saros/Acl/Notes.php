@@ -107,7 +107,7 @@
   		return $results[0];
 
   	Interface Generic:
-  	 */
+  	 
   	$acl->can($userId, $perm, $value)
   		// Get permissions directly applicable to the user
   		$userPermissions = getUserPermissions($userId, $perm)
@@ -212,4 +212,5 @@ function populate($identity) {
   	}
 }
 // Can that load up all of the permissions for the user and all of their roles
+*/
 ?>

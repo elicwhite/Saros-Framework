@@ -1,4 +1,6 @@
 <?php
+namespace Saros\Exception;
+
 /**
  * Handles Exceptions
  *
@@ -12,9 +14,9 @@
  *
  * @todo Give error codes to all exceptions.
  */
-class Saros_Exception_Handler
+class Handler
 {
-	public static function handle(Exception $e)
+	public static function handle(\Exception $e)
 	{
 		// We aren't going to display any output if there is an exception
 		ob_clean();

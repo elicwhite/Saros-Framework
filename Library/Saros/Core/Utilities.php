@@ -1,4 +1,6 @@
 <?php
+namespace Saros\Core;
+
 /**
  * This class contains miscellaneous utilities
  *
@@ -10,7 +12,7 @@
  * @link http://sarosoftware.com
  * @link http://github.com/TheSavior/Saros-Framework
  */
-class Saros_Core_Utilities
+class Utilities
 {
 	/**
 	 * Make a valid link to a controller. Ex:
@@ -30,7 +32,7 @@ class Saros_Core_Utilities
 		if (isset($GLOBALS['registry']->config["rewriting"]) &&
 			!$GLOBALS['registry']->config["rewriting"])
 			$middle = "?act=";
-
-		return $GLOBALS['registry']->config["siteUrl"].$middle.implode("/", $args);
+        
+        return $GLOBALS['registry']->config["siteUrl"].$middle.implode("/", $args);
 	}
 }

@@ -1,4 +1,6 @@
 <?php
+namespace Saros\Auth\Identity;
+
 /**
  *
  * @copyright Eli White & SaroSoftware 2010
@@ -10,15 +12,16 @@
  * @link http://github.com/TheSavior/Saros-Framework
  *
  */
-class Saros_Auth_Identity_Spot implements Saros_Auth_Identity_Interface
+class Spot implements IIdentity
 {
 	private $mapper;
 	private $user;
 
-	public function __construct(Spot_Mapper $mapper, Spot_Entity_Abstract $user)
+	public function __construct(\Spot\Mapper $mapper, \Spot\Entity $user)
 	{
 		$this->mapper = $mapper;
 		$this->user = $user;
+        
 	}
 	public function getIdentifier()
 	{
@@ -26,7 +29,7 @@ class Saros_Auth_Identity_Spot implements Saros_Auth_Identity_Interface
 	}
 
 	public function __get($key)
-	{
+	{                      
 		return $this->user->$key;
 	}
 }

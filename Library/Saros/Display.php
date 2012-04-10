@@ -1,4 +1,6 @@
 <?php
+namespace Saros;
+
 /**
  * This class helps create the displays for each page
  *
@@ -12,7 +14,7 @@
  *
  * @todo Add support for parse() to return a string of content
  */
-class Saros_Display extends Saros_Core_Registry
+class Display extends Core\Registry
 {
 	protected static $instance = null;
 
@@ -47,10 +49,8 @@ class Saros_Display extends Saros_Core_Registry
 	protected $registeredHelpers = array();
 
 	protected $headStyles;
-	protected $headScripts;
-
-
-
+	protected $headScripts;  
+    
 	public static function getInstance($registry)
 	{
 		if (self::$instance == null)
@@ -68,7 +68,7 @@ class Saros_Display extends Saros_Core_Registry
 	* @param Saros_Core_Registry $registry
 	* @return Saros_Display
 	*/
-	private function __construct(Saros_Core_Registry $registry)
+	private function __construct(Core\Registry $registry)
 	{
 		$this->registry = $registry;
 
@@ -77,8 +77,8 @@ class Saros_Display extends Saros_Core_Registry
 
 	public function init()
 	{
-		$this->registerHelper("headStyles", "Saros_Display_Helpers_HeadStyles");
-		$this->registerHelper("headScripts", "Saros_Display_Helpers_HeadScripts");
+		$this->registerHelper("headStyles", "\\Saros\\Display\\Helpers\\HeadStyles");
+		$this->registerHelper("headScripts", "\\Saros\\Display\\Helpers\\HeadScripts");
 	}
 
 	/**
@@ -90,7 +90,7 @@ class Saros_Display extends Saros_Core_Registry
 	{
 		$this->themeLocation = "Application/Themes/".$themeName."/";
 		if (!is_dir(ROOT_PATH.$this->themeLocation))
-			throw new Saros_Display_Exception("Theme ".$themeName." not found at ".ROOT_PATH.$themeLocation);
+			throw new Display\Exception("Theme ".$themeName." not found at ".ROOT_PATH.$themeLocation);
 	}
 
 	/**
@@ -121,7 +121,7 @@ class Saros_Display extends Saros_Core_Registry
 		{
 			$layoutLocation = ROOT_PATH.$this->themeLocation."Layouts/".$this->layoutName.".php";
 			if (!file_exists($layoutLocation))
-				throw new Saros_Display_Exception("Layout ".$this->layoutName." not found at ".$layoutLocation);
+				throw new Display\Exception("Layout ".$this->layoutName." not found at ".$layoutLocation);
 
 			require_once($layoutLocation);
 		}
@@ -132,7 +132,7 @@ class Saros_Display extends Saros_Core_Registry
 		if (!is_null($var))
 		{
 			if (!is_bool($var))
-				throw new Saros_Display_Exception("Show() expects a boolean, '".gettype($var)."' given");
+				throw new Display\Exception("Show() expects a boolean, '".gettype($var)."' given");
 			else
 				$this->showAction = $var;
 
@@ -154,7 +154,7 @@ class Saros_Display extends Saros_Core_Registry
 		$viewLocation = ROOT_PATH.$this->themeLocation."Controllers/".$module."/".$logic."/".$action.".php";
 
 		if(!file_exists($viewLocation))
-			throw new Saros_Display_Exception("The view for module: '".$module."', Controller: '".$logic."', Action: '".$action."' does not exist at ".$viewLocation);
+			throw new Display\Exception("The view for module: '".$module."', Controller: '".$logic."', Action: '".$action."' does not exist at ".$viewLocation);
 
 		require_once($viewLocation);
 	}
@@ -171,17 +171,17 @@ class Saros_Display extends Saros_Core_Registry
 	public function registerHelper($name, $className)
 	{
 		if (isset($this->viewHelpers[$name]))
-			throw new Saros_Display_Exception("The alias '".$name."' is already registered to '".get_class($this->viewHelpers[$name])."'");
+			throw new Display\Exception("The alias '".$name."' is already registered to '".get_class($this->viewHelpers[$name])."'");
 
 		if (in_array($className, $this->registeredHelpers))
-			throw new Saros_Display_Exception("The view helper '".$className."' has already been registered");
+			throw new Display\Exception("The view helper '".$className."' has already been registered");
 
 		if (!is_string($name))
-			throw new Saros_Display_Exception("The alias must be a string, '".gettype($name)."' given");
+			throw new Display\Exception("The alias must be a string, '".gettype($name)."' given");
 
 		if (!is_string($className))
-			throw new Saros_Display_Exception("The class name must be a string, '".gettype($name)."' given");
-
+			throw new Display\Exception("The class name must be a string, '".gettype($name)."' given");
+                
 		$helper = new $className($this);
 		$this->viewHelpers[$name] = $helper;
 
@@ -200,5 +200,9 @@ class Saros_Display extends Saros_Core_Registry
 		{
 			return $this->viewHelpers[$alias];
 		}
+        else
+        {
+            throw new Display\Exception("The view helper '".$alias."' does not exist");
+        }  
 	}
 }

@@ -1,4 +1,6 @@
 <?php
+namespace Saros\Form\Validator;
+
 /**
  * This class validates input that is only Alpha chars.
  *
@@ -10,7 +12,7 @@
  * @link http://sarosoftware.com
  * @link http://github.com/TheSavior/Saros-Framework
  */
-class Saros_Form_Validator_Alpha extends Saros_Form_Validator
+class Alpha extends \Saros\Form\Validator
 {
 	protected $errorMessages = array(
 		"invalid" => "Your string must be only english characters.",

@@ -1,4 +1,6 @@
 <?php
+namespace Saros\Form\Element;
+
 /**
  * A radio form element
  *
@@ -10,7 +12,7 @@
  * @link http://sarosoftware.com
  * @link http://github.com/TheSavior/Saros-Framework
  */
-class Saros_Form_Element_Radio extends Saros_Form_Element
+class Radio extends \Saros\Form\Element
 {
 	/*
 		Validate the value of the element

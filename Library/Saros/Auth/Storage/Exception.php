@@ -1,4 +1,6 @@
 <?php
+namespace Saros\Auth\Storage;
+
 /**
  * Auth Storage Exception
  *
@@ -10,7 +12,7 @@
  * @link http://sarosoftware.com
  * @link http://github.com/TheSavior/Saros-Framework
  */
-class Saros_Auth_Storage_Exception extends Saros_Exception
+class Exception extends \Saros\Exception
 {
 
 }

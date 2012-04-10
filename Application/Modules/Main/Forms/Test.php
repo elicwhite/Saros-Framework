@@ -1,5 +1,7 @@
 <?php
-class Application_Modules_Main_Forms_Test extends Saros_Form
+namespace Application\Modules\Main\Forms;
+
+class Test extends \Saros\Form
 {
 	function __construct()
 	{

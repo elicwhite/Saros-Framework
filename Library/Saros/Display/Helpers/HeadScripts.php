@@ -1,4 +1,5 @@
 <?php
+namespace Saros\Display\Helpers;
 /**
  * This class helps create a list of script tags in layout headers
  *
@@ -10,7 +11,7 @@
  * @link http://sarosoftware.com
  * @link http://github.com/TheSavior/Saros-Framework
  */
-class Saros_Display_Helpers_HeadScripts extends Saros_Display_Helpers_Abstract
+class HeadScripts extends HelperBase
 {
 	public $scripts = array();
 
@@ -18,7 +19,7 @@ class Saros_Display_Helpers_HeadScripts extends Saros_Display_Helpers_Abstract
 	{
 		$script = $this->display->getThemeLocation()."Scripts/".$name.".js";
 		if (!file_exists(ROOT_PATH.$script))
-			throw new Saros_Display_Exception("Script ".$name." could not be found at ".ROOT_PATH.$script);
+			throw new \Saros\Display\Exception("Script ".$name." could not be found at ".ROOT_PATH.$script);
 
 		$this->scripts[] = $GLOBALS['registry']->config["siteUrl"].$script;
 

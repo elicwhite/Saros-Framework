@@ -1,4 +1,6 @@
 <?php
+namespace Saros\Form;
+
 /**
  * This is the parent class for all Validators
  *
@@ -10,7 +12,7 @@
  * @link http://sarosoftware.com
  * @link http://github.com/TheSavior/Saros-Framework
  */
-abstract class Saros_Form_Validator
+abstract class Validator
 {
 	protected $errorMessages = array();
 

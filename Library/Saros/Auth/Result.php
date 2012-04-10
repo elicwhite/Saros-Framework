@@ -1,4 +1,6 @@
 <?php
+namespace Saros\Auth;
+
 /**
  * Auth Result Object
  *
@@ -10,7 +12,7 @@
  * @link http://sarosoftware.com
  * @link http://github.com/TheSavior/Saros-Framework
  */
-class Saros_Auth_Result
+class Result
 {
 	// If the authentication was a success
 	const SUCCESS = 1;
@@ -26,10 +28,10 @@ class Saros_Auth_Result
 	protected $resultCode;
 	protected $identity;
 
-	public function __construct($code, Saros_Auth_Identity_Interface $identity)
+	public function __construct($code, \Saros\Auth\Identity\IIdentity $identity = null)
 	{
-		if ($code <= self::UNKNOWN_FAILURE)
-			$code = self::FAILURE;
+		//if ($code <= self::UNKNOWN_FAILURE)
+			//$code = self::FAILURE;
 
 		$this->resultCode = $code;
 		$this->identity = $identity;

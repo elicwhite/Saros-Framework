@@ -1,4 +1,6 @@
 <?php
+namespace Saros\Core;
+
 /**
  * This class takes the url route and loads the applicable controller / action
  *
@@ -10,7 +12,7 @@
  * @link http://sarosoftware.com
  * @link http://github.com/TheSavior/Saros-Framework
  */
-class Saros_Core_Router
+class Router
 {
 	// Array containing the parts of the URL path
 	private $path = array();
@@ -42,11 +44,11 @@ class Saros_Core_Router
 		$parts = $this->getRoute();
 
 		// Not a module, load up the default module
-		if (!isset(Application_Setup::$defaultModule))
-			throw new Saros_Core_Exception("The default module has not been defined in the application setup file.");
+		if (!isset(\Application\Setup::$defaultModule))
+			throw new Exception("The default module has not been defined in the application setup file.");
 
 		// set the default module
-		$this->route["module"] = Application_Setup::$defaultModule;
+		$this->route["module"] = \Application\Setup::$defaultModule;
 
 		$modFolderPath = ROOT_PATH."Application/Modules/";
 		/**
@@ -84,10 +86,10 @@ class Saros_Core_Router
 		}
 		// At this point we can rely that $this->route["module"] has been set correctly
 
-		$class = "Application_Modules_".$this->getModule()."_Setup";
-		//die($class);
+		$class = "\\Application\\Modules\\".$this->getModule()."\\Setup";
+
 		if (!property_exists($class, "defaultController"))
-			throw new Saros_Core_Exception("The default controller has not been defined in the module setup file.");
+			throw new Exception("The default controller has not been defined in the module setup file.");
 
 		$props = get_class_vars($class);
 
@@ -122,13 +124,13 @@ class Saros_Core_Router
 		 * All we have left to check is our action file
 		 */
 		if (!property_exists($class, "defaultAction"))
-			throw new Saros_Core_Exception("The default action has not been defined in the logic file.");
+			throw new Exception("The default action has not been defined in the logic file.");
 
 		// Set our controller to default
 		$this->route["action"] = $props["defaultAction"]."Action";
 
 		if (!method_exists($this->getClassName(), $this->route["action"]))
-			throw new Saros_Core_Exception("The default action '".$this->route["action"]."' has not been implemented in the '".$this->route["controller"]."' controller.");
+			throw new Exception("The default action '".$this->route["action"]."' has not been implemented in the '".$this->route["controller"]."' controller.");
 
 		// Check if we have another url path (controller)
 		if (isset($parts[0]) )
@@ -148,6 +150,7 @@ class Saros_Core_Router
 		 */
 		while(count($parts) > 0)
 		{
+            
 			$param = array_shift($parts);
 			if (strpos($param, "=") !== false)
 			{
@@ -158,15 +161,15 @@ class Saros_Core_Router
 			{
 				$this->route["params"][] = $param;
 			}
-		}
+		}                             
 	}
 
 	private function getClassName()
 	{
-		return "Application_Modules_".ucfirst($this->getModule())."_Controllers_".ucfirst($this->getController());
+		return "\\Application\\Modules\\".ucfirst($this->getModule())."\\Controllers\\".ucfirst($this->getController());
 	}
 
-	public function createInstance($registry)
+	public function createInstance(\Saros\Core\Registry $registry)
 	{
 		// Make a new class
 		$className = $this->getClassName();
@@ -174,6 +177,17 @@ class Saros_Core_Router
 		$this->instance->setParams($this->getParams());
 
 	}
+    
+    public function setupModule() {
+        // Run the setup for the module
+        $class = "\\Application\\Modules\\".$this->getModule()."\\Setup";
+        
+        if(method_exists($class, "doSetup"))
+        {
+            $setup = new $class;
+            $setup->doSetup($GLOBALS['registry']);
+        }
+    }
 
 	/**
 	* Load the actual controller
@@ -183,17 +197,10 @@ class Saros_Core_Router
 		// Set the display instance for the class
 		//$controller->setDisplay(new Saros_Core_Display())
 
-		/*** check if the action is callable ***/
-		if (!is_callable(array($this->instance, $this->getAction())))
-			$this->action = 'index';
-
-		// Run the setup for the module
-		$class = "Application_".$this->getModule()."_Setup";
-		if(method_exists($class, "setup"))
-		{
-			$setup = new $class;
-			$setup->setup($GLOBALS['registry']);
-		}
+        
+        /*** check if the action is callable ***/
+        if (!is_callable(array($this->instance, $this->getAction())))
+            $this->action = 'index';
 
 		/*** run the action and pass the parameters***/
 		call_user_func_array(array($this->instance, $this->getAction()), $this->getParams());

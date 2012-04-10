@@ -1,4 +1,6 @@
 <?php
+namespace Saros\Form\Validator;
+
 /**
  * This class makes sure a string is a url format
  *
@@ -10,7 +12,7 @@
  * @link http://sarosoftware.com
  * @link http://github.com/TheSavior/Saros-Framework
  */
-class Saros_Form_Validator_Url extends Saros_Form_Validator
+class Url extends \Saros\Form\Validator
 {
 	protected $maxLength;
 

@@ -1,4 +1,6 @@
 <?php
+namespace Saros\Captcha;
+
 /**
  * A response object for the ReCaptcha system
  *
@@ -10,7 +12,7 @@
  * @link http://sarosoftware.com
  * @link http://github.com/TheSavior/Saros-Framework
  */
-class Saros_Captcha_ReCaptchaResponse
+class ReCaptchaResponse
 {
 	public $isValid;
 	public $error;

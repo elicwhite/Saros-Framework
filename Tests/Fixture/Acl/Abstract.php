@@ -33,3 +33,4 @@ abstract class Fixture_Acl_Adapter_Abstract implements Saros_Acl_RoleManager_Int
 
 	// return true if $roleName is in getRolesForUser
 	public function isUserInExactRole($identifier, $roleName);
+}

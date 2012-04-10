@@ -1,4 +1,6 @@
 <?php
+namespace Saros;
+
 /**
  * This is the main class to utilize Saros_Auth
  *
@@ -11,7 +13,7 @@
  * @link http://github.com/TheSavior/Saros-Framework
  *
  */
-class Saros_Auth
+class Auth
 {
 
 	/**
@@ -26,6 +28,11 @@ class Saros_Auth
 	protected $adapter = null;
 
 	protected $storage = null;
+    
+    /**
+    * The last authentication result
+    */
+    protected $lastCode = null;
 
 	/**
 	* Singleton Pattern: No constructing
@@ -45,7 +52,7 @@ class Saros_Auth
 		return self::$instance;
 	}
 
-	public function setAdapter(Saros_Auth_Adapter_Interface $adapter)
+	public function setAdapter(Auth\Adapter\IAdapter $adapter)
 	{
 		$this->adapter = $adapter;
 		return $this;
@@ -56,7 +63,7 @@ class Saros_Auth
 		return $this->adapter;
 	}
 
-	public function setStorage(Saros_Auth_Storage_Interface $storage)
+	public function setStorage(Auth\Storage\IStorage $storage)
 	{
 		$this->storage = $storage;
 	}
@@ -64,18 +71,18 @@ class Saros_Auth
 	public function getStorage()
 	{
 		if (is_null($this->storage))
-			$this->storage = new Saros_Auth_Storage_Session();
+			$this->storage = new Auth\Storage\Session();
 
 		return $this->storage;
 	}
 
-	public function authenticate(Saros_Auth_Adapter_Interface $adapter = null)
+	public function authenticate(Auth\Adapter\IAdapter $adapter = null)
 	{
 		if (!is_null($adapter))
 			$this->setAdapter($adapter);
 
 		if (is_null($this->adapter))
-			throw new Saros_Auth_Exception("You must set an authentication adapter before attempting to authenticate.");
+			throw new Auth\Exception("You must set an authentication adapter before attempting to authenticate.");
 
 		$result = $this->adapter->authenticate();
 
@@ -86,10 +93,12 @@ class Saros_Auth
 		*/
 		if ($this->hasIdentity())
 			$this->clearIdentity();
-
+            
 		if ($result->isSuccess())
 			$this->getStorage()->writeIdentity($result->getIdentity());
 
+        $this->lastCode = $result->getCode();
+        
 		return $result;
 	}
 
@@ -112,4 +121,13 @@ class Saros_Auth
 		$this->getStorage()->clearIdentity();
 	}
 
+    public function getLastCode() {
+        if($this->lastCode == null) {
+            throw new Auth\Exception("Authenticate has not been called, therefore there is no last result to be fetched.");
+        }
+        else
+        {
+            return $this->lastCode;
+        }
+    }
 }

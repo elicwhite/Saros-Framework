@@ -1,4 +1,6 @@
 <?php
+namespace Saros\Form;
+
 /**
  * This is a parent class for all Form Elements
  *
@@ -10,7 +12,7 @@
  * @link http://sarosoftware.com
  * @link http://github.com/TheSavior/Saros-Framework
  */
-abstract class Saros_Form_Element
+abstract class Element
 {
 	/**
 	 * Name of the element
@@ -101,7 +103,7 @@ abstract class Saros_Form_Element
 	public function addValidator($validator, $options = array(), $breakOnFalse = false)
 	{
 		// Create the instance of the validator
-		$class = "Saros_Form_Validator_".ucfirst($validator);
+		$class = "\\Saros\\Form\\Validator\\".ucfirst($validator);
 
 		$array = array
 		(
