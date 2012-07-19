@@ -10,8 +10,10 @@
  * @link http://sarosoftware.com
  * @link http://github.com/TheSavior/Saros-Framework
  */
+
 // Lets turn on error reporting
 error_reporting(E_ALL|E_STRICT);
+ini_set('display_errors', 'on');
 
 define("ROOT_PATH",  realpath(dirname(__FILE__))."/");
 
@@ -40,7 +42,6 @@ function autoload($classname)
 spl_autoload_register('autoload');
 // Expect that autoloader is working now
 set_exception_handler(array('Saros\Exception\Handler', 'handle'));
-
 
 /*
 Create an output buffer. This is being used
