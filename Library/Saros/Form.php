@@ -72,6 +72,7 @@ class Form
 			$this->action = $action;
 		return $this;
 	}
+    
 	public function getAction()
 	{
 		return $this->action;
@@ -115,7 +116,7 @@ class Form
 	public function addElement($type, $name)
 	{
 		// Prepend "Form_Element_" to type so we can get the right class
-		$class = "Form\\Element\\".ucfirst($type);
+		$class = 'Form\Element\\'.ucfirst($type);
 		$object = new $class;
 
 		// Set the element's name
@@ -234,7 +235,7 @@ class Form
 		$formName = array_pop(explode("\\", $className));
 
 		// Where we expect a template to be
-		$pathName = ROOT_PATH.'Application/Views/Forms/'.$formName.'.php';
+		$pathName = ROOT_PATH.'Application/Themes/Forms/'.$formName.'.php';
 		$defaultPath = ROOT_PATH.'Library/Display/Default/Form.php';
 
 		// Whether we should use the default form template

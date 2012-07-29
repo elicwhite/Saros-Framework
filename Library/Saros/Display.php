@@ -49,7 +49,13 @@ class Display extends Core\Registry
 	protected $registeredHelpers = array();
 
 	protected $headStyles;
-	protected $headScripts;  
+	protected $headScripts;
+    
+
+    // These are the variables that override which view we will load    
+    protected $actionView;
+    protected $controllerView;
+    protected $moduleView;  
     
 	public static function getInstance($registry)
 	{
@@ -113,6 +119,19 @@ class Display extends Core\Registry
 	{
 		$this->layoutName = $layoutName;
 	}
+    
+    public function setView($action = null, $controller = null, $module = null){ 
+        $this->actionView = $action;
+        
+        // If they set an action
+        if ($action != null){
+            // We need to append Action to it
+            $this->actionView.="Action";
+        }
+        
+        $this->controllerView = $controller;
+        $this->moduleView = $module;
+    }
 
 	public function parse($return = false)
 	{
@@ -144,10 +163,10 @@ class Display extends Core\Registry
 	// Gives our views a content function
 	public function content()
 	{
-		$module = $GLOBALS['registry']->router->getModule();
-		$logic = $GLOBALS['registry']->router->getController();
-		$action = $GLOBALS['registry']->router->getAction();
-
+		$module = $this->moduleView != null ? $this->moduleView : $GLOBALS['registry']->router->getModule(); 
+		$logic = $this->controllerView != null ? $this->controllerView : $GLOBALS['registry']->router->getController();
+		$action = $this->actionView != null ? $this->actionView : $GLOBALS['registry']->router->getAction();
+        
 		// $action will have Action at the end. We need to remove this to find it in the view location
 		$action = substr($action, 0, -6);
 

@@ -100,10 +100,6 @@ class Session implements \ArrayAccess, \Countable, \IteratorAggregate
 	*/
 	public function &__get($key)
 	{
-		// $_SESSION['_saros'][$namespace][$key]
-		if (!isset($_SESSION['_saros'][$this->namespace][$key]))
-			throw new Session\Exception("The key '".$key."' has not been defined for session namespace '".$this->namespace."'");
-
 		return $_SESSION['_saros'][$this->namespace][$key];
 	}
 
