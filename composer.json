@@ -1,0 +1,26 @@
+{
+    "name": "thesavior/Saros",
+    "version": "0.5",
+    "type": "library",
+    "description": "MVC Framework and Libraries for PHP 5.3+",
+    "keywords": ["mvc", "auth"],
+    "homepage": "https://github.com/TheSavior/Saros-Framework",
+    "license" : "BSD",
+    "authors" : [
+        {
+            "name": "Eli White",
+            "email": "framework@eli-white.com",
+            "homepage": "http://eli-white.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.2",
+        "vlucas/Spot": "dev-master"        
+    },
+    "autoload": {
+        "psr-0": {
+            "Saros": "Library/",
+            "Application": "src/"
+        }
+    }
+}

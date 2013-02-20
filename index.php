@@ -17,30 +17,10 @@ ini_set('display_errors', 'on');
 
 define("ROOT_PATH",  realpath(dirname(__FILE__))."/");
 
-// Autoload all of the classes that are not included
 
-require_once('Library/Saros/Core/AutoLoader.php');
-spl_autoload_register(array('Saros\Core\AutoLoader', 'autoload'));
 
-/**
-* This is an attempt to load files
-* relative to where this index file resides
-* it should be skipped if the Core_Autoloader works
-* but, is needed if this resides outside of library root
-*
-* TODO: Change this to use namespaces
-*/
-function autoload($classname)
-{                  
-	$filename = str_replace("_","/",$classname).".php";
-	if(file_exists($filename))
-	{
-		require_once($filename);
-	}
-}
+require 'vendor/autoload.php';
 
-spl_autoload_register('autoload');
-// Expect that autoloader is working now
 set_exception_handler(array('Saros\Exception\Handler', 'handle'));
 
 /*

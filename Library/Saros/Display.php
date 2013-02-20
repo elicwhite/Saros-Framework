@@ -94,7 +94,7 @@ class Display extends Core\Registry
 	*/
 	public function setTheme($themeName)
 	{
-		$this->themeLocation = "Application/Themes/".$themeName."/";
+		$this->themeLocation = "src/Application/Themes/".$themeName."/";
 		if (!is_dir(ROOT_PATH.$this->themeLocation))
 			throw new Display\Exception("Theme ".$themeName." not found at ".ROOT_PATH.$themeLocation);
 	}
