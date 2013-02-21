@@ -19,8 +19,7 @@
     },
     "autoload": {
         "psr-0": {
-            "Saros": "Library/",
-            "Application": "src/"
+            "Saros": "lib/"
         }
     }
 }
