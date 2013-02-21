@@ -15,7 +15,9 @@ class Application
 {
     public static function run()
     {
-        define("ROOT_PATH",  realpath(dirname(dirname(dirname(__FILE__))))."/");
+        // Root path is the path to the root of whatever the application is that is using
+        // Saros-Framework through composer
+        define("ROOT_PATH",  realpath(dirname(dirname(dirname(dirname(dirname(dirname(__FILE__)))))))."/");
         
         set_exception_handler(array('\Saros\Exception\Handler', 'handle'));
         
