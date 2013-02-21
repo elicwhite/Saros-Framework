@@ -14,41 +14,28 @@ namespace Saros\Display\Helpers;
  */
 class HeadStyles extends HelperBase
 {
-	public $styles = array();
+	public $files = array();
 
-	public function addStyle($name)
-	{
-	    $style = $this->verifyStyle($name);
-
-		$this->styles[] = $GLOBALS['registry']->config["siteUrl"].$style;
-
-		return $this;
-	}
-    
-    public function prependStyle($name) 
+    public function appendFile($path)
     {
-        $style = $this->verifyStyle($name);
-
-        array_unshift($this->styles, $GLOBALS['registry']->config["siteUrl"].$style);
+        $this->files[] = $path;
 
         return $this;
     }
     
-    private function verifyStyle($name)
+    public function prependFile($path) 
     {
-        $style = $this->display->getThemeLocation()."StyleSheets/".$name.".css";
-        if (!file_exists(ROOT_PATH.$style))
-            throw new \Saros\Display\Exception("Stylesheet ".$name." could not be found at ".ROOT_PATH.$style);
-            
-        return $style;
+        array_unshift($this->files, $style);
+
+        return $this;
     }
 
 	public function __toString()
 	{
 		$output = "";
-		foreach ($this->styles as $style)
+		foreach ($this->files as $file)
 		{
-			$output .= '<link rel="stylesheet" type="text/css" href="'.$style.'" />';
+			$output .= '<link rel="stylesheet" type="text/css" href="'.$file.'" />';
 		}
 
 		return $output;

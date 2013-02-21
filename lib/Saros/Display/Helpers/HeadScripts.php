@@ -13,25 +13,28 @@ namespace Saros\Display\Helpers;
  */
 class HeadScripts extends HelperBase
 {
-	public $scripts = array();
+	public $files = array();
 
-	public function addScript($name)
+	public function appendFile($path)
 	{
-		$script = $this->display->getThemeLocation()."Scripts/".$name.".js";
-		if (!file_exists(ROOT_PATH.$script))
-			throw new \Saros\Display\Exception("Script ".$name." could not be found at ".ROOT_PATH.$script);
-
-		$this->scripts[] = $GLOBALS['registry']->config["siteUrl"].$script;
+		$this->files[] = $path;
 
 		return $this;
 	}
+    
+    public function prependFile($path) 
+    {
+        array_unshift($this->files, $style);
+
+        return $this;
+    }
 
 	public function __toString()
 	{
 		$output = "";
-		foreach ($this->scripts as $script)
+		foreach ($this->files as $file)
 		{
-			$output .= '<script src="'.$script.'" type="text/javascript"></script>';
+			$output .= '<script src="'.$file.'" type="text/javascript"></script>';
 		}
 
 		return $output;
