@@ -22,6 +22,6 @@ before_script:
 script: phpunit --configuration phpunit.xml --coverage-text
 
 # configure notifications (email, IRC, campfire etc)
-#notifications:
+notifications:
     email: 
         on_failure: change
