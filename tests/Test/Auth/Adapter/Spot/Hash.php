@@ -20,7 +20,7 @@ class Hash extends \PHPUnit_Framework_TestCase
 	public function setUp()
     {
     	$cfg = new \Spot\Config();
-		$adapter = $cfg->addConnection('test_mysql', 'mysql://test:password@localhost/test');
+		$adapter = $cfg->addConnection('test_mysql', $_ENV['db_dsn']);
 
 		$entity = '\Fixture\Auth\UserEntity';
 

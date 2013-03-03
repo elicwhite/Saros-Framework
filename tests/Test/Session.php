@@ -19,7 +19,7 @@ class Session extends \PHPUnit_Framework_TestCase
 
 	public static function tearDownAfterClass()
 	{
-		session_destroy();
+		
 	}
     
 	/**

@@ -1,5 +1,7 @@
 <?php
-class Fixture_Acl_Adapter_UserAndSingleRole implements Saros_Acl_RoleManager_Interface
+namespace Fixture\Acl\Adapter;
+
+class UserAndSingleRole implements \Saros\Acl\Adapter\IAdapter
 {
 	public function getUserPermissions()
 	{

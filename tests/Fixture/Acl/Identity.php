@@ -1,5 +1,5 @@
 <?php
-namespace Fixture\Acl\Adapter;
+namespace Fixture\Acl;
 
 class Identity implements \Saros\Auth\Identity\IIdentity
 {

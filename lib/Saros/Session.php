@@ -79,11 +79,8 @@ class Session implements \ArrayAccess, \Countable, \IteratorAggregate
 
 		$filename = "";
 		$linenum = "";
-		if(headers_sent($filename, $linenum)){
-			throw new Session\Exception("Headers already sent in '".$filename."' on line '".$linenum."'");
-            die();
-        }
-        if(session_id() == "") {
+		
+        if(!headers_sent() && session_id() == "") {
 		    session_start();
         }
 

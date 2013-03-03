@@ -1,7 +1,9 @@
 <?php
+namespace Fixture\Acl;
+
 // Mock Acl adapter class that contains only permissions directly on the user
 // Aka, the user is in no roles, but has one permission directly on them
-abstract class Fixture_Acl_Adapter_Abstract implements Saros_Acl_RoleManager_Interface
+abstract class Base implements \Saros\Acl\Adapter\IAdapter
 {
 
 	public function addUserToRole($identifier, $roleName){

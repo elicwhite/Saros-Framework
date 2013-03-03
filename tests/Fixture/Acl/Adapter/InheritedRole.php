@@ -1,5 +1,7 @@
 <?php  
-class Fixture_Acl_Adapter_InheritedRole implements Saros_Acl_RoleManager_Interface
+namespace Fixture\Acl\Adapter;
+
+class InheritedRole implements \Saros\Acl\Adapter\IAdapter
 {
 	public function getUserPermissions()
 	{
