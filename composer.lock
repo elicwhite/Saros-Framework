@@ -1,5 +1,5 @@
 {
-    "hash": "3201e59b4865dee6e9679103bcde497b",
+    "hash": "df14d65ecf6c125467ab4f9b21d4b3d8",
     "packages": [
         {
             "name": "vlucas/Spot",
@@ -7,12 +7,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/vlucas/Spot.git",
-                "reference": "72baebbbbd5cba38c95ff963722f93c236ee46a7"
+                "reference": "v0.9.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vlucas/Spot/zipball/72baebbbbd5cba38c95ff963722f93c236ee46a7",
-                "reference": "72baebbbbd5cba38c95ff963722f93c236ee46a7",
+                "url": "https://api.github.com/repos/vlucas/Spot/zipball/v0.9.2",
+                "reference": "v0.9.2",
                 "shasum": ""
             },
             "require": {
@@ -45,7 +45,7 @@
                 "odm",
                 "orm"
             ],
-            "time": "2013-01-09 15:20:53"
+            "time": "2013-02-25 17:44:57"
         }
     ],
     "packages-dev": null,
