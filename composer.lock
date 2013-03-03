@@ -1,9 +1,9 @@
 {
-    "hash": "71812778beed3ada2d81915791a75625",
+    "hash": "e450d837388e93822b31d591de54bf05",
     "packages": [
         {
             "name": "vlucas/Spot",
-            "version": "dev-master",
+            "version": "0.9.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vlucas/Spot.git",
@@ -53,7 +53,7 @@
 
     ],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "vlucas/spot": 20
-    }
+    "stability-flags": [
+
+    ]
 }
