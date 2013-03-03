@@ -22,7 +22,7 @@ class Hash extends \PHPUnit_Framework_TestCase
     	$cfg = new \Spot\Config();
 		$adapter = $cfg->addConnection('test_mysql', 'mysql://test:password@localhost/test');
 
-		$entity = "\\Fixture\\Auth\\UserEntity";
+		$entity = '\Fixture\Auth\UserEntity';
 
 		$mapper = new \Spot\Mapper($cfg);
 		$mapper->migrate($entity);
