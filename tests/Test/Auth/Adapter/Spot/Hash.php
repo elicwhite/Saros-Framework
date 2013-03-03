@@ -38,8 +38,8 @@ class Hash extends \PHPUnit_Framework_TestCase
 
 	public function testUserCanLogIn()
 	{           
-		$test = $this->sharedFixture["Mapper"];
-        die(var_dump($test));
+		$test = $this->sharedFixture["Mapper"]; 
+        
 		$user = $test->get($this->sharedFixture["EntityName"]);
 		$user->username = "Eli";
 		$user->salt = "3aca";
