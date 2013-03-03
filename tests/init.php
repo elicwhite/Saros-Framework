@@ -11,7 +11,9 @@ function test_autoloader($className) {
     if(false === strpos($className, 'Test') && false === strpos($className, 'Fixture')) {
         return false;
     }
+    
     $classFile = $className . '.php';
+    $classFile = str_replace("\\", "/", $classFile);
     $file = __DIR__ . '/' . $classFile;
     
     if (file_exists($file)) {

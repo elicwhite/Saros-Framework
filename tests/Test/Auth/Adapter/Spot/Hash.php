@@ -29,6 +29,7 @@ class Hash extends \PHPUnit_Framework_TestCase
 		$mapper->truncateDatasource($entity);
 
 		$auth = \Saros\Auth::getInstance();
+        
 		$authAdapter = new \Saros\Auth\Adapter\Spot\Hash($mapper, $entity, "username", "password", "salt");
 
 		$auth->setAdapter($authAdapter);
