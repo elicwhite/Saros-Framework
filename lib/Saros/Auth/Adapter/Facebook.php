@@ -17,7 +17,7 @@ class Facebook implements IAdapter
 {
     private $facebook;
 
-    public function __construct(\Saros\Service\Facebook\Api $facebook)
+    public function __construct($facebook)
     {
         $this->facebook = $facebook;
     }
