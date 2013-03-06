@@ -24,7 +24,9 @@ class Spot implements Saros\Acl\IAdapter
     *
     * @throws Saros_Acl_Exception if the user is already in the given role
     */
-      public function addUserToRole($identifier, $roleName) {}
+    public function addUserToRole($identifier, $roleName) 
+    {
+    }
 
       /**
       * Remove a user from a role
@@ -32,7 +34,9 @@ class Spot implements Saros\Acl\IAdapter
       * @param mixed $identifier The unique identifier for the user
       * @param string $roleName The name of the role to add the user to
       */
-    public function removeUserFromRole($identifier, $roleName) {}
+    public function removeUserFromRole($identifier, $roleName) 
+    {
+    }
 
     /**
     * Creates a role
@@ -40,7 +44,9 @@ class Spot implements Saros\Acl\IAdapter
     * @param string $roleName The name of the role to create
     * @throws Saros_Acl_Exception if a role already exists with $roleName
     */
-    public function createRole($roleName) {}
+    public function createRole($roleName) 
+    {
+    }
 
     /**
     * Delete a role
@@ -48,7 +54,9 @@ class Spot implements Saros\Acl\IAdapter
     * @param string $roleName The name of the role to delete
     * @throws Saros_Acl_Exception if no role exists with $roleName
     */
-    public function deleteRole($roleName) {}
+    public function deleteRole($roleName) 
+    {
+    }
 
     /**
     * Add a role as a child of another role
@@ -61,7 +69,9 @@ class Spot implements Saros\Acl\IAdapter
     * @throws Saros_Acl_Exception if no role exists with $roleName
     * @throws Saros_Acl_Exception if no role exists with $parent
     */
-    public function addRoleToRole($roleName, $parent) {}
+    public function addRoleToRole($roleName, $parent) 
+    {
+    }
 
     /**
     * Returns all users who are in the role $roleName and it's parents
@@ -71,14 +81,18 @@ class Spot implements Saros\Acl\IAdapter
     *
     * @throws Saros_Acl_Exception if no role exists with $roleName
     */
-    public function findUsersInRole($roleName) {}
+    public function findUsersInRole($roleName) 
+    {
+    }
 
     /**
     * Gets a list of all the existing roles
     *
     * @returns array(string) List of the names of existing roles
     */
-    public function getAllRoles() {}
+    public function getAllRoles() 
+    {
+    }
 
     /**
     * Checks whether a role exists
@@ -86,7 +100,9 @@ class Spot implements Saros\Acl\IAdapter
     * @param string $roleName The name of the role to look for
     * @returns bool True if the role exists, false otherwise
     */
-    public function roleExists($roleName) {}
+    public function roleExists($roleName) 
+    {
+    }
 
     /**
     * Get the role names that the user is in
@@ -94,7 +110,9 @@ class Spot implements Saros\Acl\IAdapter
     * @param mixed $identifier The unique identifier for the user
     * @returns array(string) A list of roles that the user is in
     */
-    public function getRolesForUser($identifier) {}
+    public function getRolesForUser($identifier) 
+    {
+    }
 
     /**
     * Check whether a user is in a role
@@ -108,7 +126,9 @@ class Spot implements Saros\Acl\IAdapter
     *
     * @throws Saros_Acl_Exception if no role exists with $rolename
     */
-    public function isUserInRole($identifier, $roleName, $checkChildren = false) {}
+    public function isUserInRole($identifier, $roleName, $checkChildren = false) 
+    {
+    }
 
     /**
     * Get the permissions defined for a role
@@ -118,7 +138,9 @@ class Spot implements Saros\Acl\IAdapter
     *
     * @throws Saros_Acl_Exception if no role exists with $roleName
     */
-    public function getPermsForRole($roleName) {}
+    public function getPermsForRole($roleName) 
+    {
+    }
 
     /**
     * Get the permissions defined on a user
@@ -126,7 +148,9 @@ class Spot implements Saros\Acl\IAdapter
     * @param mixed $identifier The unique identifer for the user
     * @returns Saros_Acl_PermissionSet Set of permissions on the user
     */
-    public function getPermsForUser($identifier) {}
+    public function getPermsForUser($identifier) 
+    {
+    }
 
     /**
     * Calculate the permissions for a role by including the parents
@@ -137,7 +161,9 @@ class Spot implements Saros\Acl\IAdapter
     *
     * @throws Saros_Acl_Exception if no role exists with $roleName
     */
-    public function calculatePermsForRole($roleName) {}
+    public function calculatePermsForRole($roleName) 
+    {
+    }
 
 
     /**
@@ -148,6 +174,7 @@ class Spot implements Saros\Acl\IAdapter
     * @param mixed $identifier The identifier of the user
     * @returns Saros_Acl_PermissionSet Set of permissions for the user
     */
-    public function calculatePermsForUser($identifier) {}
+    public function calculatePermsForUser($identifier) 
+    {
+    }    
 }
-?>
