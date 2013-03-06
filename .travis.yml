@@ -21,8 +21,8 @@ before_script:
 # use the $DB env variable to determine the phpunit.xml to use
 script:
     - phpunit --configuration phpunit.xml --coverage-text
-    - php vendor/squizlabs/php_codesniffer/scripts/phpcs lib --standard=Zend --report=summary -n -p
-    - php vendor/squizlabs/php_codesniffer/scripts/phpcs lib --standard=Zend -n -p
+#    - php vendor/squizlabs/php_codesniffer/scripts/phpcs lib --standard=Zend --report=summary -n -p
+#    - php vendor/squizlabs/php_codesniffer/scripts/phpcs lib --standard=Zend -n -p
 
 # configure notifications (email, IRC, campfire etc)
 notifications:
