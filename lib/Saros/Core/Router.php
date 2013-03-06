@@ -50,7 +50,7 @@ class Router
 		// set the default module
 		$this->route["module"] = \Application\Setup::$defaultModule;
 
-		$modFolderPath = ROOT_PATH."Application/Modules/";
+		$modFolderPath = ROOT_PATH."src/Application/Modules/";
 		/**
 		 * First part is either a module or controller
 		 */
@@ -95,7 +95,7 @@ class Router
 
 		// Set our controller to default
 		$this->route["controller"] = $props["defaultController"];
-
+        
 		// Check if we have another url path (controller)
 		if (isset($parts[0]) )
 		{
@@ -105,6 +105,7 @@ class Router
 			 */
 			$controller = ucfirst(array_shift($parts));
 			$controllerPath = $modFolderPath.$this->route["module"]."/Controllers";
+
 			if (is_dir($controllerPath))
 			{
 				/**
@@ -126,7 +127,7 @@ class Router
 		if (!property_exists($class, "defaultAction"))
 			throw new Exception("The default action has not been defined in the logic file.");
 
-		// Set our controller to default
+		// Set our action to default
 		$this->route["action"] = $props["defaultAction"]."Action";
 
 		if (!method_exists($this->getClassName(), $this->route["action"]))
@@ -161,7 +162,7 @@ class Router
 			{
 				$this->route["params"][] = $param;
 			}
-		}                             
+		}                                                        
 	}
 
 	private function getClassName()

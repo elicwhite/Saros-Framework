@@ -34,7 +34,7 @@ class HeadScripts extends HelperBase
 		$output = "";
 		foreach ($this->files as $file)
 		{
-			$output .= '<script src="'.$file.'" type="text/javascript"></script>';
+			$output .= '<script src="'.$GLOBALS['registry']->config["siteUrl"].$file.'" type="text/javascript"></script>';
 		}
 
 		return $output;

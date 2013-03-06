@@ -35,7 +35,7 @@ class HeadStyles extends HelperBase
 		$output = "";
 		foreach ($this->files as $file)
 		{
-			$output .= '<link rel="stylesheet" type="text/css" href="'.$file.'" />';
+			$output .= '<link rel="stylesheet" type="text/css" href="'.$GLOBALS['registry']->config["siteUrl"].$file.'" />';
 		}
 
 		return $output;

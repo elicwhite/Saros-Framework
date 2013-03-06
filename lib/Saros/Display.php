@@ -108,6 +108,14 @@ class Display extends Core\Registry
 	{
 		return $this->themeLocation;
 	}
+    
+    /**
+    * Gets the webroot of the server.
+    * 
+    */
+    public function getWebRoot() {
+        return $GLOBALS['registry']->config["siteUrl"];
+    }
 
 	/**
 	* The name of the layout to use. This location isn't validated
