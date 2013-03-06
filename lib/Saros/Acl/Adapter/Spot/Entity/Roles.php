@@ -1,5 +1,5 @@
 <?php
-namespace Saros\Acl\Adapter\Spot\Entity; 
+namespace Saros\Acl\Adapter\Spot\Entity;
 
 class Roles extends \Spot\Entity\Tree\Mptt
 {
@@ -9,4 +9,3 @@ class Roles extends \Spot\Entity\Tree\Mptt
     // Field list
     public $rolename = array("type" => "string");
 }
-?>

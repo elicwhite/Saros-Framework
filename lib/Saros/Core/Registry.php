@@ -27,8 +27,7 @@ class Registry implements \ArrayAccess, \Iterator
     }
     public function __get($index)
     {
-        if (!isset($this->vars[$index]))
-        {
+        if (!isset($this->vars[$index])) {
             throw new \Saros\Core\Exception("The key '".$index."' is not defined in ".get_class($this));
         }
         return $this->vars[$index];

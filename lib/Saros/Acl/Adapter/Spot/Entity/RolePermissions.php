@@ -11,4 +11,3 @@ class RolePermissions extends \Spot\Entity
     public $resource = array("type" => "string");
     public $opValue = array("type" => "text");
 }
-?>

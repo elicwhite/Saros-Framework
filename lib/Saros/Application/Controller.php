@@ -71,12 +71,10 @@ abstract class Controller
         $file = "";
         $line = 0;
 
-        if(!headers_sent($file, $line))
-        {
+        if(!headers_sent($file, $line)) {
             header("Location: ".$location);
         }
-        else
-        {
+        else {
             ob_end_clean();
             ?>
             <script type="text/javascript">

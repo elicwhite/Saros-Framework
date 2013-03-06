@@ -23,7 +23,7 @@ class AutoLoader
     public static function class2File($classname)
     {
         // Replace all of the underscores with slashes to find the path
-        $fileLocation = str_replace("\\","/", $classname).".php";
+        $fileLocation = str_replace("\\", "/", $classname).".php";
         return $fileLocation;
     }
 
@@ -48,12 +48,13 @@ class AutoLoader
 
         return $loaded;
     }
-    
+
     /**
     * Register the autoloader
-    * 
+    *
     */
-    public static function register() {
-        spl_autoload_register(array('\Saros\AutoLoader', 'autoload'));    
+    public static function register()
+    {
+        spl_autoload_register(array('\Saros\AutoLoader', 'autoload'));
     }
 }

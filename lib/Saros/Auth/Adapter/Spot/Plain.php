@@ -115,16 +115,19 @@ class Plain implements \Saros\Auth\Adapter\IAdapter
             throw new \Saros\Auth\Exception("You must call setCredential before you can authenticate");
 
         // Get all the users with the identifier of $this->identifier.
-        $user = $this->mapper->all($this->entityName, array(
-                                                    $this->identifierCol => $this->identifier
-                                                    ))->execute();
-                 
+        $user = $this->mapper->all(
+            $this->entityName,
+            array(
+                $this->identifierCol => $this->identifier
+                )
+        )->execute();
+
         /**
         * @todo figure out which we need.
         * @todo Documentation needs to mention that we should ALWAYS compare based on the consts of Saros_Auth_Result
         */
         $identity = null;
-                                       
+
         if (!$user || count($user) == 0)
             $status = \Saros\Auth\Result::UNKNOWN_USER;
         // If there is more than one user, its a problem
@@ -136,7 +139,7 @@ class Plain implements \Saros\Auth\Adapter\IAdapter
             // We need to get the salt
             assert(count($user) == 1);
             $user = $user->first();
-            
+
             $status = $this->validateUser($user);
             $identity = new \Saros\Auth\Identity\Spot($this->mapper, $user);
         }
@@ -154,7 +157,7 @@ class Plain implements \Saros\Auth\Adapter\IAdapter
     */
     public function validateUser(\Spot\Entity $user)
     {
-        
+
         // Combine the salt and credential and sha1 it. Check against credentialCol
         if($user->{$this->credentialCol} == $this->credential)
             $status = \Saros\Auth\Result::SUCCESS;

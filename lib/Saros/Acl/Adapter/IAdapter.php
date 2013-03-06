@@ -149,4 +149,3 @@ interface IAdapter
     */
     public function calculatePermsForUser($identifier);
 }
-?>

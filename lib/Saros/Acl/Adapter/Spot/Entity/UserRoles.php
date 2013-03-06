@@ -1,5 +1,5 @@
 <?php
-namespace Saros\Acl\Adapter\Spot\Entity; 
+namespace Saros\Acl\Adapter\Spot\Entity;
 
 class Roles extends \Spot\Entity
 {
@@ -10,4 +10,3 @@ class Roles extends \Spot\Entity
     public $userId = array("type" => "int");
     public $roleId = array("type" => "int");
 }
-?>

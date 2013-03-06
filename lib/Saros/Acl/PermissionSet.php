@@ -28,8 +28,7 @@ class PermissionSet
         if (!is_array($permission) && !get_class($permission) == __CLASS__)
             throw new Exception("MergePermissions expects an array or a permission set");
 
-        if (get_class($permission) == __CLASS__)
-        {
+        if (get_class($permission) == __CLASS__) {
             $permission = $permission->getPermissions();
         }
 
@@ -55,15 +54,13 @@ class PermissionSet
     {
         $overriding = $this->validatePermission($overriding);
 
-        foreach($overriding as $name=>$values)
-        {
+        foreach($overriding as $name=>$values) {
             // If this key hasn't been initialized, then do it
-            if (!isset($this->permissions[$name]))
-            {
+            if (!isset($this->permissions[$name])) {
                 $this->permissions[$name] = array();
             }
-            foreach($values as $key=>$value)
-            {
+
+            foreach($values as $key=>$value) {
                 $this->permissions[$name][$key] = $value;
             }
         }

@@ -54,8 +54,7 @@ class Router
         /**
          * First part is either a module or controller
          */
-        if(isset($parts[0]))
-        {
+        if(isset($parts[0])) {
             /**
              * We have a first part, it is either a module or controller
              *
@@ -67,15 +66,15 @@ class Router
             // First check if it is a module
             $mod = ucfirst($parts[0]);
             $modPath = $modFolderPath.$mod;
-            if (is_dir($modPath))
-            {
+            if (is_dir($modPath)) {
+
                 /**
                  * We have that directory, does not necessarily mean
                  * it is a module. Have to check it for a setup file
                  */
-                if(file_exists($modPath."/Setup.php"))
-                {
+                if(file_exists($modPath."/Setup.php")) {
                     $this->route["module"] = $mod;
+
                     /**
                      * We are taking this value as the module,
                      * remove it from the route array
@@ -95,10 +94,9 @@ class Router
 
         // Set our controller to default
         $this->route["controller"] = $props["defaultController"];
-        
+
         // Check if we have another url path (controller)
-        if (isset($parts[0]) )
-        {
+        if (isset($parts[0])) {
             /**
              * We are taking this value as the module,
              * remove it from the route array
@@ -106,14 +104,12 @@ class Router
             $controller = ucfirst(array_shift($parts));
             $controllerPath = $modFolderPath.$this->route["module"]."/Controllers";
 
-            if (is_dir($controllerPath))
-            {
+            if (is_dir($controllerPath)) {
                 /**
                  * We have that directory, does not necessarily mean
                  * it is a controller. Have to check it for a controllers directory
                  */
-                if(file_exists($controllerPath."/".$this->route["controller"].".php"))
-                {
+                if(file_exists($controllerPath."/".$this->route["controller"].".php")) {
                     $this->route["controller"] = $controller;
                 }
             }
@@ -131,16 +127,15 @@ class Router
         $this->route["action"] = $props["defaultAction"]."Action";
 
         if (!method_exists($this->getClassName(), $this->route["action"]))
-            throw new Exception("The default action '".$this->route["action"]."' has not been implemented in the '".$this->route["controller"]."' controller.");
+            throw new Exception("The default action '".$this->route["action"]."' has not been ".
+            "implemented in the '".$this->route["controller"]."' controller.");
 
         // Check if we have another url path (controller)
-        if (isset($parts[0]) )
-        {
+        if (isset($parts[0])) {
             // We don't uppercase this one, action names are camelCased
             $action = array_shift($parts)."Action";
 
-            if (method_exists($this->getClassName(), $action))
-            {
+            if (method_exists($this->getClassName(), $action)) {
                 $this->route["action"] = $action;
             }
         }
@@ -149,20 +144,16 @@ class Router
          * Module, Controller, Action is now correct
          * Split apart the rest of the parameters
          */
-        while(count($parts) > 0)
-        {
-            
+        while(count($parts) > 0) {
             $param = array_shift($parts);
-            if (strpos($param, "=") !== false)
-            {
+            if (strpos($param, "=") !== false) {
                 $paramParts = explode("=",$param);
                 $this->route["params"][$paramParts[0]] = $paramParts[1];
             }
-            else
-            {
+            else {
                 $this->route["params"][] = $param;
             }
-        }                                                        
+        }
     }
 
     private function getClassName()
@@ -178,13 +169,12 @@ class Router
         $this->instance->setParams($this->getParams());
 
     }
-    
+
     public function setupModule() {
         // Run the setup for the module
         $class = "\\Application\\Modules\\".$this->getModule()."\\Setup";
-        
-        if(method_exists($class, "doSetup"))
-        {
+
+        if(method_exists($class, "doSetup")) {
             $setup = new $class;
             $setup->doSetup($GLOBALS['registry']);
         }
@@ -198,7 +188,6 @@ class Router
         // Set the display instance for the class
         //$controller->setDisplay(new Saros_Core_Display())
 
-        
         /*** check if the action is callable ***/
         if (!is_callable(array($this->instance, $this->getAction())))
             $this->action = 'index';
@@ -211,26 +200,32 @@ class Router
     {
         return $this->instance;
     }
+
     public function getModule()
     {
         return $this->route["module"];
     }
+
     public function getController()
     {
         return $this->route["controller"];
     }
+
     public function setController($controller)
     {
         $this->route["controller"] = $controller;
     }
+
     public function getAction()
     {
         return $this->route["action"];
     }
+
     public function setAction($action)
     {
         $this->route["action"] = $action;
     }
+
     public function getParams()
     {
         return $this->route["params"];

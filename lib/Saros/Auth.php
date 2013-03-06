@@ -28,7 +28,7 @@ class Auth
     protected $adapter = null;
 
     protected $storage = null;
-    
+
     /**
     * The last authentication result
     */
@@ -37,12 +37,16 @@ class Auth
     /**
     * Singleton Pattern: No constructing
     */
-    protected function __construct(){}
+    protected function __construct()
+    {
+    }
 
     /**
     * Singleton Pattern: No cloning
     */
-    protected function __clone(){}
+    protected function __clone()
+    {
+    }
 
     public static function getInstance()
     {
@@ -93,12 +97,12 @@ class Auth
         */
         if ($this->hasIdentity())
             $this->clearIdentity();
-            
+
         if ($result->isSuccess())
             $this->getStorage()->writeIdentity($result->getIdentity());
 
         $this->lastCode = $result->getCode();
-        
+
         return $result;
     }
 
@@ -121,12 +125,13 @@ class Auth
         $this->getStorage()->clearIdentity();
     }
 
-    public function getLastCode() {
+    public function getLastCode()
+    {
         if($this->lastCode == null) {
-            throw new Auth\Exception("Authenticate has not been called, therefore there is no last result to be fetched.");
+            throw new Auth\Exception("Authenticate has not been called, therefore ".
+            "there is no last result to be fetched.");
         }
-        else
-        {
+        else {
             return $this->lastCode;
         }
     }

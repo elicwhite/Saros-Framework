@@ -1,5 +1,5 @@
 <?php
-namespace Saros\Acl\Adapter\Spot\Entity; 
+namespace Saros\Acl\Adapter\Spot\Entity;
 
 class UserPermissions extends \Spot\Entity
 {
@@ -11,4 +11,3 @@ class UserPermissions extends \Spot\Entity
     public $resource = array("type" => "string");
     public $opValue = array("type" => "text");
 }
-?>

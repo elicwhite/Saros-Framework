@@ -21,19 +21,20 @@ class Spot implements IIdentity
     {
         $this->mapper = $mapper;
         $this->user = $user;
-        
+
     }
     public function getIdentifier()
     {
         return $this->mapper->primaryKey($this->user);
     }
-    
-    public function getUser() {
+
+    public function getUser()
+    {
         return $this->user;
     }
 
     public function __get($key)
-    {                      
+    {
         return $this->user->$key;
     }
 }
