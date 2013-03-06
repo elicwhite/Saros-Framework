@@ -14,13 +14,13 @@ namespace Saros\Auth\Identity;
  */
 interface IIdentity
 {
-	/**
-	* Get the unique identifier for the identity
-	*
-	* @return mixed The resulting identity from storage
-	*/
-	public function getIdentifier();
+    /**
+    * Get the unique identifier for the identity
+    *
+    * @return mixed The resulting identity from storage
+    */
+    public function getIdentifier();
 
-	// Get the value of the key from the identity
-	public function __get($key);
+    // Get the value of the key from the identity
+    public function __get($key);
 }

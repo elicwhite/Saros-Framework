@@ -15,11 +15,11 @@ namespace Saros\Auth\Adapter;
 interface IAdapter
 {
 
-	/**
-	* Authenticate a request
-	*
-	* @return Saros_Auth_Result Object containing authentication information
-	*
-	*/
-	public function authenticate();
+    /**
+    * Authenticate a request
+    *
+    * @return Saros_Auth_Result Object containing authentication information
+    *
+    */
+    public function authenticate();
 }

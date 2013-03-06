@@ -14,8 +14,8 @@ namespace Saros;
  */
 class Version
 {
-	public static function getVersion()
-	{
-		return "1.1 Alpha";
-	}
+    public static function getVersion()
+    {
+        return "1.1 Alpha";
+    }
 }

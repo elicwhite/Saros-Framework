@@ -14,26 +14,26 @@ namespace Saros\Form;
  */
 abstract class Validator
 {
-	protected $errorMessages = array();
+    protected $errorMessages = array();
 
-	protected $errorHolders = array();
+    protected $errorHolders = array();
 
-	protected $errors = array();
+    protected $errors = array();
 
-	protected function setError($key)
-	{
-		$string = $this->errorMessages[$key];
-		foreach($this->errorHolders as $holder => $value)
-		{
-			echo "Var: ".$this->$value;
-			$string = str_replace("{::".$holder."::}", $this->$value, $string);
-		}
+    protected function setError($key)
+    {
+        $string = $this->errorMessages[$key];
+        foreach($this->errorHolders as $holder => $value)
+        {
+            echo "Var: ".$this->$value;
+            $string = str_replace("{::".$holder."::}", $this->$value, $string);
+        }
 
-		$this->errors[] = $string;
-	}
+        $this->errors[] = $string;
+    }
 
-	public function getErrors()
-	{
-		return $this->errors;
-	}
+    public function getErrors()
+    {
+        return $this->errors;
+    }
 }

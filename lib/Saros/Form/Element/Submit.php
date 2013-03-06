@@ -12,21 +12,21 @@ namespace Saros\Form\Element;
  */
 class Submit
 {
-	protected $text;
+    protected $text;
 
-	public function setText($value)
-	{
-		$this->text = $value;
-	}
-	public function getText()
-	{
-		return $this->text;
-	}
+    public function setText($value)
+    {
+        $this->text = $value;
+    }
+    public function getText()
+    {
+        return $this->text;
+    }
 
-	public function render()
-	{
-		?>
-		<input type="submit" id="submit" value="<?php echo $this->getText()?>" />
-		<?php
-	}
+    public function render()
+    {
+        ?>
+        <input type="submit" id="submit" value="<?php echo $this->getText()?>" />
+        <?php
+    }
 }

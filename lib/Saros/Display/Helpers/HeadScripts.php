@@ -13,14 +13,14 @@ namespace Saros\Display\Helpers;
  */
 class HeadScripts extends HelperBase
 {
-	public $files = array();
+    public $files = array();
 
-	public function appendFile($path)
-	{
-		$this->files[] = $path;
+    public function appendFile($path)
+    {
+        $this->files[] = $path;
 
-		return $this;
-	}
+        return $this;
+    }
     
     public function prependFile($path) 
     {
@@ -29,14 +29,14 @@ class HeadScripts extends HelperBase
         return $this;
     }
 
-	public function __toString()
-	{
-		$output = "";
-		foreach ($this->files as $file)
-		{
-			$output .= '<script src="'.$GLOBALS['registry']->config["siteUrl"].$file.'" type="text/javascript"></script>';
-		}
+    public function __toString()
+    {
+        $output = "";
+        foreach ($this->files as $file)
+        {
+            $output .= '<script src="'.$GLOBALS['registry']->config["siteUrl"].$file.'" type="text/javascript"></script>';
+        }
 
-		return $output;
-	}
+        return $output;
+    }
 }

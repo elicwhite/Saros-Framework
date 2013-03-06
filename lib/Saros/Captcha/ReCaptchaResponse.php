@@ -14,6 +14,6 @@ namespace Saros\Captcha;
  */
 class ReCaptchaResponse
 {
-	public $isValid;
-	public $error;
+    public $isValid;
+    public $error;
 }

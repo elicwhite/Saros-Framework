@@ -16,11 +16,11 @@ namespace Saros\Exception;
  */
 class Handler
 {
-	public static function handle(\Exception $e)
-	{
-		// We aren't going to display any output if there is an exception
-		ob_clean();
-		require_once("Display.php");
+    public static function handle(\Exception $e)
+    {
+        // We aren't going to display any output if there is an exception
+        ob_clean();
+        require_once("Display.php");
 
-	}
+    }
 }

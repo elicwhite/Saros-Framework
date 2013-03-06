@@ -14,30 +14,30 @@ namespace Saros\Form\Validator;
  */
 class MaxLength extends \Saros\Form\Validator
 {
-	protected $maxLength;
+    protected $maxLength;
 
-	protected $errorMessages = array(
-		"tooLong" => "Your string must be at most {::max::} characters",
-	);
+    protected $errorMessages = array(
+        "tooLong" => "Your string must be at most {::max::} characters",
+    );
 
-	protected $errorHolders = array(
-		"max"	=> "maxLength"
-	);
+    protected $errorHolders = array(
+        "max"    => "maxLength"
+    );
 
-	function __construct($options)
-	{
-		if (!isset($options[0]))
-			throw new Exception("You must set a Max Length on the Validator");
+    function __construct($options)
+    {
+        if (!isset($options[0]))
+            throw new Exception("You must set a Max Length on the Validator");
 
-		$this->maxLength = $options[0];
-	}
+        $this->maxLength = $options[0];
+    }
 
-	public function isValid($value)
-	{
-		if (strlen($value) <= $this->maxLength)
-			return true;
+    public function isValid($value)
+    {
+        if (strlen($value) <= $this->maxLength)
+            return true;
 
-		$this->setError("tooLong");
-		return false;
-	}
+        $this->setError("tooLong");
+        return false;
+    }
 }

@@ -12,55 +12,55 @@ namespace Saros\Form\Element;
  */
 class Textarea extends \Saros\Form\Element
 {
-	/*
-		Validate the value of the element
-	*/
-	public function validate()
-	{
-		$valid = true;
-		foreach ($this->validators as $validator)
-		{
-			// If it doesn't validate return false and break
-			if (!$validator['validator']->isValid($this->getValue()))
-			{
-				$this->errors = array_merge($this->errors, $validator['validator']->getErrors());
+    /*
+        Validate the value of the element
+    */
+    public function validate()
+    {
+        $valid = true;
+        foreach ($this->validators as $validator)
+        {
+            // If it doesn't validate return false and break
+            if (!$validator['validator']->isValid($this->getValue()))
+            {
+                $this->errors = array_merge($this->errors, $validator['validator']->getErrors());
 
-				// return now if we are breaking on false
-				if ($validator['breakOnFalse'])
-					return false;
+                // return now if we are breaking on false
+                if ($validator['breakOnFalse'])
+                    return false;
 
-				$valid = false;
-			}
-		}
+                $valid = false;
+            }
+        }
 
-		return $valid;
-	}
+        return $valid;
+    }
 
-	public function setRows($rows)
-	{
-		$this->addAttribute("rows", $rows);
-		return $this;
-	}
-	public function setCols($cols)
-	{
-		$this->addAttribute("cols", $cols);
-		return $this;
-	}
+    public function setRows($rows)
+    {
+        $this->addAttribute("rows", $rows);
+        return $this;
+    }
+    public function setCols($cols)
+    {
+        $this->addAttribute("cols", $cols);
+        return $this;
+    }
 
-	public function render()
-	{
-		if ($this->getRequired())
-		{
-			$this->addAttribute("class", "required");
-		}
+    public function render()
+    {
+        if ($this->getRequired())
+        {
+            $this->addAttribute("class", "required");
+        }
 
-		$attributes = "";
-		foreach($this->getAttributes() as $key=>$value)
-		{
-			$attributes .= " ".$key.'= "'.$value.'"';
-		}
-		?>
-		<textarea <?php echo $attributes?> name="<?php echo $this->getName()?>"><?php echo $this->getValue()?></textarea>
-		<?php
-	}
+        $attributes = "";
+        foreach($this->getAttributes() as $key=>$value)
+        {
+            $attributes .= " ".$key.'= "'.$value.'"';
+        }
+        ?>
+        <textarea <?php echo $attributes?> name="<?php echo $this->getName()?>"><?php echo $this->getValue()?></textarea>
+        <?php
+    }
 }

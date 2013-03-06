@@ -15,46 +15,46 @@ namespace Saros\Auth\Storage;
  */
 class Session implements IStorage
 {
-	const NAME = '\Saros\Auth';
+    const NAME = '\Saros\Auth';
 
-	const KEY = "identity";
+    const KEY = "identity";
 
-	/**
-	* The Saros_Session object we are using
-	*
-	* @var mixed
-	*/
-	protected $session;
+    /**
+    * The Saros_Session object we are using
+    *
+    * @var mixed
+    */
+    protected $session;
 
-	protected $namespace;
+    protected $namespace;
 
-	protected $key;
+    protected $key;
 
-	public function __construct($namespace = self::NAME, $key = self::KEY)
-	{
-		$this->namespace = $namespace;
-		$this->key = $key;
+    public function __construct($namespace = self::NAME, $key = self::KEY)
+    {
+        $this->namespace = $namespace;
+        $this->key = $key;
 
-		$this->session = new \Saros\Session($namespace);
-	}
+        $this->session = new \Saros\Session($namespace);
+    }
 
-	public function getIdentity()
-	{
-		return $this->session->{$this->key};
-	}
+    public function getIdentity()
+    {
+        return $this->session->{$this->key};
+    }
 
-	public function hasIdentity()
-	{
-		return isset($this->session->{$this->key});
-	}
+    public function hasIdentity()
+    {
+        return isset($this->session->{$this->key});
+    }
 
-	public function writeIdentity($id)
-	{
-		$this->session->{$this->key} = $id;
-	}
+    public function writeIdentity($id)
+    {
+        $this->session->{$this->key} = $id;
+    }
 
-	public function clearIdentity()
-	{
-		unset($this->session->{$this->key});
-	}
+    public function clearIdentity()
+    {
+        unset($this->session->{$this->key});
+    }
 }

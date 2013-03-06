@@ -14,16 +14,16 @@ namespace Saros\Form\Validator;
  */
 class Alpha extends \Saros\Form\Validator
 {
-	protected $errorMessages = array(
-		"invalid" => "Your string must be only english characters.",
-	);
+    protected $errorMessages = array(
+        "invalid" => "Your string must be only english characters.",
+    );
 
-	public function isValid($value)
-	{
-		if (ctype_alpha($value))
-			return true;
+    public function isValid($value)
+    {
+        if (ctype_alpha($value))
+            return true;
 
-		$this->setError("invalid");
-		return false;
-	}
+        $this->setError("invalid");
+        return false;
+    }
 }

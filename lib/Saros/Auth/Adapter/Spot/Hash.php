@@ -20,37 +20,37 @@ namespace Saros\Auth\Adapter\Spot;
 class Hash extends Plain
 {
 
-	private $saltCol;
+    private $saltCol;
 
-	/**
-	*
-	* @param Spot_Mapper_Abstract $mapper
-	* @param mixed $identifierCol
-	* @param mixed $credentialCol
-	* @param mixed $saltCol
-	* @return Application_Classes_Auth_Adapter_Spot
-	*/
-	public function __construct(\Spot\Mapper $mapper, $entityName, $identifierCol, $credentialCol, $saltCol)
-	{
-		parent::__construct($mapper, $entityName, $identifierCol, $credentialCol);
+    /**
+    *
+    * @param Spot_Mapper_Abstract $mapper
+    * @param mixed $identifierCol
+    * @param mixed $credentialCol
+    * @param mixed $saltCol
+    * @return Application_Classes_Auth_Adapter_Spot
+    */
+    public function __construct(\Spot\Mapper $mapper, $entityName, $identifierCol, $credentialCol, $saltCol)
+    {
+        parent::__construct($mapper, $entityName, $identifierCol, $credentialCol);
 
-		if (!$mapper->fieldExists($entityName, $saltCol))
-			throw new \Saros\Auth\Exception("Salt column of '".$saltCol."' is not defined in entity.");
+        if (!$mapper->fieldExists($entityName, $saltCol))
+            throw new \Saros\Auth\Exception("Salt column of '".$saltCol."' is not defined in entity.");
 
-		$this->saltCol = $saltCol;
-	}
+        $this->saltCol = $saltCol;
+    }
 
-	public function validateUser(\Spot\Entity $user)
-	{
-		$salt = $user->{$this->saltCol};
+    public function validateUser(\Spot\Entity $user)
+    {
+        $salt = $user->{$this->saltCol};
 
-		// Combine the salt and credential and sha1 it. Check against credentialCol
-		if($user->{$this->credentialCol} == sha1($salt.$this->credential))
-			$status = \Saros\Auth\Result::SUCCESS;
-		else
-			$status = \Saros\Auth\Result::FAILURE;
+        // Combine the salt and credential and sha1 it. Check against credentialCol
+        if($user->{$this->credentialCol} == sha1($salt.$this->credential))
+            $status = \Saros\Auth\Result::SUCCESS;
+        else
+            $status = \Saros\Auth\Result::FAILURE;
 
-		return $status;
-	}
+        return $status;
+    }
 }
 

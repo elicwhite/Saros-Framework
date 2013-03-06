@@ -13,13 +13,13 @@ namespace Saros;
  */
 class Exception extends \Exception
 {
-	protected $previous;
+    protected $previous;
 
-	// Redefine the exception so message isn't optional
+    // Redefine the exception so message isn't optional
     public function __construct($message, $code = 0, Exception $previous = null)
     {
-    	if ($previous)
-        	$this->previous = $previous;
+        if ($previous)
+            $this->previous = $previous;
 
         // make sure everything is assigned properly
         parent::__construct($message, $code);

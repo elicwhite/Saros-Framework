@@ -14,23 +14,23 @@ namespace Saros\Form\Validator;
  */
 class Email extends \Saros\Form\Validator
 {
-	protected $maxLength;
+    protected $maxLength;
 
-	protected $errorMessages = array(
-		"invalid" => "Your email is invalid.",
-	);
+    protected $errorMessages = array(
+        "invalid" => "Your email is invalid.",
+    );
 
-	protected $errorHolders = array();
+    protected $errorHolders = array();
 
 
-	public function isValid($value)
-	{
-		// Regex to match emails
-		if(eregi("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$", $value))
-			return true;
+    public function isValid($value)
+    {
+        // Regex to match emails
+        if(eregi("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$", $value))
+            return true;
 
-		$this->setError("invalid");
-		return false;
-	}
+        $this->setError("invalid");
+        return false;
+    }
 }
 

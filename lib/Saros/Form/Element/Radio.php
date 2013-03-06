@@ -14,44 +14,44 @@ namespace Saros\Form\Element;
  */
 class Radio extends \Saros\Form\Element
 {
-	/*
-		Validate the value of the element
-	*/
-	public function validate()
-	{
-		$valid = true;
-		foreach ($this->validators as $validator)
-		{
-			// If it doesn't validate return false and break
-			if (!$validator['validator']->isValid($this->getValue()))
-			{
-				$this->errors = array_merge($this->errors, $validator['validator']->getErrors());
+    /*
+        Validate the value of the element
+    */
+    public function validate()
+    {
+        $valid = true;
+        foreach ($this->validators as $validator)
+        {
+            // If it doesn't validate return false and break
+            if (!$validator['validator']->isValid($this->getValue()))
+            {
+                $this->errors = array_merge($this->errors, $validator['validator']->getErrors());
 
-				// return now if we are breaking on false
-				if ($validator['breakOnFalse'])
-					return false;
+                // return now if we are breaking on false
+                if ($validator['breakOnFalse'])
+                    return false;
 
-				$valid = false;
-			}
-		}
+                $valid = false;
+            }
+        }
 
-		return $valid;
-	}
+        return $valid;
+    }
 
-	public function render()
-	{
-		if ($this->getRequired())
-		{
-			$this->addAttribute("class", "required");
-		}
+    public function render()
+    {
+        if ($this->getRequired())
+        {
+            $this->addAttribute("class", "required");
+        }
 
-		$attributes = "";
-		foreach($this->getAttributes() as $key=>$value)
-		{
-			$attributes .= " ".$key.'= "'.$value.'"';
-		}
-		?>
-		<input <?php echo $attributes?> type="text" name="<?php echo $this->getName()?>" value="<?php echo $this->getValue()?>" />
-		<?php
-	}
+        $attributes = "";
+        foreach($this->getAttributes() as $key=>$value)
+        {
+            $attributes .= " ".$key.'= "'.$value.'"';
+        }
+        ?>
+        <input <?php echo $attributes?> type="text" name="<?php echo $this->getName()?>" value="<?php echo $this->getValue()?>" />
+        <?php
+    }
 }

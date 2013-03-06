@@ -14,27 +14,27 @@ namespace Saros\Auth\Identity;
  */
 class Spot implements IIdentity
 {
-	private $mapper;
-	private $user;
+    private $mapper;
+    private $user;
 
-	public function __construct(\Spot\Mapper $mapper, \Spot\Entity $user)
-	{
-		$this->mapper = $mapper;
-		$this->user = $user;
+    public function __construct(\Spot\Mapper $mapper, \Spot\Entity $user)
+    {
+        $this->mapper = $mapper;
+        $this->user = $user;
         
-	}
-	public function getIdentifier()
-	{
-		return $this->mapper->primaryKey($this->user);
-	}
+    }
+    public function getIdentifier()
+    {
+        return $this->mapper->primaryKey($this->user);
+    }
     
     public function getUser() {
         return $this->user;
     }
 
-	public function __get($key)
-	{                      
-		return $this->user->$key;
-	}
+    public function __get($key)
+    {                      
+        return $this->user->$key;
+    }
 }
 

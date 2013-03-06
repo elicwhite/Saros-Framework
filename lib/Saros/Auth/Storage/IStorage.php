@@ -15,35 +15,35 @@ namespace Saros\Auth\Storage;
  */
 interface IStorage
 {
-	/**
-	* Get the identity from storage
-	*
-	* @throws Saros_Auth_Storage_Exception if the identity cannot be fetched
-	* @return Saros_Auth_Identity_Interface The resulting identity from storage
-	*/
-	public function getIdentity();
+    /**
+    * Get the identity from storage
+    *
+    * @throws Saros_Auth_Storage_Exception if the identity cannot be fetched
+    * @return Saros_Auth_Identity_Interface The resulting identity from storage
+    */
+    public function getIdentity();
 
-	/**
-	* Returns whether an identity is stored in storage
-	*
-	* @throws Saros_Auth_Storage_Exception if storage cannot be read
-	* @return bool True if the storage contains an identity, false otherwise
-	*/
-	public function hasIdentity();
+    /**
+    * Returns whether an identity is stored in storage
+    *
+    * @throws Saros_Auth_Storage_Exception if storage cannot be read
+    * @return bool True if the storage contains an identity, false otherwise
+    */
+    public function hasIdentity();
 
-	/**
-	* Write an identity to the storage adapter
-	*
-	* @param mixed $id The identity to write to storage
-	* @throws Saros_Auth_Storage_Exception if the storage cannot be written to
-	*/
-	public function writeIdentity($id);
+    /**
+    * Write an identity to the storage adapter
+    *
+    * @param mixed $id The identity to write to storage
+    * @throws Saros_Auth_Storage_Exception if the storage cannot be written to
+    */
+    public function writeIdentity($id);
 
-	/**
-	* Empty the storage
-	*
-	* @throws Saros_Auth_Storage_Exception if storage cannot be cleared
-	*/
-	public function clearIdentity();
+    /**
+    * Empty the storage
+    *
+    * @throws Saros_Auth_Storage_Exception if storage cannot be cleared
+    */
+    public function clearIdentity();
 
 }

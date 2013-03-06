@@ -14,16 +14,16 @@ namespace Saros\Form\Validator;
  */
 class Alnum extends \Saros\Form\Validator
 {
-	protected $errorMessages = array(
-		"invalid" => "Your string must be entirely alpha numeric",
-	);
+    protected $errorMessages = array(
+        "invalid" => "Your string must be entirely alpha numeric",
+    );
 
-	public function isValid($value)
-	{
-		if (ctype_alnum($value))
-			return true;
+    public function isValid($value)
+    {
+        if (ctype_alnum($value))
+            return true;
 
-		$this->setError("invalid");
-		return false;
-	}
+        $this->setError("invalid");
+        return false;
+    }
 }

@@ -14,7 +14,7 @@ namespace Saros\Display\Helpers;
  */
 class HeadStyles extends HelperBase
 {
-	public $files = array();
+    public $files = array();
 
     public function appendFile($path)
     {
@@ -30,14 +30,14 @@ class HeadStyles extends HelperBase
         return $this;
     }
 
-	public function __toString()
-	{
-		$output = "";
-		foreach ($this->files as $file)
-		{
-			$output .= '<link rel="stylesheet" type="text/css" href="'.$GLOBALS['registry']->config["siteUrl"].$file.'" />';
-		}
+    public function __toString()
+    {
+        $output = "";
+        foreach ($this->files as $file)
+        {
+            $output .= '<link rel="stylesheet" type="text/css" href="'.$GLOBALS['registry']->config["siteUrl"].$file.'" />';
+        }
 
-		return $output;
-	}
+        return $output;
+    }
 }

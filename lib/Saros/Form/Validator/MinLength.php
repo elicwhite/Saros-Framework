@@ -14,30 +14,30 @@ namespace Saros\Form\Validator;
  */
 class MinLength extends \Saros\Form\Validator
 {
-	protected $minLength;
+    protected $minLength;
 
-	protected $errorMessages = array(
-		"tooShort" => "Your string must be at least {::min::} characters",
-	);
+    protected $errorMessages = array(
+        "tooShort" => "Your string must be at least {::min::} characters",
+    );
 
-	protected $errorHolders = array(
-		"min"	=> "minLength"
-	);
+    protected $errorHolders = array(
+        "min"    => "minLength"
+    );
 
-	function __construct($options)
-	{
-		if (!isset($options[0]))
-			throw new Exception("You must set a Min Length on the Validator");
+    function __construct($options)
+    {
+        if (!isset($options[0]))
+            throw new Exception("You must set a Min Length on the Validator");
 
-		$this->minLength = $options[0];
-	}
+        $this->minLength = $options[0];
+    }
 
-	public function isValid($value)
-	{
-		if (strlen($value) >= $this->minLength)
-			return true;
+    public function isValid($value)
+    {
+        if (strlen($value) >= $this->minLength)
+            return true;
 
-		$this->setError("tooShort");
-		return false;
-	}
+        $this->setError("tooShort");
+        return false;
+    }
 }

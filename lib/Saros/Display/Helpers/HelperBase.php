@@ -14,10 +14,10 @@ namespace Saros\Display\Helpers;
  */
 abstract class HelperBase
 {
-	protected $display = null;
+    protected $display = null;
 
-	public function __construct($display)
-	{
-		$this->display = $display;
-	}
+    public function __construct($display)
+    {
+        $this->display = $display;
+    }
 }
