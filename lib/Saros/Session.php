@@ -79,14 +79,14 @@ class Session implements \ArrayAccess, \Countable, \IteratorAggregate
 
         $filename = "";
         $linenum = "";
-        
-        if(!headers_sent() && session_id() == "") {
+
+        if(!headers_sent() && session_status() === PHP_SESSION_NONE) {
             session_start();
         }
 
         self::$sessionStarted = true;
     }
-    
+
     public function getData() {
         return $_SESSION['_saros'][$this->namespace];
     }
@@ -102,7 +102,7 @@ class Session implements \ArrayAccess, \Countable, \IteratorAggregate
 
     public function __set($key, $value)
     {
-        $_SESSION['_saros'][$this->namespace][$key] = $value; 
+        $_SESSION['_saros'][$this->namespace][$key] = $value;
     }
 
     public function __isset($key)
@@ -150,7 +150,7 @@ class Session implements \ArrayAccess, \Countable, \IteratorAggregate
     {
         return new \ArrayIterator($_SESSION['_saros'][$this->namespace]);
     }
-    
+
     public function clear()
     {
         $_SESSION['_saros'][$this->namespace] = array();

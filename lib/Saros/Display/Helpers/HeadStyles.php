@@ -12,32 +12,9 @@ namespace Saros\Display\Helpers;
  * @link http://sarosoftware.com
  * @link http://github.com/TheSavior/Saros-Framework
  */
-class HeadStyles extends HelperBase
+class HeadStyles extends FileBase
 {
-    public $files = array();
-
-    public function appendFile($path)
-    {
-        $this->files[] = $path;
-
-        return $this;
-    }
-    
-    public function prependFile($path) 
-    {
-        array_unshift($this->files, $style);
-
-        return $this;
-    }
-
-    public function __toString()
-    {
-        $output = "";
-        foreach ($this->files as $file)
-        {
-            $output .= '<link rel="stylesheet" type="text/css" href="'.$GLOBALS['registry']->config["siteUrl"].$file.'" />';
-        }
-
-        return $output;
+    protected function displayFile($file) {
+        return '<link rel="stylesheet" type="text/css" href="'.$GLOBALS['registry']->config["siteUrl"].$file.'" />';
     }
 }

@@ -13,51 +13,60 @@ namespace Test;
  */
 class Session extends \PHPUnit_Framework_TestCase
 {
-	protected $backupGlobals = false;
+    protected $backupGlobals = false;
 
-	public function tearDown() {}
+    public function tearDown() {}
 
-	public static function tearDownAfterClass()
-	{
-		
-	}
-    
-	/**
-	*test get, set
-	* iterable, count
-	*
-	* set a var in one, its updated in the other
-	*
-	* can't start twice
-	*/
+    public static function tearDownAfterClass()
+    {
+
+    }
+
+    /**
+    *test get, set
+    * iterable, count
+    *
+    * set a var in one, its updated in the other
+    *
+    * can't start twice
+    */
     public function testVarExists()
     {
-		$sess1 = new \Saros\Session("testSet");
-		$sess1->name = "foo";
+        $sess1 = new \Saros\Session("testSet");
+        $sess1->name = "foo";
 
-		$this->assertSame("foo", $sess1->name);
+        $this->assertSame("foo", $sess1->name);
     }
 
     public function testSameInTwoInstances()
     {
-		$sess1 = new \Saros\Session("testMultiple", true);
-		$sess1->name = "foo";
+        $sess1 = new \Saros\Session("testMultiple", true);
+        $sess1->name = "foo";
 
-		$sess2 = new \Saros\Session("testMultiple", true);
-		$this->assertSame("foo", $sess2->name);
+        $sess2 = new \Saros\Session("testMultiple", true);
+        $this->assertSame("foo", $sess2->name);
 
-		$this->assertSame("foo", $sess2['name']);
+        $this->assertSame("foo", $sess2['name']);
     }
 
     /**
      * @expectedException \Saros\Session\Exception
      */
-	public function testSameNamespaceThrows()
-	{
-		$sess1 = new \Saros\Session("name");
-		$sess2 = new \Saros\Session("name");
-	}
+    public function testSameNamespaceThrows()
+    {
+        $sess1 = new \Saros\Session("name");
+        $sess2 = new \Saros\Session("name");
+    }
 
+    public function testClearClears()
+    {
+        $sess1 = new \Saros\Session("testClear");
+        $sess1->name = "foo";
+
+        $this->assertSame("foo", $sess1->name);
+        $sess1->clear();
+        $this->assertFalse(isset($sess1->name));
+    }
 }
 
 
