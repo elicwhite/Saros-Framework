@@ -19,7 +19,9 @@
     },
     "autoload": {
         "psr-0": {
-            "Saros": "lib/"
+            "Saros": "lib/",
+            "Test": "tests/",
+            "Fixture": "tests/"
         }
     }
 }
